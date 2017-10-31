@@ -105,13 +105,13 @@ function getItemIndex (item) {
 	let lang;
 
 	switch (Object.prototype.toString.call(item)) {
-		case '[object Object]' :
-			id = item[DATA_ID_PROPERTY];
-			lang = item[DATA_LANG_PROPERTY] || DEFAULT_LANGUAGE;
+	case '[object Object]' :
+		id = item[DATA_ID_PROPERTY];
+		lang = item[DATA_LANG_PROPERTY] || DEFAULT_LANGUAGE;
 
 		// allow fall-through
-		case '[object String]' :
-			return DATA_STORE.findIndex(item => matches(item, id, lang));
+	case '[object String]' :
+		return DATA_STORE.findIndex(item => matches(item, id, lang));
 	}
 
 	return -1;

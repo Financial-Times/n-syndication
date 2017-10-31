@@ -1,56 +1,56 @@
 
 .n-syndication-icon {
-  @include oIconsGetIcon('cross', oColorsGetPaletteColor('white'), 20, $iconset-version: 1);
-  background-color: rgba(getColor('slate'), 0.55);
-  border-color: transparent;
-  border-radius: 20px;
-  border-width: 0;
-  cursor: pointer;
-  display: inline-block;
-  height: 20px;
-  margin-right: 2px;
-  vertical-align: text-top;
-  width: 20px;
-  }
+	@include oIconsGetIcon('cross', oColorsGetPaletteColor('white'), 20, $iconset-version: 1);
+	background-color: rgba(getColor('slate'), 0.55);
+	border-color: transparent;
+	border-radius: 20px;
+	border-width: 0;
+	cursor: pointer;
+	display: inline-block;
+	height: 20px;
+	margin-right: 2px;
+	vertical-align: text-top;
+	width: 20px;
+	}
 
 .n-syndication-icon.n-syndication-icon-state-no,
 .n-syndication-icon.n-syndication-icon-state-verify,
 .n-syndication-icon.n-syndication-icon-state-withcontributorpayment,
 .n-syndication-icon.n-syndication-icon-state-yes {
-  vertical-align: text-top;
-  }
+	vertical-align: text-top;
+	}
 
 .n-syndication-icon-state-no {
-  @include oIconsGetIcon('cross', oColorsGetPaletteColor('white'), 20, $iconset-version: 1);
-  background-color: rgba(getColor('claret'), 0.85);
-  }
+	@include oIconsGetIcon('cross', oColorsGetPaletteColor('white'), 20, $iconset-version: 1);
+	background-color: rgba(getColor('claret'), 0.85);
+	}
 
 .n-syndication-icon-state-yes {
-  @include oIconsGetIcon('tick', oColorsGetPaletteColor('white'), 20, $iconset-version: 1);
-  background-color: rgba(getColor('jade'), 0.85);
-  }
+	@include oIconsGetIcon('tick', oColorsGetPaletteColor('white'), 20, $iconset-version: 1);
+	background-color: rgba(getColor('jade'), 0.85);
+	}
 
 .n-syndication-icon-state-withcontributorpayment {
-  @include oIconsGetIcon('dollar', oColorsGetPaletteColor('white'), 20, $iconset-version: 1);
-  background-color: rgba(getColor('jade'), 0.85);
-  }
+	@include oIconsGetIcon('dollar', oColorsGetPaletteColor('white'), 20, $iconset-version: 1);
+	background-color: rgba(getColor('jade'), 0.85);
+	}
 
 .n-syndication-icon-state-verify {
-  @include oIconsGetIcon('minus', oColorsGetPaletteColor('white'), 20, $iconset-version: 1);
-  background-color: rgba(getColor('mandarin'), 0.85);
-  }
+	@include oIconsGetIcon('minus', oColorsGetPaletteColor('white'), 20, $iconset-version: 1);
+	background-color: rgba(getColor('mandarin'), 0.85);
+	}
 
 .n-syndication-icon-state-maintenance {
-  background-image: none;
-  }
+	background-image: none;
+	}
 
 .o-teaser--top-story .n-syndication-icon,
 .topper__headline .n-syndication-icon {
-  border-radius: 26px;
-  height: 26px;
-  vertical-align: baseline;
-  width: 26px;
-  }
+	border-radius: 26px;
+	height: 26px;
+	vertical-align: baseline;
+	width: 26px;
+	}
 
 .hero__heading .n-syndication-icon,
 .o-teaser--hero .n-syndication-icon,
@@ -58,40 +58,40 @@
 .o-teaser--large-portrait .n-syndication-icon,
 .video-scroller__item-large .o-teaser--stacked .n-syndication-icon,
 .video__description .video__title .n-syndication-icon {
-  border-radius: 24px;
-  height: 24px;
-  vertical-align: baseline;
-  width: 24px;
-  }
+	border-radius: 24px;
+	height: 24px;
+	vertical-align: baseline;
+	width: 24px;
+	}
 
 .o-teaser__related .o-teaser__related-item .n-syndication-icon {
-    border-radius: 16px;
-    height: 16px;
-    width: 16px;
+		border-radius: 16px;
+		height: 16px;
+		width: 16px;
 }
 
 .hero__heading .n-syndication-icon {
-  vertical-align: baseline;
-  }
+	vertical-align: baseline;
+	}
 
 // modal
 
 .n-syndication-modal-shadow {
-  @include oOverlayShadow();
-  }
+	@include oOverlayShadow();
+	}
 .n-syndication-modal {
-  @include oOverlay();
+	@include oOverlay();
 
-  max-height: 330px;
-  min-height: 160px;
-  max-width: 420px;
-  min-width: 360px;
-  //position: absolute;
-  z-index: 1000;
-  }
+	max-height: 330px;
+	min-height: 160px;
+	max-width: 420px;
+	min-width: 360px;
+	//position: absolute;
+	z-index: 1000;
+	}
 .n-syndication-modal-heading {
-  @include oOverlayHeading();
-  }
+	@include oOverlayHeading();
+	}
 .n-syndication-modal-close {
 	@include _oOverlayCloseIcon(oColorsGetColorFor(o-overlay-close, border));
 	border-width: 0;
@@ -122,165 +122,165 @@
 		left: -10px;
 		bottom: -10px;
 	}
-  }
+	}
 .n-syndication-modal-title {
-  @include oOverlayTitle();
-  font-family: "financier display", "times new roman", serif;
-  font-size: 24px;
-  font-weight: normal;
-  line-height: 26px;
-  }
+	@include oOverlayTitle();
+	font-family: "financier display", "times new roman", serif;
+	font-size: 24px;
+	font-weight: normal;
+	line-height: 26px;
+	}
 .n-syndication-modal-word-count {
-  color: rgba(getColor('black'), 0.4);
-  font-family: metric, arial, sans-serif;
-  font-size: 16px;
-  font-weight: normal;
-  }
+	color: rgba(getColor('black'), 0.4);
+	font-family: metric, arial, sans-serif;
+	font-size: 16px;
+	font-weight: normal;
+	}
 .n-syndication-modal-content {
-  @include oOverlayContent();
-  padding-top: 0;
-  }
+	@include oOverlayContent();
+	padding-top: 0;
+	}
 
 .n-syndication-modal-message,
 .n-syndication-modal-message p {
-  color: rgba(getColor('black'), 0.8);
-  font-family: metric, arial, sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  }
+	color: rgba(getColor('black'), 0.8);
+	font-family: metric, arial, sans-serif;
+	font-size: 14px;
+	line-height: 20px;
+	}
 
 .n-syndication-actions {
-  text-align: right;
-  }
+	text-align: right;
+	}
 .n-syndication-action {
-  @include oButtons(default, secondary);
+	@include oButtons(default, secondary);
 }
 .n-syndication-action-primary {
-  @include oButtons(default, primary);
+	@include oButtons(default, primary);
 }
 .n-syndication-action,
 .n-syndication-action-primary {
-  min-width: 120px;
-  text-align: center;
-  }
+	min-width: 120px;
+	text-align: center;
+	}
 
 /** OLD VERSION **/
 
 .o-teaser__syndication-indicator {
-  display: none;
-  width: 12px;
-  height: 12px;
-  margin-right: 5px;
-  }
+	display: none;
+	width: 12px;
+	height: 12px;
+	margin-right: 5px;
+	}
 
 .o-teaser__syndication-indicator--yes {
-  &:after {
-    content: 'Download';
-    color: getColor('white');
-    background-color: rgba(getColor('black'), 0.85);
-    padding: 5px;
-    border-radius: 5px;
-    position: absolute;
-    display: none;
-    font-size: 16px;
-    }
+	&:after {
+		content: 'Download';
+		color: getColor('white');
+		background-color: rgba(getColor('black'), 0.85);
+		padding: 5px;
+		border-radius: 5px;
+		position: absolute;
+		display: none;
+		font-size: 16px;
+		}
 
-  &:hover:after {
-    display: block;
-    }
-  }
+	&:hover:after {
+		display: block;
+		}
+	}
 
 .o-teaser__syndication-indicator--verify {
-  display: none;
-  }
+	display: none;
+	}
 
 .o-teaser--hero .o-teaser__syndication-indicator {
-  width: 16px;
-  height: 16px;
-  }
+	width: 16px;
+	height: 16px;
+	}
 
 .o-teaser--top-story .o-teaser__syndication-indicator,
 .article-headline .o-teaser__syndication-indicator {
-  width: 18px;
-  height: 18px;
-  }
+	width: 18px;
+	height: 18px;
+	}
 
 [data-syndication-user] .o-teaser__syndication-indicator {
-  display: inline-block;
-  }
+	display: inline-block;
+	}
 
 .syndi__download-options {
-  @include nUiZIndexFor('overlay');
-  background-color: rgba(getColor('black'), 0.85);
-  border-radius: 5px;
-  color: getColor('white');
-  font-size: 16px;
-  padding: 5px 0;
-  position: absolute;
-  text-align: left;
-  }
+	@include nUiZIndexFor('overlay');
+	background-color: rgba(getColor('black'), 0.85);
+	border-radius: 5px;
+	color: getColor('white');
+	font-size: 16px;
+	padding: 5px 0;
+	position: absolute;
+	text-align: left;
+	}
 
 .syndi__link {
-  display: block;
-  padding: 5px 10px;
+	display: block;
+	padding: 5px 10px;
 
-  // Override n-skip-link styling
-  // (Using n-skip-link lets keyboard-navigating folks use syndication)
-  &:hover,
-  &:focus {
-    background: getColor('black');
-    position: static;
-    }
-  }
+	// Override n-skip-link styling
+	// (Using n-skip-link lets keyboard-navigating folks use syndication)
+	&:hover,
+	&:focus {
+		background: getColor('black');
+		position: static;
+		}
+	}
 
 // Only works for cursorable-folks because we’re in hell
 .syndi:hover {
-  // Override existing syndication styling
-  // (We’re doing a staggered roll-out of new syndication)
-  &:after {
-    display: none;
-    }
+	// Override existing syndication styling
+	// (We’re doing a staggered roll-out of new syndication)
+	&:after {
+		display: none;
+		}
 
-  // Override n-skip-link styling
-  // (Using n-skip-link lets keyboard-navigating folks use syndication)
-  // Note this duplication is currently required (including the non-hover
-  // one further up)
-  .syndi__link {
-    background: transparent;
-    position: static;
-    }
-  .syndi__link:hover,
-  .syndi__link:focus {
-    background: getColor('black');
-    position: static;
-    }
-  }
+	// Override n-skip-link styling
+	// (Using n-skip-link lets keyboard-navigating folks use syndication)
+	// Note this duplication is currently required (including the non-hover
+	// one further up)
+	.syndi__link {
+		background: transparent;
+		position: static;
+		}
+	.syndi__link:hover,
+	.syndi__link:focus {
+		background: getColor('black');
+		position: static;
+		}
+	}
 
 .n-syndication-republishing {
-  background-color: rgba(getColor('claret'), 1);
-  color: getColor('white');
-  font-weight: bold;
-  }
+	background-color: rgba(getColor('claret'), 1);
+	color: getColor('white');
+	font-weight: bold;
+	}
 
 .o-header__nav-item .n-syndication-republishing {
-  padding-left: 12px;
-  padding-right: 12px;
+	padding-left: 12px;
+	padding-right: 12px;
 
-  &:hover {
-    color: getColor('white');
+	&:hover {
+		color: getColor('white');
 
-    &:after {
-      background-color: getColor('white');
-      }
-    }
-  }
+		&:after {
+			background-color: getColor('white');
+			}
+		}
+	}
 
 .o-header__drawer-menu-item .n-syndication-republishing {
-  background-color: rgba(getColor('claret'), 0.75);
-  transition: all 250ms ease-in-out;
+	background-color: rgba(getColor('claret'), 0.75);
+	transition: all 250ms ease-in-out;
 
-  &:hover {
-    background-color: rgba(getColor('claret'), 1);
-    color: getColor('white');
-    }
-  }
+	&:hover {
+		background-color: rgba(getColor('claret'), 1);
+		color: getColor('white');
+		}
+	}

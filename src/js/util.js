@@ -30,36 +30,36 @@ function getContentIDFromHTMLElement (el) {
 			return null;
 		}
 
-//		if (el.hasAttribute(ATTR_CONTENT_ID)) {
-			let id = el.getAttribute(ATTR_CONTENT_ID);
+		//		if (el.hasAttribute(ATTR_CONTENT_ID)) {
+		let id = el.getAttribute(ATTR_CONTENT_ID);
 
-			// there is a case where an item has a `data-content-id` with no value.
-			// I can't figure it out right now, so temporary "fix"...
-			if (!id) {
-				let anchorEl = el;
+		// there is a case where an item has a `data-content-id` with no value.
+		// I can't figure it out right now, so temporary "fix"...
+		if (!id) {
+			let anchorEl = el;
 
-				if (el.tagName.toUpperCase() !== 'A') {
-					anchorEl = anchorEl.querySelector('a');
-				}
-
-				if (anchorEl && anchorEl.hasAttribute('href')) {
-					id = anchorEl.getAttribute('href').split('/').pop();
-
-					id = getContentIDFromHref(id);
-
-					if (id) {
-						el.setAttribute(ATTR_CONTENT_ID, id);
-					}
-				}
+			if (el.tagName.toUpperCase() !== 'A') {
+				anchorEl = anchorEl.querySelector('a');
 			}
-			else {
+
+			if (anchorEl && anchorEl.hasAttribute('href')) {
+				id = anchorEl.getAttribute('href').split('/').pop();
+
 				id = getContentIDFromHref(id);
 
-				el.setAttribute(ATTR_CONTENT_ID, id);
+				if (id) {
+					el.setAttribute(ATTR_CONTENT_ID, id);
+				}
 			}
+		}
+		else {
+			id = getContentIDFromHref(id);
 
-			return id || null;
-//		}
+			el.setAttribute(ATTR_CONTENT_ID, id);
+		}
+
+		return id || null;
+		//		}
 	} while (el = el.parentElement);
 
 	return null;

@@ -17,6 +17,7 @@ export const CSS_SELECTOR_CARD_LINK = 'a.card__concept-article-link';
 export const CSS_SELECTOR_CONTENT_ID = `[${ATTR_CONTENT_ID}]`;
 export const CSS_SELECTOR_ID = `[${ATTR_ID}]`;
 export const CSS_SELECTOR_NOT_SYNDICATED = `:not([${ATTR_SYNDICATED}="true"])`;
+export const CSS_SELECTOR_PACKAGE_CONTENT_ITEM = 'a.package__content-item';
 export const CSS_SELECTOR_REPUBLISHING_HEADER_LINK = '.o-header-services__nav-link';
 export const CSS_SELECTOR_REPUBLISHING_BTN = `${CSS_SELECTOR_CONTENT_ID}[${ATTR_SYNDICATED}="true"].${CSS_CLASS_REPUBLISHING_BUTTON}`;
 export const CSS_SELECTOR_SYNDATION_ICON = `${CSS_SELECTOR_CONTENT_ID}[${ATTR_SYNDICATED}="true"].${CSS_CLASS_PREFIX}-icon`;
@@ -57,24 +58,25 @@ export const MAX_LOCAL_FORMAT_TIME_MS = 300000;
 
 export const MESSAGES = {
 	EMBARGO: `${EMPTY}<p>Please note that this content is embargoed until {{embargoPeriod}} after its original publication date of {{publishedDateDisplay}}.</p>`,
-    MSG_2000: `${EMPTY}{{embargoMessage}}<p>Please ensure you have considered your <a data-trackable="contractual-rights" href="/republishing/contract">contractual rights</a> before republishing.</p>`,
-    MSG_2100: `${EMPTY}<p>This content has already been downloaded and therefore will not count towards your republishing limit.</p>
+	MSG_2000: `${EMPTY}{{embargoMessage}}<p>Please ensure you have considered your <a data-trackable="contractual-rights" href="/republishing/contract">contractual rights</a> before republishing.</p>`,
+	MSG_2100: `${EMPTY}<p>This content has already been downloaded and therefore will not count towards your republishing limit.</p>
 {{embargoMessage}}
 <p>Please ensure you have considered your <a data-trackable="contractual-rights" href="/republishing/contract">contractual rights</a> before republishing.</p>`,
-    MSG_2200: `${EMPTY}<p>Please contact us for details of republishing rights for this content (<a href="mailto:syndication@ft.com">syndication@ft.com</a> or +44 (0)207 873 4816).</p>`,
-    MSG_2300: `${EMPTY}{{embargoMessage}}<p>This content will incur additional charges to republish. Please contact us for further details (<a href="mailto:syndication@ft.com">syndication@ft.com</a> or +44 (0)207 873 4816).</p>`,
-    MSG_2320: `${EMPTY}{{embargoMessage}}<p>This content will incur additional charges to republish. Please contact us for further details (<a href="mailto:syndication@ft.com">syndication@ft.com</a> or +44 (0)207 873 4816).</p>
+	MSG_2200: `${EMPTY}<p>Please contact us for details of republishing rights for this content (<a href="mailto:syndication@ft.com">syndication@ft.com</a> or +44 (0)207 873 4816).</p>`,
+	MSG_2300: `${EMPTY}{{embargoMessage}}<p>This content will incur additional charges to republish. Please contact us for further details (<a href="mailto:syndication@ft.com">syndication@ft.com</a> or +44 (0)207 873 4816).</p>`,
+	MSG_2320: `${EMPTY}{{embargoMessage}}<p>This content will incur additional charges to republish. Please contact us for further details (<a href="mailto:syndication@ft.com">syndication@ft.com</a> or +44 (0)207 873 4816).</p>
 <p>Please ensure you have considered your <a data-trackable="contractual-rights" href="/republishing/contract">contractual rights</a> before republishing.</p>`,
-    MSG_2340: `${EMPTY}<p>This content has already been downloaded and therefore will not count towards your republishing limit.</p>
+	MSG_2340: `${EMPTY}<p>This content has already been downloaded and therefore will not count towards your republishing limit.</p>
 {{embargoMessage}}
 <p>This content will incur additional charges to republish. Please contact us for further details (<a href="mailto:syndication@ft.com">syndication@ft.com</a> or +44 (0)207 873 4816).</p>
 <p>Please ensure you have considered your <a data-trackable="contractual-rights" href="/republishing/contract">contractual rights</a> before republishing.</p>`,
-    MSG_4000: `${EMPTY}<p>This content is not available for republishing.</p>`,
-    MSG_4050: `${EMPTY}<p>Sorry, this content is no longer available.</p>`,
-    MSG_4100: `${EMPTY}<p>You have reached your download limit for articles. Please contact your Account Manager to increase your limit.</p>`,
-    MSG_4200: `${EMPTY}<p>Your contract does not allow {{type}}s to be downloaded. Please contact your Account Manager to change this.</p>`,
-    MSG_5000: `${EMPTY}<p>Sorry, an error has occurred. Please try signing out and then in again. If error persists, please contact your Account Manager.</p>`,
-    MSG_5100: `${EMPTY}<p>The Republishing Service is currently undergoing maintenance. Please try again later.</p>`
+	MSG_4000: `${EMPTY}<p>This content is not available for republishing.</p>`,
+	MSG_4050: `${EMPTY}<p>Sorry, this content is no longer available.</p>`,
+	MSG_4100: `${EMPTY}<p>You have reached your download limit for articles. Please contact your Account Manager to increase your limit.</p>`,
+	MSG_4200: `${EMPTY}<p>Your contract does not allow {{type}}s to be downloaded. Please contact your Account Manager to change this.</p>`,
+	MSG_4300: `${EMPTY}<p>Report contains multiple articles. Please view each article individually for republishing rights.</p>`,
+	MSG_5000: `${EMPTY}<p>Sorry, an error has occurred. Please try signing out and then in again. If error persists, please contact your Account Manager.</p>`,
+	MSG_5100: `${EMPTY}<p>The Republishing Service is currently undergoing maintenance. Please try again later.</p>`
 };
 
 export const RE_INTERPOLATE = /\{\{([^\}]+)\}\}/gim;
@@ -83,6 +85,7 @@ export const MS_DELAY_HIDE = 500;
 
 export const SYNDICATION_INSERTION_RULES = {
 	[CSS_SELECTOR_CARD_LINK]: { fn: 'closest', slc: '.card__concept-article' },
+	[CSS_SELECTOR_PACKAGE_CONTENT_ITEM]: {fn: 'querySelector', slc: '.package__title'},
 	'a': { fn: 'closest', slc: '.o-teaser__heading' },
 	'article': { fn: 'querySelector', slc: '.topper__headline' },
 	'div.hero': { fn: 'querySelector', slc: '.hero__heading' },

@@ -7,35 +7,35 @@ const autoprefixer = require('autoprefixer');
 const BowerResolvePlugin = require('bower-resolve-webpack-plugin');
 
 const extractOptions = [{
-		loader: 'css-loader',
-		options: {
-			minimize: true,
-			sourceMap: true
-		}
-	},
-	{
-		loader: 'postcss-loader',
-		options: {
-			plugins: () => [
-				autoprefixer({
-					browsers: ['> 1%', 'last 2 versions', 'ie >= 9', 'ff ESR', 'bb >= 7', 'iOS >= 5'],
-					flexbox: 'no-2009'
-				})
-			]
-		}
-	},
-	{
-		loader: 'sass-loader',
-		options: {
-			sourcemap: true,
-			includePaths: [
-				path.resolve('./bower_components'),
-				path.resolve('./node_modules/@financial-times')
-			],
-			// NOTE: This line is important for preservation of comments needed by the css-extract-block plugin
-			outputStyle: 'expanded'
-		}
+	loader: 'css-loader',
+	options: {
+		minimize: true,
+		sourceMap: true
 	}
+},
+{
+	loader: 'postcss-loader',
+	options: {
+		plugins: () => [
+			autoprefixer({
+				browsers: ['> 1%', 'last 2 versions', 'ie >= 9', 'ff ESR', 'bb >= 7', 'iOS >= 5'],
+				flexbox: 'no-2009'
+			})
+		]
+	}
+},
+{
+	loader: 'sass-loader',
+	options: {
+		sourcemap: true,
+		includePaths: [
+			path.resolve('./bower_components'),
+			path.resolve('./node_modules/@financial-times')
+		],
+		// NOTE: This line is important for preservation of comments needed by the css-extract-block plugin
+		outputStyle: 'expanded'
+	}
+}
 ];
 
 module.exports = {

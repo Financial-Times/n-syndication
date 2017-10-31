@@ -4,7 +4,7 @@
   "main": "main.js",
   "description": "Implementation for the syndication indicator, for users who subscribe to the new FT syndication platform",
   "devDependencies": {
-    "@financial-times/n-gage": "^1.8.20",
+    "@financial-times/n-gage": "^1.16.0",
     "@financial-times/n-heroku-tools": "^6.19.1",
     "autoprefixer": "^6.3.6",
     "babel-core": "^6.25.0",

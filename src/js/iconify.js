@@ -12,7 +12,7 @@ import {
 	CSS_CLASS_PREFIX,
 	CSS_SELECTOR_CARD_LINK,
 	CSS_SELECTOR_CONTENT_ID,
-//	CSS_SELECTOR_NOT_SYNDICATED,
+	CSS_SELECTOR_PACKAGE_CONTENT_ITEM,
 	DATA_ID_PROPERTY,
 	DATA_LANG_PROPERTY,
 	DEFAULT_LANGUAGE,
@@ -46,8 +46,8 @@ function createElement (item) {
 function findElementToSyndicate (el) {
 	if (el !== document.documentElement && !EXCLUDE_ELEMENTS[el.tagName.toUpperCase()]) {
 		const entries = Object.entries
-				 ? Object.entries(SYNDICATION_INSERTION_RULES)
-				 : Object.keys(SYNDICATION_INSERTION_RULES).map(key => [key, SYNDICATION_INSERTION_RULES[key]]);
+			? Object.entries(SYNDICATION_INSERTION_RULES)
+			: Object.keys(SYNDICATION_INSERTION_RULES).map(key => [key, SYNDICATION_INSERTION_RULES[key]]);
 
 		for (let [match, rule] of entries) {
 			if (el.matches(match)) {
@@ -68,7 +68,7 @@ function findElementToSyndicate (el) {
 }
 
 function getSyndicatableItems () {
-	return $$(`${CSS_SELECTOR_CONTENT_ID}, ${CSS_SELECTOR_CARD_LINK}`);
+	return $$(`${CSS_SELECTOR_CONTENT_ID}, ${CSS_SELECTOR_CARD_LINK}, ${CSS_SELECTOR_PACKAGE_CONTENT_ITEM}`);
 }
 
 function getSyndicatableItemIDs (items) {
@@ -105,7 +105,7 @@ function syndicateElement (item, el) {
 
 		element.setAttribute(ATTR_CONTENT_TYPE, item.type);
 		element.setAttribute(ATTR_SYNDICATED, 'true');
-//		element.setAttribute(ATTR_TRACKABLE, ATTR_TRACKABLE_VALUE);
+		//		element.setAttribute(ATTR_TRACKABLE, ATTR_TRACKABLE_VALUE);
 	}
 
 	if (element !== el) {

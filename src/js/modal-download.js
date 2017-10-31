@@ -109,25 +109,25 @@ function actionModalFromClick (evt) {
 
 function actionModalFromKeyboard (evt) {
 	switch (evt.key) {
-		case 'Escape' :
-			hide();
+	case 'Escape' :
+		hide();
 
-			const trackingEvent = {};
+		const trackingEvent = {};
 
-			trackingEvent.category = TRACKING.CATEGORY;
-			trackingEvent.contractID = USER_DATA.contract_id;
-			trackingEvent.url = location.href;
-			trackingEvent.action = 'close-syndication-modal';
+		trackingEvent.category = TRACKING.CATEGORY;
+		trackingEvent.contractID = USER_DATA.contract_id;
+		trackingEvent.url = location.href;
+		trackingEvent.action = 'close-syndication-modal';
 
-			broadcast('oTracking.event', trackingEvent);
+		broadcast('oTracking.event', trackingEvent);
 
-			break;
-		case ' ' : case 'Enter' :
-			if (evt.target.matches(CSS_SELECTOR_SYNDATION_ICON)) {
-				show(evt);
-			}
+		break;
+	case ' ' : case 'Enter' :
+		if (evt.target.matches(CSS_SELECTOR_SYNDATION_ICON)) {
+			show(evt);
+		}
 
-			break;
+		break;
 	}
 
 }
@@ -166,6 +166,11 @@ function createElement (item) {
 		saveButtonState = 'disabled';
 		item.title = '';
 	}
+	else if (item.type === 'package') {
+		message = MESSAGES.MSG_4300;
+		downloadButtonState = 'disabled';
+		saveButtonState = 'disabled';
+	}
 	else if (item.notAvailable === true) {
 		downloadButtonState = 'disabled';
 		message = MESSAGES.MSG_4050;
@@ -198,14 +203,14 @@ function createElement (item) {
 		downloadButtonState = 'disabled';
 
 		switch (item.canDownload) {
-			case 0:
-				message = MESSAGES.MSG_4200;
+		case 0:
+			message = MESSAGES.MSG_4200;
 
-				break;
-			case -1:
-				message = MESSAGES.MSG_4100;
+			break;
+		case -1:
+			message = MESSAGES.MSG_4100;
 
-				break;
+			break;
 		}
 	}
 	else {
@@ -213,7 +218,7 @@ function createElement (item) {
 	}
 
 	message = interpolate(message, item);
-//	item.messageCode = message;
+	//	item.messageCode = message;
 
 	if (downloadButtonState === 'disabled') {
 		downloadHref = '#';
@@ -308,7 +313,7 @@ function hide () {
 }
 
 function interpolate (str, o) {
-    return String(str).replace(RE_INTERPOLATE, (m, p) => p in o ? o[p] : '');
+	return String(str).replace(RE_INTERPOLATE, (m, p) => p in o ? o[p] : '');
 }
 
 function reposition () {
@@ -331,10 +336,23 @@ function save (evt) {
 
 	items.forEach(item => item.saved = true);
 }
+function shouldPreventDefault (el) {
+	do {
+		if (el.tagName.toUpperCase() === 'A') {
+			return true;
+		}
+	} while (el = el.parentElement);
+
+	return false;
+}
 
 function show (evt) {
 	if (visible()) {
 		hide();
+	}
+
+	if (shouldPreventDefault(evt.target)) {
+		evt.preventDefault();
 	}
 
 	localStore.get('download_format').then(val => {
