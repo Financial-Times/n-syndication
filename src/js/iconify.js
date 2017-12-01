@@ -38,7 +38,7 @@ function init () {
 }
 
 function createElement (item) {
-	return toElement(`<button class="${CSS_CLASS_PREFIX}-icon ${CSS_CLASS_PREFIX}-icon-state-${String(item.messageCode).toLowerCase()}" ${ATTR_CONTENT_ID}="${item[DATA_ID_PROPERTY]}" ${ATTR_ISO_LANG}="${item[DATA_LANG_PROPERTY] || DEFAULT_LANGUAGE}" ${ATTR_CONTENT_TYPE}="${item.type}" ${ATTR_SYNDICATED}="true" ${ATTR_TRACKABLE}="${ATTR_TRACKABLE_VALUE}" data-message-code="${item.messageCode}" type="button"></button>`);
+	return toElement(`<button class="${CSS_CLASS_PREFIX}-icon ${CSS_CLASS_PREFIX}-icon-state-${String(item.messageCode).toLowerCase()} ${CSS_CLASS_PREFIX}-icon--${String(item.type).toLowerCase()}" ${ATTR_CONTENT_ID}="${item[DATA_ID_PROPERTY]}" ${ATTR_ISO_LANG}="${item[DATA_LANG_PROPERTY] || DEFAULT_LANGUAGE}" ${ATTR_CONTENT_TYPE}="${item.type}" ${ATTR_SYNDICATED}="true" ${ATTR_TRACKABLE}="${ATTR_TRACKABLE_VALUE}" data-message-code="${item.messageCode}" type="button"></button>`);
 }
 
 function findElementToSyndicate (el) {
