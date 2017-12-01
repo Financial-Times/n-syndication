@@ -54,6 +54,17 @@
 	background-color: rgba(getColor('mandarin'), 0.85);
 	}
 
+.n-syndication-icon--video {
+	@include oIconsGetIcon('video', oColorsGetPaletteColor('white'), 20, $iconset-version: 1);
+	background-color: rgba(getColor('jade'), 0.85); // TODO: don't always make them green!
+}
+
+.n-syndication-icon--podcast {
+	@include oIconsGetIcon('podcast', oColorsGetPaletteColor('white'), 20, $iconset-version: 1);
+	background-color: rgba(getColor('jade'), 0.85); // TODO: don't always make them green!
+}
+
+
 
 .n-syndication-icon-state-maintenance {
 	background-image: none;
