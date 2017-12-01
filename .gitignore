@@ -1,7 +1,10 @@
 .DS_Store
+.vscode
 .editorconfig
 .eslintrc.js
 .scss-lint.yml
 
 /bower_components/
 /node_modules/
+
+package-lock.json*
