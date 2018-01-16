@@ -75,6 +75,10 @@ function onAsyncContentLoaded (createSyndicator){
 }
 
 function init (flags){
+	if (!flags.get('syndication')) {
+		return;
+	}
+
 	checkIfUserIsSyndicationCustomer().then(userIsSyndicationCustomer => {
 		if(!userIsSyndicationCustomer){
 			return;
