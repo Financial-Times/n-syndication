@@ -299,3 +299,8 @@
 		color: getColor('white');
 		}
 	}
+
+.n-syndication-modal-message .syndication-message__content--warning {
+	color: getColor('crimson');
+	font-weight: 500;
+}
