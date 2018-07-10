@@ -1,6 +1,6 @@
 # n-syndication [![CircleCI](https://circleci.com/gh/Financial-Times/n-syndication.svg?style=svg)](https://circleci.com/gh/Financial-Times/n-syndication)
 
-A client side library that displays links allowing syndication customers to download or save content for republishing.
+A client side library available as a Bower component that displays links next to headlines allowing syndication customers to download or save content for republishing.
 
 ## Local Development
 
