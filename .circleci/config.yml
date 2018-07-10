@@ -105,17 +105,6 @@ jobs:
           path: test-results
           destination: test-results
 
-  publish:
-    <<: *container_config_node8
-    steps:
-      - *attach_workspace
-      - run:
-          name: shared-helper / npm-store-auth-token
-          command: .circleci/shared-helpers/helper-npm-store-auth-token
-      - run:
-          name: shared-helper / npm-version-and-publish-public
-          command: .circleci/shared-helpers/helper-npm-version-and-publish-public
-
 workflows:
 
   version: 2
@@ -128,22 +117,6 @@ workflows:
       - test:
           requires:
             - build
-
-  build-test-publish:
-    jobs:
-      - build:
-          filters:
-            <<: *filters_version_tag
-      - test:
-          filters:
-            <<: *filters_version_tag
-          requires:
-            - build
-      - publish:
-          filters:
-            <<: *filters_version_tag
-          requires:
-            - test
 
   nightly:
     triggers:
