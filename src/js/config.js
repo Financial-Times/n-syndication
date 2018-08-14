@@ -76,7 +76,10 @@ export const SYNDICATION_INSERTION_RULES = {
 	[CSS_SELECTOR_TOPIC_CARD_LINK]: { fn: 'closest', slc: '.topic-card__concept-article' },
 	[CSS_SELECTOR_PACKAGE_CONTENT_ITEM]: {fn: 'querySelector', slc: '.package__title' },
 	[CSS_SELECTOR_STORY_LINK]: {fn: 'closest', slc: 'article[data-trackable="story"]' },
+	// matcher for n-teaser
 	'a': { fn: 'closest', slc: '.o-teaser__heading' },
+	// matcher for x-teaser
+	'.o-teaser': { fn: 'querySelector', slc: '.o-teaser__heading' },
 	'.stream-item': { fn: 'querySelector', slc: '.card-openable__headline' },
 	'article[class="article"]': { fn: 'querySelector', slc: '.topper__headline' },
 	'article.article--brand': { fn: 'querySelector', slc: '.topper__headline' },
