@@ -31,7 +31,7 @@ function getContentIDFromHTMLElement (el) {
 
 		// there is a case where an item has a `data-content-id` with no value.
 		// I can't figure it out right now, so temporary "fix"...
-		if (!id) {
+		if (!id && !el.classList.contains('o-header__subnav-item')) {
 			id = el.getAttribute('data-id');
 
 			if (!id) {
