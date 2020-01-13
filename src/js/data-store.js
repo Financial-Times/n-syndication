@@ -45,30 +45,34 @@ async function fetchItems (itemIDs) {
 		body: JSON.stringify(itemIDs)
 	};
 
-	try {
-		const response = await fetch(`/syndication/resolve${location.search}`, options);
+	if(options.body.length) {
 
-		if (!response.ok) {
-			const text = await response.text();
-			throw new Error(`Next /syndication/resolve responded with "${text}" (${response.status})`);
+		try {
+			const response = await fetch(`/syndication/resolve${location.search}`, options);
+
+			if (!response.ok) {
+				const text = await response.text();
+				throw new Error(`Next /syndication/resolve responded with "${text}" (${response.status})`);
+			}
+
+			const items = await response.json();
+
+			broadcast('nSyndication.fetch', {
+				request: itemIDs,
+				response: items
+			});
+
+			return items;
+
+		} catch (error) {
+			broadcast('oErrors.log', {
+				error,
+				info: {
+					component: 'next-syndication-redux'
+				}
+			});
 		}
 
-		const items = await response.json();
-
-		broadcast('nSyndication.fetch', {
-			request: itemIDs,
-			response: items
-		});
-
-		return items;
-
-	} catch (error) {
-		broadcast('oErrors.log', {
-			error,
-			info: {
-				component: 'next-syndication-redux'
-			}
-		});
 	}
 }
 
