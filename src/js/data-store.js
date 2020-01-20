@@ -45,7 +45,7 @@ async function fetchItems (itemIDs) {
 		body: JSON.stringify(itemIDs)
 	};
 
-	if(options.body.length) {
+	if(itemIDs.length) {
 
 		try {
 			const response = await fetch(`/syndication/resolve${location.search}`, options);
