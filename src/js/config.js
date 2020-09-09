@@ -23,6 +23,11 @@ export const MESSAGES = {
 	MSG_5100: '<p>The Republishing Service is currently undergoing maintenance. Please try again later.</p>'
 };
 
+export const RICH_CONTENT_MESSAGES = {
+	GRAPHICS: 'Please note that for copyright reasons not all the graphics in this article are available for republishing so will not be included in the download.',
+	WORD_FORMAT: 'Graphics are only availabel in Word format. Please select Word format in your syndication management tool to download.'
+}
+
 export function getMessage (item, {MAINTENANCE_MODE, contributor_content}) {
 	let message;
 	item.translationMessage = '';

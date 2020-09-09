@@ -4,10 +4,11 @@ import {broadcast} from 'n-ui-foundations';
 import oViewport from 'o-viewport';
 import Superstore from 'superstore';
 
-import {getMessage, TRACKING} from './config';
+import {TRACKING} from './config';
 
 import {toElement} from './util';
 import {getAllItemsForID, getItemByHTMLElement} from './data-store';
+import {getMessage, richContentMessage} from './messages';
 
 const MAX_LOCAL_FORMAT_TIME_MS = 300000;
 const localStore = new Superstore('local', 'syndication');
@@ -159,6 +160,7 @@ function createElement (item) {
 		downloadTrackingId = 'download-items';
 	}
 
+	//TODO make this templating less brittle
 	return toElement(`<div class="n-syndication-modal-shadow"></div>
 							<div class="n-syndication-modal n-syndication-modal-${item.type}" role="dialog" aria-labelledby="'Download:  ${title}" tabindex="0">
 								<header class="n-syndication-modal-heading">
@@ -169,6 +171,8 @@ function createElement (item) {
 									${(item.wordCount ? `<span class="n-syndication-modal-word-count">Word count: ${item.wordCount}</span>` : '')}
 									<div class="n-syndication-modal-message">
 									${getMessage(item, USER_DATA)}
+									</div>
+									<div class="n-syndication-rich-content-message">${richContentMessage(item, USER_DATA)}
 									</div>
 									<div class="n-syndication-actions" data-content-id="${item.id}" data-iso-lang="${item.lang}">
 										<a class="n-syndication-action" data-action="save" ${disableSaveButton ? 'disabled' : ''} data-trackable="${saveTrackingId}" href="${saveHref}">${saveText}</a>
