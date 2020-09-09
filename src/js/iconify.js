@@ -16,9 +16,9 @@ const SYNDICATION_INSERTION_RULES = {
 	// matcher for x-teaser
 	'.o-teaser': {fn: 'querySelector', slc: '.o-teaser__heading'},
 	'.stream-item': {fn: 'querySelector', slc: '.card-openable__headline'},
-	'article[class="article"]': {fn: 'querySelector', slc: '.topper__headline'},
-	'article.article--brand': {fn: 'querySelector', slc: '.topper__headline'},
-	'article.article-grid': {fn: 'querySelector', slc: '.topper__headline', up: 1},
+	'article[class="article"]': {fn: 'querySelector', slc: '.o-topper__headline'},
+	'article.article--brand': {fn: 'querySelector', slc: '.o-topper__headline'},
+	'article.article-grid': {fn: 'querySelector', slc: '.o-topper__headline', up: 1},
 	'div.hero': {fn: 'querySelector', slc: '.hero__heading'},
 	'main.video': {fn: 'querySelector', slc: '.video__title'},
 	'li.o-teaser__related-item': {}
