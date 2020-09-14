@@ -66,31 +66,37 @@ function messageTemplate (messageType = 'graphic', messageText) {
 </div>
 </div>`;
 }
-export function richContentMessage (item, userData) {
-	const messagesBlocks = [];
+export function richContentMessage (
+	{
+		hasGraphics = false,
+		canAllGraphicsBeSyndicated = false,
+		//canBeSyndicated = false,
+	} = {},
+	{ allowed = {}, download_format = 'plain' } = {}
+) {
+
 	//If is rich content users & some images are not licences display
 	//If default format is not word display secondary message
+	const messagesBlocks = [];
 
-	//Condition for rich_article user?
-	// if(userData.allowed && userData.allowed.hasOwnProperty('rich_article') && userData.allowed.rich_article) {
-	// 	//do nothing if user access is not rich article
-	// 	return;
-	// };
+	//TODO check if this is the right condition for rich_article user?
+	if (!allowed || !allowed.rich_article) {
+		//do nothing if user access is not rich article
+		// eslint-disable-next-line no-console
+		console.log('userData.allowed.rich_article?', allowed);
+		return;
+	}
 
-	//TODO Remove. Just here to flesh out manually test logic remove once hasGraphic and canAllGraphicsBeSyndicated exist
-	// if (item.canBeSyndicated && item.canBeSyndicated === 'yes') {
-	// 	messagesBlocks.push(messageTemplate('graphic', RICH_CONTENT_MESSAGES.GRAPHICS));
-	// 	if (userData.download_format && userData.download_format === 'docx') {
-	// 		messagesBlocks.push(messageTemplate('format', RICH_CONTENT_MESSAGES.WORD_FORMAT));
-	// 	}
-	// }
-
-	if(item.hasGraphics && !item.canAllGraphicsBeSyndicated) {
-		messagesBlocks.push(messageTemplate('graphic', RICH_CONTENT_MESSAGES.GRAPHICS));
+	if (hasGraphics && !canAllGraphicsBeSyndicated) {
+		 messagesBlocks.push(
+			messageTemplate('graphic', RICH_CONTENT_MESSAGES.GRAPHICS)
+		);
 
 		//nested condition because only required if first condition true
-		if(userData.download_format && userData.download_format === 'docx') {
-			messagesBlocks.push(messageTemplate('format', RICH_CONTENT_MESSAGES.WORD_FORMAT));
+		if (download_format && download_format === 'docx') {
+			messagesBlocks.push(
+				messageTemplate('format', RICH_CONTENT_MESSAGES.WORD_FORMAT)
+			);
 		}
 	}
 
