@@ -1,33 +1,20 @@
 'use strict';
 
-import {interpolate} from './util';
-import {MESSAGES, RICH_CONTENT_MESSAGES} from './config';
+import { interpolate } from './util';
+import { MESSAGES, RICH_CONTENT_MESSAGES } from './config';
 
-//TODO template this propery
-const notAllGraphics = `<div class="o-message o-message--alert o-message--neutral" data-o-component="o-message"><div class="o-message__container">
-		<div class="o-message__content">
-			<p class="o-message__content-main">
-				<span class="o-message__content-highlight">${RICH_CONTENT_MESSAGES.GRAPHICS}</span>
-		</div>
-	</div>
-</div>`;
-
-const inValidFormat = `<div class="o-message o-message--alert o-message--error" data-o-component="o-message"><div class="o-message__container">
-		<div class="o-message__content">
-			<p class="o-message__content-main">
-				<span class="o-message__content-highlight">${RICH_CONTENT_MESSAGES.WORD_FORMAT}</span>
-		</div>
-	</div>
-</div>`;
-
-export function getMessage (item, {MAINTENANCE_MODE, contributor_content}) {
+export function getMessage (item, { MAINTENANCE_MODE, contributor_content }) {
 	let message;
 	item.translationMessage = '';
 	if (item.embargoPeriod && typeof item.embargoPeriod === 'number') {
-		item.embargoPeriod = `${item.embargoPeriod} day${item.embargoPeriod > 1 ? 's' : ''}`;
+		item.embargoPeriod = `${item.embargoPeriod} day${
+			item.embargoPeriod > 1 ? 's' : ''
+		}`;
 	}
 
-	item.embargoMessage = item.embargoPeriod ? interpolate(MESSAGES.EMBARGO, item) : '';
+	item.embargoMessage = item.embargoPeriod
+		? interpolate(MESSAGES.EMBARGO, item)
+		: '';
 	if (Boolean(document.getElementById('ftlabsTranslationContainer'))) {
 		item.translationMessage = interpolate(MESSAGES.ENGLISH, item);
 	}
@@ -41,9 +28,15 @@ export function getMessage (item, {MAINTENANCE_MODE, contributor_content}) {
 	} else if (item.canBeSyndicated === 'verify') {
 		message = item.lang !== 'en' ? MESSAGES.MSG_4250 : MESSAGES.MSG_2200;
 	}
-	if (item.canBeSyndicated === 'withContributorPayment' && contributor_content !== true) {
+	if (
+		item.canBeSyndicated === 'withContributorPayment' &&
+		contributor_content !== true
+	) {
 		message = MESSAGES.MSG_2300;
-	} else if (item.canBeSyndicated === 'withContributorPayment' && item.downloaded === true) {
+	} else if (
+		item.canBeSyndicated === 'withContributorPayment' &&
+		item.downloaded === true
+	) {
 		message = MESSAGES.MSG_2340;
 	} else if (item.canBeSyndicated === 'withContributorPayment') {
 		message = MESSAGES.MSG_2320;
@@ -63,8 +56,17 @@ export function getMessage (item, {MAINTENANCE_MODE, contributor_content}) {
 }
 
 
-export function richContentMessage (item, userData) {
+function messageTemplate (messageType = 'graphic', messageText) {
 
+	return `<div class="o-message o-message--alert o-message--${messageType === 'format'? 'error': 'neutral'}" data-o-component="o-message"><div class="o-message__container">
+	<div class="o-message__content">
+		<p class="o-message__content-main">
+			<span class="o-message__content-highlight">${messageText}</span>
+	</div>
+</div>
+</div>`;
+}
+export function richContentMessage (item, userData) {
 	const messagesBlocks = [];
 	//If is rich content users & some images are not licences display
 	//If default format is not word display secondary message
@@ -75,24 +77,22 @@ export function richContentMessage (item, userData) {
 	// 	return;
 	// };
 
-
-	//TODO Just here to flesh out manually test logic remove once hasGraphic and canAllGraphicsBeSyndicated exist
-	// if(item.canBeSyndicated && item.canBeSyndicated === 'yes') {
-	// 	messagesBlocks.push(notAllGraphics);
-	// 	if(userData.download_format && userData.download_format === 'docx') {
-	// 		messagesBlocks.push(inValidFormat);
+	//TODO Remove. Just here to flesh out manually test logic remove once hasGraphic and canAllGraphicsBeSyndicated exist
+	// if (item.canBeSyndicated && item.canBeSyndicated === 'yes') {
+	// 	messagesBlocks.push(messageTemplate('graphic', RICH_CONTENT_MESSAGES.GRAPHICS));
+	// 	if (userData.download_format && userData.download_format === 'docx') {
+	// 		messagesBlocks.push(messageTemplate('format', RICH_CONTENT_MESSAGES.WORD_FORMAT));
 	// 	}
 	// }
 
 	if(item.hasGraphics && !item.canAllGraphicsBeSyndicated) {
-		messagesBlocks.push(notAllGraphics);
+		messagesBlocks.push(messageTemplate('graphic', RICH_CONTENT_MESSAGES.GRAPHICS));
 
 		//nested condition because only required if first condition true
 		if(userData.download_format && userData.download_format === 'docx') {
-			messagesBlocks.push(inValidFormat);
+			messagesBlocks.push(messageTemplate('format', RICH_CONTENT_MESSAGES.WORD_FORMAT));
 		}
 	}
 
 	return messagesBlocks.join('');
-
 }
