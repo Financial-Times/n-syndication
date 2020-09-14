@@ -88,7 +88,7 @@ export function richContentMessage (
 	}
 
 	if (hasGraphics && !canAllGraphicsBeSyndicated) {
-		 messagesBlocks.push(
+		messagesBlocks.push(
 			messageTemplate('graphic', RICH_CONTENT_MESSAGES.GRAPHICS)
 		);
 
