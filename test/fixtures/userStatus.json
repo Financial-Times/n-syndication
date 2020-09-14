@@ -1,0 +1,27 @@
+{
+  "app": {
+    "env": "production",
+    "name": "ft-next-syndication-api",
+    "version": "0.33.2"
+  },
+  "features": {
+    "syndication": true
+  },
+  "allowed": {
+    "contributor_content": false,
+    "ft_com": true,
+    "spanish_content": true,
+    "spanish_weekend": true
+  },
+  "contract_id": "CA-00000000",
+  "contributor_content": false,
+  "licence_id": "00000000-0000-0000-0000-000000000000",
+  "migrated": true,
+  "user_id": "00000000-0000-0000-0000-000000000000",
+  "email": "aSyndication.User@ftqa.org",
+  "first_name": "Some",
+  "surname": "User",
+  "download_format": "docx",
+  "last_modified": "2020-09-11T09:13:12.972Z",
+  "role": "user"
+}
