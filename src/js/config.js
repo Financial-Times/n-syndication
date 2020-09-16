@@ -25,7 +25,7 @@ export const MESSAGES = {
 
 export const RICH_CONTENT_MESSAGES = {
 	GRAPHICS: 'Please note that for copyright reasons not all the graphics in this article are available for republishing so will not be included in the download.',
-	WORD_FORMAT: 'Graphics are only availabel in Word format. Please select Word format in your syndication management tool to download.'
+	WORD_FORMAT: 'Graphics are only available in Word format. Please select Word format (docx) in your syndication management tool to download.'
 };
 
 export function getMessage (item, {MAINTENANCE_MODE, contributor_content}) {
