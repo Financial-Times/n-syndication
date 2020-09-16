@@ -28,14 +28,11 @@ $ npx sass ./test/main.scss --load-path=./bower_components/
 
 ### Developing with a next app
 
-The best way to develop with your changes on the site is to use [`bower link`](https://bower.io/docs/api/#link) in a running app. (If using `n-ui` to build you'll need to [set the `NEXT_APP_SHELL=local` variable](https://github.com/Financial-Times/n-ui#testing-in-an-app))
+Currently the best way to develop with your changes on the site is to use [`bower link`](https://bower.io/docs/api/#link) in a running app.
 
 ## Deployment
 
 Create a release tag [in Github](https://github.com/Financial-Times/n-syndication/releases) following the Semver convention and prefixing the release number with `v`. This will make this available as a bower component at that version.
-
-If you are wanting to deploy to FT.com, after creating the tag you'll need to bump the version number in [`n-ui`’s `bower.json`](https://github.com/Financial-Times/n-ui/blob/master/bower.json). You will then need to release a new version of `n-ui` (due to how frontend assets are bundled) which should release to the wider site.
-
 
 ## How does it work
 
