@@ -72,20 +72,18 @@ export function richContentMessage (
 		canAllGraphicsBeSyndicated = false,
 		//canBeSyndicated = false,
 	} = {},
-	{ allowed = {}, download_format = 'plain' } = {}
+	{ download_format = 'plain' } = {}
 ) {
 
 	//If is rich content users & some images are not licences display
 	//If default format is not word display secondary message
 	const messagesBlocks = [];
 
-	//TODO check if this is the right condition for rich_article user?
-	if (!allowed || !allowed.rich_article) {
-		//do nothing if user access is not rich article
-		// eslint-disable-next-line no-console
-		console.log('userData.allowed.rich_article?', allowed);
-		return;
-	}
+	//TODO check if this condition is required at all for rich_article user?
+	// if (!allowed || !allowed.rich_article) {
+	// 	//do nothing if user access is not rich article
+	// 	return;
+	// }
 
 	if (hasGraphics && !canAllGraphicsBeSyndicated) {
 		messagesBlocks.push(
