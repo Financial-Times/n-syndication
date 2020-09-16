@@ -46,8 +46,3 @@ export async function init (flags) {
 	initDownloadModal(user);
 	$$('.video__actions__download').forEach(el => el.parentNode.removeChild(el));
 }
-
-// export {
-// 	init,
-// 	checkIfUserIsSyndicationCustomer
-// };
