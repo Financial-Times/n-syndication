@@ -6,7 +6,7 @@ import {init as initIconify} from './iconify';
 import {init as initDownloadModal} from './modal-download';
 import {init as initNavigation} from './navigation';
 
-async function checkIfUserIsSyndicationCustomer () {
+export async function checkIfUserIsSyndicationCustomer () {
 	const SYNDICATION_PRODUCT_CODE = 'S1';
 	const response = await getUserProducts().catch(err => err);
 
@@ -15,7 +15,7 @@ async function checkIfUserIsSyndicationCustomer () {
 		: false;
 }
 
-async function init (flags) {
+export async function init (flags) {
 	if (!flags.get('syndication')) {
 		return;
 	}
@@ -47,7 +47,7 @@ async function init (flags) {
 	$$('.video__actions__download').forEach(el => el.parentNode.removeChild(el));
 }
 
-export {
-	init,
-	checkIfUserIsSyndicationCustomer
-};
+// export {
+// 	init,
+// 	checkIfUserIsSyndicationCustomer
+// };
