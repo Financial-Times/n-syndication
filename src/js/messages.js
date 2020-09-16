@@ -72,7 +72,6 @@ export function richContentMessage (
 	{
 		hasGraphics = false,
 		canAllGraphicsBeSyndicated = false,
-		//canBeSyndicated = false,
 	} = {},
 	{ download_format = 'plain' } = {}
 ) {
