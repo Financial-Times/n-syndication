@@ -58,13 +58,15 @@ export function getMessage (item, { MAINTENANCE_MODE, contributor_content }) {
 
 function messageTemplate (messageType = 'graphic', messageText) {
 
-	return `<div class="o-message o-message--alert o-message--${messageType === 'format'? 'error': 'neutral'}" data-o-component="o-message"><div class="o-message__container">
-	<div class="o-message__content">
-		<p class="o-message__content-main">
-			<span class="o-message__content-highlight">${messageText}</span>
-	</div>
-</div>
-</div>`;
+	return `<div class="o-message o-message--alert o-message--${messageType === 'format'? 'error': 'neutral'}" data-o-component="o-message">
+		<div class="o-message__container">
+			<div class="o-message__content">
+				<p class="o-message__content-main">
+					<span class="o-message__content-highlight">${messageText}</span>
+				</p>
+			</div>
+		</div>
+	</div>`;
 }
 export function richContentMessage (
 	{

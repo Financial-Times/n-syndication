@@ -1,13 +1,9 @@
-/* eslint-disable quotes */
 'use strict';
 
 import {richContentMessage , getMessage} from '../../../src/js/messages';
 import {RICH_CONTENT_MESSAGES} from '../../../src/js/config';
 const itemsFixture = require('../../fixtures/item.json');
 const userStatusFixture = require('../../fixtures/userStatus.json');
-//const getMessageFixture = require('../../fixtures/getMessageFixture');
-//import {hasGraphicsMsg, invalidFormatMsg, bothMessages } from '../../fixtures/richMessageFixture';
-
 
 describe('messages', () => {
 
@@ -23,13 +19,11 @@ describe('messages', () => {
 		it('returns an empty string if item does not have graphics', () => {
 			const richContentMsg = richContentMessage(itemsFixture,userStatusFixture);
 			document.body.innerHTML = richContentMsg;
-			//subject.innerHTML = richContentMsg;
 			expect(richContentMsg).toEqual(expect.not.stringContaining(RICH_CONTENT_MESSAGES.GRAPHICS));
 			expect(richContentMsg).toEqual(expect.not.stringContaining(RICH_CONTENT_MESSAGES.WORD_FORMAT));
 		});
 
 		it('returns empty string if if hasGraphics is FALSE and canAllGraphicsBeSyndicated is TRUE', () => {
-			// eslint-disable-next-line no-undef
 			const items = Object.assign({}, itemsFixture, {hasGraphics: true, canAllGraphicsBeSyndicated: true });
 			const richContentMsg = richContentMessage(items,userStatusFixture);
 			expect(typeof richContentMsg).toBe('string');
