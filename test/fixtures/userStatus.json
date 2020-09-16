@@ -21,7 +21,7 @@
   "email": "aSyndication.User@ftqa.org",
   "first_name": "Some",
   "surname": "User",
-  "download_format": "docx",
+  "download_format": "plain",
   "last_modified": "2020-09-11T09:13:12.972Z",
   "role": "user"
 }
