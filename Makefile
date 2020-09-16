@@ -7,5 +7,6 @@ node_modules/@financial-times/n-gage/index.mk:
 test: verify unit-test
 
 unit-test:
-	@karma start karma.conf.js
+	#@karma start karma.conf.js
+	@jest
 	@$(DONE)

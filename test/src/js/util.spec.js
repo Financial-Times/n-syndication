@@ -1,11 +1,9 @@
 'use strict';
 
-const { expect } = require('chai');
-
-const underTest = require('../../../src/js/util');
+const subject = require('../../../src/js/util');
 
 describe('./src/js/util', function () {
 	it('cheapClone should be a Function', function () {
-		expect(underTest.cheapClone).to.be.a('function');
+		expect(typeof subject.cheapClone).toBe('function');
 	});
 });
