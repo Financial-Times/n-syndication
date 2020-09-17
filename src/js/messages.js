@@ -1,7 +1,7 @@
 'use strict';
 
 import { interpolate } from './util';
-import { MESSAGES, RICH_CONTENT_MESSAGES } from './config';
+import { MESSAGES} from './config';
 
 export function getMessage (item, { MAINTENANCE_MODE, contributor_content }) {
 	let message;
@@ -88,13 +88,13 @@ export function richContentMessage (
 
 	if (hasGraphics && !canAllGraphicsBeSyndicated) {
 		messagesBlocks.push(
-			messageTemplate('graphic', RICH_CONTENT_MESSAGES.GRAPHICS)
+			messageTemplate('graphic', MESSAGES.GRAPHICS)
 		);
 
 		//nested condition because only required if first condition true
 		if (download_format && download_format === 'docx') {
 			messagesBlocks.push(
-				messageTemplate('format', RICH_CONTENT_MESSAGES.WORD_FORMAT)
+				messageTemplate('format', MESSAGES.WORD_FORMAT)
 			);
 		}
 	}

@@ -1,7 +1,7 @@
 'use strict';
 
 import {richContentMessage , getMessage} from '../../../src/js/messages';
-import {RICH_CONTENT_MESSAGES} from '../../../src/js/config';
+import {MESSAGES} from '../../../src/js/config';
 const itemsFixture = require('../../fixtures/item.json');
 const userStatusFixture = require('../../fixtures/userStatus.json');
 
@@ -19,16 +19,16 @@ describe('messages', () => {
 		it('returns an empty string if item does not have graphics', () => {
 			const richContentMsg = richContentMessage(itemsFixture,userStatusFixture);
 			document.body.innerHTML = richContentMsg;
-			expect(richContentMsg).toEqual(expect.not.stringContaining(RICH_CONTENT_MESSAGES.GRAPHICS));
-			expect(richContentMsg).toEqual(expect.not.stringContaining(RICH_CONTENT_MESSAGES.WORD_FORMAT));
+			expect(richContentMsg).toEqual(expect.not.stringContaining(MESSAGES.GRAPHICS));
+			expect(richContentMsg).toEqual(expect.not.stringContaining(MESSAGES.WORD_FORMAT));
 		});
 
 		it('returns empty string if if hasGraphics is FALSE and canAllGraphicsBeSyndicated is TRUE', () => {
 			const items = Object.assign({}, itemsFixture, {hasGraphics: true, canAllGraphicsBeSyndicated: true });
 			const richContentMsg = richContentMessage(items,userStatusFixture);
 			expect(typeof richContentMsg).toBe('string');
-			expect(richContentMsg).toEqual(expect.not.stringContaining(RICH_CONTENT_MESSAGES.GRAPHICS));
-			expect(richContentMsg).toEqual(expect.not.stringContaining(RICH_CONTENT_MESSAGES.WORD_FORMAT));
+			expect(richContentMsg).toEqual(expect.not.stringContaining(MESSAGES.GRAPHICS));
+			expect(richContentMsg).toEqual(expect.not.stringContaining(MESSAGES.WORD_FORMAT));
 		});
 
 		it('returns empty string if if hasGraphics is FALSE and canAllGraphicsBeSyndicated is FALSE', () => {
@@ -36,8 +36,8 @@ describe('messages', () => {
 			const items = Object.assign({}, itemsFixture, {hasGraphics: true, });
 			const richContentMsg = richContentMessage(items,userStatusFixture);
 			expect(typeof richContentMsg).toBe('string');
-			expect(richContentMsg).toEqual(expect.stringContaining(RICH_CONTENT_MESSAGES.GRAPHICS));
-			expect(richContentMsg).toEqual(expect.not.stringContaining(RICH_CONTENT_MESSAGES.WORD_FORMAT));
+			expect(richContentMsg).toEqual(expect.stringContaining(MESSAGES.GRAPHICS));
+			expect(richContentMsg).toEqual(expect.not.stringContaining(MESSAGES.WORD_FORMAT));
 		});
 
 		it('returns HTML including the graphics unavailable message if hasGraphics is TRUE and canAllGraphicsBeSyndicated is FALSE', () => {
@@ -45,8 +45,8 @@ describe('messages', () => {
 			const items = Object.assign({}, itemsFixture, {hasGraphics: true, });
 			const richContentMsg = richContentMessage(items,userStatusFixture);
 			expect(typeof richContentMsg).toBe('string');
-			expect(richContentMsg).toEqual(expect.stringContaining(RICH_CONTENT_MESSAGES.GRAPHICS));
-			expect(richContentMsg).toEqual(expect.not.stringContaining(RICH_CONTENT_MESSAGES.WORD_FORMAT));
+			expect(richContentMsg).toEqual(expect.stringContaining(MESSAGES.GRAPHICS));
+			expect(richContentMsg).toEqual(expect.not.stringContaining(MESSAGES.WORD_FORMAT));
 		});
 
 		it('returns a string of HTML that contains the graphics unavailable message AND the word format message if hasGraphics is TRUE and canAllGraphicsBeSyndicated is FALSE AND download_format is docx', () => {
@@ -55,8 +55,8 @@ describe('messages', () => {
 			const userStatus = Object.assign({}, userStatusFixture, {download_format: 'docx', });
 			const richContentMsg = richContentMessage(items,userStatus);
 			expect(typeof richContentMsg).toBe('string');
-			expect(richContentMsg).toEqual(expect.stringContaining(RICH_CONTENT_MESSAGES.GRAPHICS));
-			expect(richContentMsg).toEqual(expect.stringContaining(RICH_CONTENT_MESSAGES.WORD_FORMAT));
+			expect(richContentMsg).toEqual(expect.stringContaining(MESSAGES.GRAPHICS));
+			expect(richContentMsg).toEqual(expect.stringContaining(MESSAGES.WORD_FORMAT));
 		});
 
 	});

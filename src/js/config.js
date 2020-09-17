@@ -18,10 +18,7 @@ export const MESSAGES = {
 	MSG_4250: '<p>You do not have rights to republish this type of content. Please contact your Account Manager for further details.</p>',
 	MSG_4300: '<p>Report contains multiple articles. Please view each article individually for republishing rights.</p>',
 	MSG_5000: '<p>Sorry, an error has occurred. Please try signing out and then in again. If error persists, please contact your Account Manager.</p>',
-	MSG_5100: '<p>The Republishing Service is currently undergoing maintenance. Please try again later.</p>'
-};
-
-export const RICH_CONTENT_MESSAGES = {
+	MSG_5100: '<p>The Republishing Service is currently undergoing maintenance. Please try again later.</p>',
 	GRAPHICS: 'Please note that for copyright reasons not all the graphics in this article are available for republishing so will not be included in the download.',
 	WORD_FORMAT: 'Graphics are only available in Word format. Please select Word format (docx) in your syndication management tool to download.'
 };
