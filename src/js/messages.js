@@ -62,20 +62,13 @@ export function richContentMessage (
 	} = {},
 	{ download_format = 'plain' } = {}
 ) {
-
-	//If is rich content users & some images are not licences display
-	//If default format is not word display secondary message
+	//TODO check what condition is required rich_article user allowed.rich_article or user product code?
 	const messagesContent = [];
-	//TODO check if this condition is required at all for rich_article user?
-	// if (!allowed || !allowed.rich_article) {
-	// 	//do nothing if user access is not rich article
-	// 	return;
-	// }
 
 	if(hasGraphics && !canAllGraphicsBeSyndicated) {
 		messagesContent.push({messageType: 'neutral', message: MESSAGES.GRAPHICS});
 
-		//nested condition because only required if first condition true
+		//Nested condition because only required if first condition true
 		if (download_format && download_format === 'docx') {
 			messagesContent.push({messageType: 'error', message: MESSAGES.WORD_FORMAT});
 		}
