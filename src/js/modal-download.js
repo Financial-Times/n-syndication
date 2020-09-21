@@ -160,7 +160,6 @@ function createElement (item) {
 		downloadTrackingId = 'download-items';
 	}
 
-	//TODO make this templating less brittle
 	return toElement(`<div class="n-syndication-modal-shadow"></div>
 							<div class="n-syndication-modal n-syndication-modal-${item.type}" role="dialog" aria-labelledby="'Download:  ${title}" tabindex="0">
 								<header class="n-syndication-modal-heading">
@@ -172,8 +171,7 @@ function createElement (item) {
 									<div class="n-syndication-modal-message">
 									${getMessage(item, USER_DATA)}
 									</div>
-									<div class="n-syndication-rich-content-message">${richContentMessage(item, USER_DATA)}
-									</div>
+									${richContentWarnings (item)}
 									<div class="n-syndication-actions" data-content-id="${item.id}" data-iso-lang="${item.lang}">
 										<a class="n-syndication-action" data-action="save" ${disableSaveButton ? 'disabled' : ''} data-trackable="${saveTrackingId}" href="${saveHref}">${saveText}</a>
 										<a class="n-syndication-action n-syndication-action-primary" data-action="download" ${disableDownloadButton ? 'disabled' : ''} ${downloadTrackingId ? `data-trackable="${downloadTrackingId}"` : ''} href="${downloadHref}">${downloadText}</a>
@@ -289,7 +287,6 @@ function show (evt) {
 		}
 
 		OVERLAY_FRAGMENT = createElement(getItemByHTMLElement(evt.target));
-
 		OVERLAY_MODAL_ELEMENT = OVERLAY_FRAGMENT.lastElementChild || OVERLAY_FRAGMENT.lastChild;
 		OVERLAY_SHADOW_ELEMENT = OVERLAY_FRAGMENT.firstElementChild || OVERLAY_FRAGMENT.firstChild;
 
@@ -301,6 +298,33 @@ function show (evt) {
 
 function visible () {
 	return !!(OVERLAY_MODAL_ELEMENT && document.body.contains(OVERLAY_MODAL_ELEMENT));
+}
+
+function messageTemplate (messageType = 'neutral', messageText) {
+
+	return `<div class="o-message o-message--alert o-message--${messageType}" data-o-component="o-message">
+		<div class="o-message__container">
+			<div class="o-message__content">
+				<p class="o-message__content-main">
+					<span class="o-message__content-highlight">${messageText}</span>
+				</p>
+			</div>
+		</div>
+	</div>`;
+}
+
+function richContentWarnings (item) {
+	const theMessages = richContentMessage(item, USER_DATA);
+
+	if (theMessages.length === -1) {
+		return null;
+	}
+
+	const richContentWarningsMessages = theMessages
+		.map((message) => messageTemplate(message.messageType, message.message))
+		.join('');
+
+	return richContentWarningsMessages;
 }
 
 export {

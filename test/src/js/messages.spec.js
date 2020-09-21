@@ -16,47 +16,56 @@ describe('messages', () => {
 	});
 
 	describe('richContentMessage', () => {
+
+		const msg1 = {messageType: 'neutral',message: MESSAGES.GRAPHICS};
+		const msg2 = {messageType: 'error',message: MESSAGES.WORD_FORMAT};
+
 		it('returns an empty string if item does not have graphics', () => {
 			const richContentMsg = richContentMessage(itemsFixture,userStatusFixture);
 			document.body.innerHTML = richContentMsg;
-			expect(richContentMsg).toEqual(expect.not.stringContaining(MESSAGES.GRAPHICS));
-			expect(richContentMsg).toEqual(expect.not.stringContaining(MESSAGES.WORD_FORMAT));
+
+			expect(Array.isArray(richContentMsg)).toBe(true);
+			expect(richContentMsg.length).toBe(0);
 		});
 
 		it('returns empty string if if hasGraphics is FALSE and canAllGraphicsBeSyndicated is TRUE', () => {
 			const items = Object.assign({}, itemsFixture, {hasGraphics: true, canAllGraphicsBeSyndicated: true });
 			const richContentMsg = richContentMessage(items,userStatusFixture);
-			expect(typeof richContentMsg).toBe('string');
-			expect(richContentMsg).toEqual(expect.not.stringContaining(MESSAGES.GRAPHICS));
-			expect(richContentMsg).toEqual(expect.not.stringContaining(MESSAGES.WORD_FORMAT));
+
+			expect(Array.isArray(richContentMsg)).toBe(true);
+			expect(richContentMsg.length).toBe(0);
 		});
 
 		it('returns empty string if if hasGraphics is FALSE and canAllGraphicsBeSyndicated is FALSE', () => {
-			// eslint-disable-next-line no-undef
+
 			const items = Object.assign({}, itemsFixture, {hasGraphics: true, });
 			const richContentMsg = richContentMessage(items,userStatusFixture);
-			expect(typeof richContentMsg).toBe('string');
-			expect(richContentMsg).toEqual(expect.stringContaining(MESSAGES.GRAPHICS));
-			expect(richContentMsg).toEqual(expect.not.stringContaining(MESSAGES.WORD_FORMAT));
+
+			expect(Array.isArray(richContentMsg)).toBe(true);
+			expect(richContentMsg.length).toBe(1);
+			expect(richContentMsg[0]).toEqual(msg1);
 		});
 
 		it('returns HTML including the graphics unavailable message if hasGraphics is TRUE and canAllGraphicsBeSyndicated is FALSE', () => {
-			// eslint-disable-next-line no-undef
+
 			const items = Object.assign({}, itemsFixture, {hasGraphics: true, });
 			const richContentMsg = richContentMessage(items,userStatusFixture);
-			expect(typeof richContentMsg).toBe('string');
-			expect(richContentMsg).toEqual(expect.stringContaining(MESSAGES.GRAPHICS));
-			expect(richContentMsg).toEqual(expect.not.stringContaining(MESSAGES.WORD_FORMAT));
+
+			expect(Array.isArray(richContentMsg)).toBe(true);
+			expect(richContentMsg.length).toBe(1);
+			expect(richContentMsg[0]).toEqual(msg1);
 		});
 
 		it('returns a string of HTML that contains the graphics unavailable message AND the word format message if hasGraphics is TRUE and canAllGraphicsBeSyndicated is FALSE AND download_format is docx', () => {
-			// eslint-disable-next-line no-undef
+
 			const items = Object.assign({}, itemsFixture, {hasGraphics: true, });
 			const userStatus = Object.assign({}, userStatusFixture, {download_format: 'docx', });
 			const richContentMsg = richContentMessage(items,userStatus);
-			expect(typeof richContentMsg).toBe('string');
-			expect(richContentMsg).toEqual(expect.stringContaining(MESSAGES.GRAPHICS));
-			expect(richContentMsg).toEqual(expect.stringContaining(MESSAGES.WORD_FORMAT));
+
+			expect(Array.isArray(richContentMsg)).toBe(true);
+			expect(richContentMsg.length).toBe(2);
+			expect(richContentMsg[0]).toEqual(msg1);
+			expect(richContentMsg[1]).toEqual(msg2);
 		});
 
 	});
