@@ -1,9 +1,9 @@
 'use strict';
 
 import { interpolate } from './util';
-import { MESSAGES} from './config';
+import { MESSAGES } from './config';
 
-export function getMessage (item, { MAINTENANCE_MODE, contributor_content }) {
+export function getMessage(item, { MAINTENANCE_MODE, contributor_content }) {
 	let message;
 	item.translationMessage = '';
 	if (item.embargoPeriod && typeof item.embargoPeriod === 'number') {
@@ -56,21 +56,26 @@ export function getMessage (item, { MAINTENANCE_MODE, contributor_content }) {
 }
 
 export function richContentMessage (
-	{
-		hasGraphics = false,
-		canAllGraphicsBeSyndicated = false,
-	} = {},
-	{ download_format = 'plain' } = {}
+	{ hasGraphics = false, canAllGraphicsBeSyndicated = false } = {},
+	{ download_format = 'plain', allowed = {} } = {}
 ) {
 	//TODO check what condition is required rich_article user allowed.rich_article or user product code?
 	const messagesContent = [];
 
-	if(hasGraphics && !canAllGraphicsBeSyndicated) {
-		messagesContent.push({messageType: 'neutral', message: MESSAGES.GRAPHICS});
+	if (allowed.rich_article) {
+		if (hasGraphics && !canAllGraphicsBeSyndicated) {
+			messagesContent.push({
+				messageType: 'neutral',
+				message: MESSAGES.GRAPHICS,
+			});
 
-		//Nested condition because only required if first condition true
-		if (download_format && download_format === 'docx') {
-			messagesContent.push({messageType: 'error', message: MESSAGES.WORD_FORMAT});
+			//Nested condition because only required if first condition true
+			if (download_format && download_format === 'docx') {
+				messagesContent.push({
+					messageType: 'error',
+					message: MESSAGES.WORD_FORMAT,
+				});
+			}
 		}
 	}
 

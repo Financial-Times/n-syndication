@@ -6,6 +6,10 @@ import {init as initIconify} from './iconify';
 import {init as initDownloadModal} from './modal-download';
 import {init as initNavigation} from './navigation';
 
+const SYNDICATION_PRODUCT_CODE = 'S1';
+const SYNDICATION_RICH_ARTICLE_CODE = 'S2';
+
+
 export async function checkIfUserIsSyndicationCustomer () {
 	const SYNDICATION_PRODUCT_CODE = 'S1';
 	const response = await getUserProducts().catch(err => err);
@@ -15,21 +19,41 @@ export async function checkIfUserIsSyndicationCustomer () {
 		: false;
 }
 
+export async function getSyndicationAccess () {
+
+	const response = await getUserProducts().catch(err => err);
+
+	if(!response && !response.products) {
+		return response.products.split(',').filter(product => (
+			product === SYNDICATION_PRODUCT_CODE ||product=== SYNDICATION_RICH_ARTICLE_CODE));
+	} else {
+		return false;
+	}
+}
+
+
 export async function init (flags) {
 	if (!flags.get('syndication')) {
 		return;
 	}
 
-	const userIsSyndicationCustomer = await checkIfUserIsSyndicationCustomer();
-	if (!userIsSyndicationCustomer) {
+	const syndicationAccess = await getSyndicationAccess();
+
+	if (!syndicationAccess || !syndicationAccess.includes(SYNDICATION_PRODUCT_CODE)) {
 		return;
 	}
 
 	const user = await getUserStatus();
 
+
 	const noUserOrUserNotMigrated = (!user || user.migrated !== true);
 	if (noUserOrUserNotMigrated) {
 		return;
+	}
+
+	if(syndicationAccess.includes(SYNDICATION_RICH_ARTICLE_CODE)) {
+		//if user has S2 then augment the user object with rich article prop
+		user.allowed.rich_article = true;
 	}
 
 	initNavigation(user);
