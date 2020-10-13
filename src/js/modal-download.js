@@ -302,11 +302,11 @@ function visible () {
 
 function messageTemplate (messageType = 'neutral', messageText) {
 
-	return `<div class="o-message o-message--alert o-message--${messageType}" data-o-component="o-message">
+	return `<div class="o-message o-message--alert o-message--${messageType} n-syndication-rich-content-message" data-o-component="o-message">
 		<div class="o-message__container">
 			<div class="o-message__content">
 				<p class="o-message__content-main">
-					<span class="o-message__content-highlight">${messageText}</span>
+					<span class="o-message__content-highlight n-syndication-rich-message_content-highlight">${messageText}</span>
 				</p>
 			</div>
 		</div>
