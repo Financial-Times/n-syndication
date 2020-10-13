@@ -3,7 +3,7 @@
 import { interpolate } from './util';
 import { MESSAGES } from './config';
 
-export function getMessage(item, { MAINTENANCE_MODE, contributor_content }) {
+export function getMessage (item, { MAINTENANCE_MODE, contributor_content }) {
 	let message;
 	item.translationMessage = '';
 	if (item.embargoPeriod && typeof item.embargoPeriod === 'number') {
@@ -59,7 +59,7 @@ export function richContentMessage (
 	{ hasGraphics = false, canAllGraphicsBeSyndicated = false } = {},
 	{ download_format = 'plain', allowed = {} } = {}
 ) {
-	//TODO check what condition is required rich_article user allowed.rich_article or user product code?
+
 	const messagesContent = [];
 
 	if (allowed.rich_article) {
