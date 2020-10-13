@@ -9,37 +9,27 @@ import {init as initNavigation} from './navigation';
 const SYNDICATION_PRODUCT_CODE = 'S1';
 const SYNDICATION_RICH_ARTICLE_CODE = 'S2';
 
-
-export async function checkIfUserIsSyndicationCustomer () {
-	const SYNDICATION_PRODUCT_CODE = 'S1';
-	const response = await getUserProducts().catch(err => err);
-
-	return response && response.products
-		? response.products.includes(SYNDICATION_PRODUCT_CODE)
-		: false;
-}
-
 export async function getSyndicationAccess () {
 
 	const response = await getUserProducts().catch(err => err);
 
-	if(!response && !response.products) {
+	if(response && response.products) {
 		return response.products.split(',').filter(product => (
 			product === SYNDICATION_PRODUCT_CODE ||product=== SYNDICATION_RICH_ARTICLE_CODE));
-	} else {
-		return false;
 	}
+
+	return [];
 }
 
-
 export async function init (flags) {
+
 	if (!flags.get('syndication')) {
 		return;
 	}
 
 	const syndicationAccess = await getSyndicationAccess();
 
-	if (!syndicationAccess || !syndicationAccess.includes(SYNDICATION_PRODUCT_CODE)) {
+	if (syndicationAccess.length === -1 || !syndicationAccess.includes(SYNDICATION_PRODUCT_CODE)) {
 		return;
 	}
 
