@@ -19,7 +19,7 @@
   ],
   "dependencies": {
     "n-ui-foundations": "^6.0.0",
-    "next-session-client": "^2.3.5",
+    "next-session-client": "^3.0.1",
     "o-buttons": "^6.0.2",
     "o-overlay": "^3.0.0",
     "o-tracking": "^2.0.3",

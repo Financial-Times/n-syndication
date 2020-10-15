@@ -1,12 +1,12 @@
 'use strict';
 
-//import {init, checkIfUserIsSyndicationCustomer} from '../../../src/js/index';
+import {init} from '../../../src/js/index';
 
 
 describe('#init', function () {
-	// test('init should be a Function', function () {
-	// 	expect(typeof init).toBe('function');
-	// });
+	test('init should be a Function', function () {
+		expect(typeof init).toBe('function');
+	});
 
 	// test('checkIfUserIsSyndicationCustomer should be a Function', function () {
 	// 	expect(typeof checkIfUserIsSyndicationCustomer).toBe('function');
