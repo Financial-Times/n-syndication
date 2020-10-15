@@ -9,10 +9,18 @@ import {init as initNavigation} from './navigation';
 const SYNDICATION_PRODUCT_CODE = 'S1';
 const SYNDICATION_RICH_ARTICLE_CODE = 'S2';
 
-export async function getSyndicationAccess () {
-
+//Todo extract and refactor checkIfUserIsSyndicationCustomer and getSyndicationAccess to separate module
+//checkIfUserIsSyndic
+export async function checkIfUserIsSyndicationCustomer () {
+	const SYNDICATION_PRODUCT_CODE = 'S1';
 	const response = await getUserProducts().catch(err => err);
 
+	return response && response.products
+		? response.products.includes(SYNDICATION_PRODUCT_CODE)
+		: false;
+}
+export async function getSyndicationAccess () {
+	const response = await getUserProducts().catch(err => err);
 	if(response && response.products) {
 		return response.products.split(',').filter(product => (
 			product === SYNDICATION_PRODUCT_CODE ||product=== SYNDICATION_RICH_ARTICLE_CODE));
