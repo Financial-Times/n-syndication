@@ -1,23 +1,13 @@
 // 'use strict';
 
+//Mocks
+jest.mock('next-session-client');
+import {products as getUserProducts}from 'next-session-client';
+//Fixtures
+import userProductResFixture from '../../fixtures/userProducts';
+//Subjects
 import {init} from '../../../src/js/index';
-
 import { getSyndicationAccess } from '../../../src/js/index';
-
-//jest.mock('next-session-client');
-
-// const userProductResFixture = {
-// 	rich_content_access: {
-// 		products: 'G0,Tools,S1,S2,P0,P2',
-// 		uuid: '00000000-0000-0000-000000000000',
-// 	},
-// 	basic_syndication: {
-// 		products: 'G0,Tools,S1,P0,P2',
-// 	},
-// 	no_syndication: {
-// 		products: 'G0,Tools,P0,P2',
-// 	},
-// };
 
 describe('#init', function () {
 	test('init should be a Function', function () {
@@ -39,14 +29,26 @@ describe('#init', function () {
 });
 
 describe('#getSyndicationAccess', () => {
-	test('should return an empty Array if user has no syndication products', async () => {
+
+	afterEach(() => {
+		getUserProducts.mockReset();
+	});
+	// eslint-disable-next-line no-console
+	//getUserProducts().then(val => console.log(val) );
+
+	test('should return an empty Array if user has no syndication product codes', async () => {
+
+		getUserProducts.mockResolvedValue(userProductResFixture.no_syndication);
+
 		const subject = await getSyndicationAccess();
 
 		expect(Array.isArray(subject)).toBe(true);
 		expect(subject.length).toEqual(0);
 	});
 
-	test.skip('should an array of syndication only of product code S1 ', async () => {
+	test('should return an array of ["S1"] if use has basic syndication accsss of S1 ', async () => {
+
+		getUserProducts.mockResolvedValue(userProductResFixture.basic_syndication);
 
 		const subject = await getSyndicationAccess();
 
@@ -55,8 +57,10 @@ describe('#getSyndicationAccess', () => {
 		expect(subject.includes('S1')).toBe(true);
 		expect(subject.includes('S2')).toBe(false);
 	});
-	test.skip('should an array of syndication only product codes S1 and S2', async () => {
 
+	test('should return an array of ["S1", "S2"] to denote syndication rich article access', async () => {
+
+		getUserProducts.mockResolvedValue(userProductResFixture.rich_content_access);
 		const subject = await getSyndicationAccess();
 
 		expect(Array.isArray(subject)).toBe(true);
