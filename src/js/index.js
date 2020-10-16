@@ -1,33 +1,11 @@
 import {$$} from 'n-ui-foundations';
-import {products as getUserProducts} from 'next-session-client';
 import getUserStatus from './get-user-status';
 import {init as initDataStore} from './data-store';
 import {init as initIconify} from './iconify';
 import {init as initDownloadModal} from './modal-download';
 import {init as initNavigation} from './navigation';
-
-const SYNDICATION_PRODUCT_CODE = 'S1';
-const SYNDICATION_RICH_ARTICLE_CODE = 'S2';
-
-//Todo extract and refactor checkIfUserIsSyndicationCustomer and getSyndicationAccess to separate module
-//checkIfUserIsSyndic
-export async function checkIfUserIsSyndicationCustomer () {
-	const SYNDICATION_PRODUCT_CODE = 'S1';
-	const response = await getUserProducts().catch(err => err);
-
-	return response && response.products
-		? response.products.includes(SYNDICATION_PRODUCT_CODE)
-		: false;
-}
-export async function getSyndicationAccess () {
-	const response = await getUserProducts().catch(err => err);
-	if(response && response.products) {
-		return response.products.split(',').filter(product => (
-			product === SYNDICATION_PRODUCT_CODE ||product=== SYNDICATION_RICH_ARTICLE_CODE));
-	}
-
-	return [];
-}
+import { getSyndicationAccess } from './userAccess';
+import { SYNDICATION_ACCESS } from './config';
 
 export async function init (flags) {
 
@@ -37,7 +15,7 @@ export async function init (flags) {
 
 	const syndicationAccess = await getSyndicationAccess();
 
-	if (syndicationAccess.length === -1 || !syndicationAccess.includes(SYNDICATION_PRODUCT_CODE)) {
+	if (syndicationAccess.length === -1 || !syndicationAccess.includes(SYNDICATION_ACCESS.STANDARD)) {
 		return;
 	}
 
@@ -49,7 +27,7 @@ export async function init (flags) {
 		return;
 	}
 
-	if(syndicationAccess.includes(SYNDICATION_RICH_ARTICLE_CODE)) {
+	if(syndicationAccess.includes(SYNDICATION_ACCESS.RICH_ARTICLE)) {
 		//if user has S2 then augment the user object with rich article prop
 		user.allowed.rich_article = true;
 	}

@@ -23,6 +23,11 @@ export const MESSAGES = {
 	WORD_FORMAT: 'Graphics are only available in Word format. Please select Word format (docx) in your  <a data-trackable="contractual-rights" href="/republishing/contract">syndication management tool</a> to download.'
 };
 
+export const SYNDICATION_ACCESS = {
+	STANDARD :'S1',
+	RICH_ARTICLE: 'S2'
+};
+
 export const TRACKING = {
 	CATEGORY: 'syndication',
 	DATA: {
