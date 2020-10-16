@@ -7,7 +7,7 @@ import {products as getUserProducts}from 'next-session-client';
 //Fixtures
 import userProductResFixture from '../../fixtures/userProducts';
 //Subjects
-import {getSyndicationAccess} from '../../../src/js/index';
+import {getSyndicationAccess} from '../../../src/js/userAccess';
 
 describe('#getSyndicationAccess', () => {
 
