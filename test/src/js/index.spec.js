@@ -4,17 +4,13 @@
 jest.mock( '../../../src/js/userAccess', () => ({
 	getSyndicationAccess: jest.fn(),
 }));
-
-jest.mock( '../../../src/js/get-user-status', () => ({
-	getUserStatus: jest.fn(),
-}));
-
 import { getSyndicationAccess } from '../../../src/js/userAccess';
 
+jest.mock( '../../../src/js/get-user-status');
 import getUserStatus from '../../../src/js/get-user-status';
 
 //Fixtures
-const userFixture = require('../../fixtures/userStatus.json');
+//const userFixture = require('../../fixtures/userStatus.json');
 
 //Dependencies
 import {init as initDataStore} from '../../../src/js/data-store';
@@ -26,10 +22,10 @@ import {init as initNavigation} from '../../../src/js/navigation';
 import {init} from '../../../src/js/index';
 
 describe('#init', function () {
-	// const initDataStore = jest.fn();
-	// const initIconify = jest.fn();
-	// const initDownloadModal = jest.fn();
-	// const initNavigation = jest.fn();
+	const initDataStore = jest.fn();
+	const initIconify = jest.fn();
+	const initDownloadModal = jest.fn();
+	const initNavigation = jest.fn();
 
 	beforeEach(() => {
 		//console.log('before each', getUserStatus);
@@ -38,6 +34,7 @@ describe('#init', function () {
 
 	afterEach(() => {
 		getSyndicationAccess.mockReset();
+		getUserStatus.mockReset();
 	});
 
 
@@ -50,22 +47,25 @@ describe('#init', function () {
 		expect(subject).toBe(undefined);
 	});
 
-	test.skip('should not attempt to get user status or initialise syndication when not syndication customer', async () => {
+	test('should not attempt to get user status or initialise syndication when not syndication customer', async () => {
 		const flagMock = {
 			get: () => true
 		};
-		//console.log('calling mocked getSyndicationAccess', getSyndicationAccess);
-		getSyndicationAccess.mockResolvedValue(['S1','S2', 'Tool']);
 
-		//console.log('calling mocked getUserStatus', getUserStatus);
-		getUserStatus.mockResolvedValue('bananas');
+		const userMock = {};
+
+		getSyndicationAccess.mockResolvedValue(['P1','P2', 'Tool']);
+
+		getUserStatus.mockResolvedValue(userMock);
 
 		const subject = await init(flagMock);
 
 		expect(subject).toBe(undefined);
 
-
-		getUserStatus.mockReset();
+		expect(initDataStore).not.toHaveBeenCalled();
+		expect(initIconify).not.toHaveBeenCalled();
+		expect(initDownloadModal).not.toHaveBeenCalled();
+		expect(initNavigation).not.toHaveBeenCalled();
 	});
 });
 
