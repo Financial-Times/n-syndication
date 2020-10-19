@@ -77,15 +77,10 @@ describe('#init should return undefined and ', function () {
 		const unMigratedUser = JSON.parse(JSON.stringify(userFixture));
 		unMigratedUser.migrated = false;
 
-		console.log('migrated?', unMigratedUser.migrated);
-
 		getSyndicationAccess.mockResolvedValue(['S1', 'P1']);
 		getUserStatus.mockResolvedValue(unMigratedUser);
 
 		const subject = await init(flagMock);
-
-		// eslint-disable-next-line no-console
-		console.log('subject happy path', subject);
 
 		expect(subject).toBe(undefined);
 		expect(initDataStore).not.toHaveBeenCalled();
@@ -107,9 +102,6 @@ describe('#init should return undefined and ', function () {
 
 		const subject = await init(flagMock);
 
-		// eslint-disable-next-line no-console
-		console.log('subject happy path', subject);
-
 		expect(subject).toBe(undefined);
 		expect(initDataStore).toHaveBeenCalledWith(userFixture);
 		expect(initIconify).toHaveBeenCalledWith(userFixture);
@@ -126,9 +118,6 @@ describe('#init should return undefined and ', function () {
 		getUserStatus.mockResolvedValue(userFixture);
 
 		const subject = await init(flagMock);
-
-		// eslint-disable-next-line no-console
-		console.log('subject happy path', subject);
 
 		expect(subject).toBe(undefined);
 		expect(initDataStore).toHaveBeenCalledWith(userFixture);
