@@ -21,7 +21,6 @@ export async function init (flags) {
 
 	const user = await getUserStatus();
 
-
 	const noUserOrUserNotMigrated = (!user || user.migrated !== true);
 	if (noUserOrUserNotMigrated) {
 		return;
