@@ -3,7 +3,6 @@
 //Mocks
 jest.mock('next-session-client');
 import {products as getUserProducts}from 'next-session-client';
-//import getUserStatus from '../../../src/js/get-user-status';
 //Fixtures
 import userProductResFixture from '../../fixtures/userProducts';
 //Subjects
@@ -14,8 +13,6 @@ describe('#getSyndicationAccess', () => {
 	afterEach(() => {
 		getUserProducts.mockReset();
 	});
-	// eslint-disable-next-line no-console
-	//getUserProducts().then(val => console.log(val) );
 
 	test('should return an empty Array if user has no syndication product codes', async () => {
 
