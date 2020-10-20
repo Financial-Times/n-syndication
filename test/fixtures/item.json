@@ -1,9 +1,11 @@
 {
+  "canAllGraphicsBeSyndicated": false,
   "canBeSyndicated": "yes",
   "canDownload": 1,
   "downloaded": false,
   "embargoMessage": "",
   "embargoPeriod": null,
+  "hasGraphics": false,
   "id": "74c2babb-1ff2-4a18-9718-4b054dd819c2",
   "lang": "en",
   "messageCode": "MSG_2000",

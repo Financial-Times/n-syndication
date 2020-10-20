@@ -70,7 +70,8 @@ export function richContentMessage (
 			});
 
 			//Nested condition because only required if first condition true
-			if (download_format && download_format === 'docx') {
+			if (download_format && download_format !== 'docx') {
+
 				messagesContent.push({
 					messageType: 'error',
 					message: MESSAGES.WORD_FORMAT,

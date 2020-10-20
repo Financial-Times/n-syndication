@@ -16,7 +16,7 @@ describe('messages', () => {
 		});
 	});
 
-	describe('richContentMessage for users without rich_article access', () => {
+	describe('richContentMessage for users WITHOUT rich_article access', () => {
 		it('returns an empty string if user does not have allowed.rich_article set to TRUE', () => {
 
 			const richContentMsg = richContentMessage(
@@ -50,9 +50,8 @@ describe('messages', () => {
 			expect(richContentMsg.length).toBe(0);
 		});
 
-		it('returns empty string if if hasGraphics is FALSE and canAllGraphicsBeSyndicated is TRUE', () => {
+		it('returns empty string if hasGraphics is FALSE and canAllGraphicsBeSyndicated is TRUE', () => {
 			const items = Object.assign({}, itemsFixture, {
-				hasGraphics: true,
 				canAllGraphicsBeSyndicated: true,
 			});
 			const richContentMsg = richContentMessage(items, userStatusFixture);
@@ -61,28 +60,29 @@ describe('messages', () => {
 			expect(richContentMsg.length).toBe(0);
 		});
 
-		it('returns empty string if if hasGraphics is FALSE and canAllGraphicsBeSyndicated is FALSE', () => {
-			const items = Object.assign({}, itemsFixture, { hasGraphics: true });
+		it('returns empty string if hasGraphics is FALSE and canAllGraphicsBeSyndicated is FALSE', () => {
+			const items = Object.assign({}, itemsFixture);
 			const richContentMsg = richContentMessage(items, userStatusFixture);
+
+			expect(Array.isArray(richContentMsg)).toBe(true);
+			expect(richContentMsg.length).toBe(0);
+		});
+
+		it('returns HTML including the graphics unavailable message if hasGraphics is TRUE and canAllGraphicsBeSyndicated is FALSE and download_format IS docx', () => {
+			const itemsHasGraphics = Object.assign({}, itemsFixture, { hasGraphics: true });
+			const userWithWordDoc = Object.assign({}, userStatusFixture, { download_format: 'docx' });
+			const richContentMsg = richContentMessage(itemsHasGraphics, userWithWordDoc);
+
 
 			expect(Array.isArray(richContentMsg)).toBe(true);
 			expect(richContentMsg.length).toBe(1);
 			expect(richContentMsg[0]).toEqual(msg1);
 		});
 
-		it('returns HTML including the graphics unavailable message if hasGraphics is TRUE and canAllGraphicsBeSyndicated is FALSE', () => {
-			const items = Object.assign({}, itemsFixture, { hasGraphics: true });
-			const richContentMsg = richContentMessage(items, userStatusFixture);
-
-			expect(Array.isArray(richContentMsg)).toBe(true);
-			expect(richContentMsg.length).toBe(1);
-			expect(richContentMsg[0]).toEqual(msg1);
-		});
-
-		it('returns a string of HTML that contains the graphics unavailable message AND the word format message if hasGraphics is TRUE and canAllGraphicsBeSyndicated is FALSE AND download_format is docx', () => {
+		it('returns a string of HTML that contains the graphics unavailable message AND the word format message if hasGraphics is TRUE and canAllGraphicsBeSyndicated is FALSE and download_format is NOT docx', () => {
 			const items = Object.assign({}, itemsFixture, { hasGraphics: true });
 			const userStatus = Object.assign({}, userStatusFixture, {
-				download_format: 'docx',
+				download_format: 'plain',
 			});
 			const richContentMsg = richContentMessage(items, userStatus);
 
