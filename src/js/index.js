@@ -1,27 +1,20 @@
 import {$$} from 'n-ui-foundations';
-import {products as getUserProducts} from 'next-session-client';
 import getUserStatus from './get-user-status';
 import {init as initDataStore} from './data-store';
 import {init as initIconify} from './iconify';
 import {init as initDownloadModal} from './modal-download';
 import {init as initNavigation} from './navigation';
+import { getSyndicationAccess } from './user-access';
+import { SYNDICATION_ACCESS } from './config';
 
-async function checkIfUserIsSyndicationCustomer () {
-	const SYNDICATION_PRODUCT_CODE = 'S1';
-	const response = await getUserProducts().catch(err => err);
-
-	return response && response.products
-		? response.products.includes(SYNDICATION_PRODUCT_CODE)
-		: false;
-}
-
-async function init (flags) {
+export async function init (flags) {
 	if (!flags.get('syndication')) {
 		return;
 	}
 
-	const userIsSyndicationCustomer = await checkIfUserIsSyndicationCustomer();
-	if (!userIsSyndicationCustomer) {
+	const syndicationAccess = await getSyndicationAccess();
+
+	if (syndicationAccess.length === -1 || !syndicationAccess.includes(SYNDICATION_ACCESS.STANDARD)) {
 		return;
 	}
 
@@ -31,6 +24,12 @@ async function init (flags) {
 	if (noUserOrUserNotMigrated) {
 		return;
 	}
+
+	if(syndicationAccess.includes(SYNDICATION_ACCESS.RICH_ARTICLE)) {
+		//if user has S2 then augment the user object with rich article prop
+		user.allowed.rich_article = true;
+	}
+
 
 	initNavigation(user);
 
@@ -46,8 +45,3 @@ async function init (flags) {
 	initDownloadModal(user);
 	$$('.video__actions__download').forEach(el => el.parentNode.removeChild(el));
 }
-
-export {
-	init,
-	checkIfUserIsSyndicationCustomer
-};
