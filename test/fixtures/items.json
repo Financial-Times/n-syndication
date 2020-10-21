@@ -1,0 +1,20 @@
+{
+    "canAllGraphicsBeSyndicated": false,
+    "canBeSyndicated": "yes",
+    "canDownload": 1,
+    "downloaded": false,
+    "embargoMessage": "",
+    "embargoPeriod": null,
+    "hasGraphics": false,
+    "id": "74c2babb-1ff2-4a18-9718-4b054dd819c2",
+    "lang": "en",
+    "messageCode": "MSG_2000",
+    "publishedDate": "2020-09-14T16:52:45.787Z",
+    "publishedDateDisplay": "14th Sep 2020",
+    "saved": false,
+    "title": "Wall Street higher as Nasdaq regains ground",
+    "translationMessage": "",
+    "type": "article",
+    "wordCount": 645,
+    "__id__": "74c2babb-1ff2-4a18-9718-4b054dd819c2__en"
+  }
