@@ -42,7 +42,7 @@ function getContentIDFromHTMLElement (el) {
 				}
 
 				if (anchorEl && anchorEl.hasAttribute('href')) {
-					id = anchorEl.getAttribute('href').spltest('/').pop();
+					id = anchorEl.getAttribute('href').split('/').pop();
 
 					id = getContentIDFromHref(id);
 
