@@ -6,12 +6,66 @@ import {products as getUserProducts}from 'next-session-client';
 //Fixtures
 import userProductResFixture from '../../fixtures/userProducts';
 //Subjects
-import {getSyndicationAccess} from '../../../src/js/user-access';
+import {getSyndicationAccess, checkIfUserIsSyndicationCustomer} from '../../../src/js/user-access';
+
+describe('checkIfUserIsSyndicationCustomer', () => {
+	afterEach(() => {
+		getUserProducts.mockReset();
+	});
+
+	test('should return FALSE if getUserProducts call fails', async () => {
+
+		getUserProducts.mockResolvedValue(new Error('Some error from next-session client'));
+
+		const subject = await checkIfUserIsSyndicationCustomer();
+
+		expect(subject).toBe(false);
+	});
+
+
+	test('should return FALSE if user has no syndication product codes', async () => {
+
+		getUserProducts.mockResolvedValue(userProductResFixture.no_syndication);
+
+		const subject = await checkIfUserIsSyndicationCustomer();
+
+		expect(subject).toBe(false);
+	});
+
+	test('should return TRUE if user has syndication product code S1', async () => {
+
+		getUserProducts.mockResolvedValue(userProductResFixture.basic_syndication);
+
+		const subject = await checkIfUserIsSyndicationCustomer();
+
+		expect(subject).toBe(true);
+	});
+
+	test('should return TRUE if user has syndication product code S1 and S2', async () => {
+
+		getUserProducts.mockResolvedValue(userProductResFixture.rich_content_access);
+
+		const subject = await checkIfUserIsSyndicationCustomer();
+
+		expect(subject).toBe(true);
+	});
+
+});
 
 describe('#getSyndicationAccess', () => {
 
 	afterEach(() => {
 		getUserProducts.mockReset();
+	});
+
+	test('should return an empty Array if getUserProducts rejects', async () => {
+		//Silent fail of user access!?
+		getUserProducts.mockResolvedValue(new Error('Some error from next-session client'));
+
+		const subject = await getSyndicationAccess();
+
+		expect(Array.isArray(subject)).toBe(true);
+		expect(subject.length).toEqual(0);
 	});
 
 	test('should return an empty Array if user has no syndication product codes', async () => {
