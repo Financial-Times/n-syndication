@@ -25,6 +25,10 @@ export async function init (flags) {
 		return;
 	}
 
+	/*
+	Probabaly not be necessary now we are setting this in next-syndication-api
+	however maybe worth retaining as a second check
+	*/
 	if(syndicationAccess.includes(SYNDICATION_ACCESS.RICH_ARTICLE)) {
 		//if user has S2 then augment the user object with rich article prop
 		user.allowed.rich_article = true;
