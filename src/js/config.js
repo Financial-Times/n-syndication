@@ -1,7 +1,5 @@
 'use strict';
 
-import {interpolate} from './util';
-
 const CONTRACTUAL_RIGHTS_CONSIDERATION = '<p>Please ensure you have considered your <a data-trackable="contractual-rights" href="/republishing/contract">contractual rights</a> before republishing.</p>';
 const ADDITIONAL_CHARGES_WARNING = '<p class="syndication-message__content--warning">This content will incur additional charges to republish. Please contact us for further details (<a href="mailto:syndication@ft.com">syndication@ft.com</a> or +44 (0)207 873 4816).</p>';
 export const MESSAGES = {
@@ -29,48 +27,6 @@ export const SYNDICATION_ACCESS = {
 	STANDARD :'S1',
 	RICH_ARTICLE: 'S2'
 };
-
-export function getMessage (item, {MAINTENANCE_MODE, contributor_content}) {
-	let message;
-	item.translationMessage = '';
-	if (item.embargoPeriod && typeof item.embargoPeriod === 'number') {
-		item.embargoPeriod = `${item.embargoPeriod} day${item.embargoPeriod > 1 ? 's' : ''}`;
-	}
-
-	item.embargoMessage = item.embargoPeriod ? interpolate(MESSAGES.EMBARGO, item) : '';
-	if (Boolean(document.getElementById('ftlabsTranslationContainer'))) {
-		item.translationMessage = interpolate(MESSAGES.ENGLISH, item);
-	}
-
-	if (MAINTENANCE_MODE === true) {
-		message = MESSAGES.MSG_5100;
-	} else if (item.type === 'package') {
-		message = MESSAGES.MSG_4300;
-	} else if (item.notAvailable === true) {
-		message = MESSAGES.MSG_4050;
-	} else if (item.canBeSyndicated === 'verify') {
-		message = item.lang !== 'en' ? MESSAGES.MSG_4250 : MESSAGES.MSG_2200;
-	}
-	if (item.canBeSyndicated === 'withContributorPayment' && contributor_content !== true) {
-		message = MESSAGES.MSG_2300;
-	} else if (item.canBeSyndicated === 'withContributorPayment' && item.downloaded === true) {
-		message = MESSAGES.MSG_2340;
-	} else if (item.canBeSyndicated === 'withContributorPayment') {
-		message = MESSAGES.MSG_2320;
-	} else if (item.canBeSyndicated === 'no' || !item.canBeSyndicated) {
-		message = MESSAGES.MSG_4000;
-	} else if (item.downloaded === true) {
-		message = MESSAGES.MSG_2100;
-	} else if (item.canDownload === 0) {
-		message = item.lang !== 'en' ? MESSAGES.MSG_4250 : MESSAGES.MSG_4200;
-	} else if (item.canDownload === -1) {
-		message = MESSAGES.MSG_4100;
-	} else {
-		message = MESSAGES.MSG_2000;
-	}
-
-	return interpolate(message, item);
-}
 
 export const TRACKING = {
 	CATEGORY: 'syndication',
