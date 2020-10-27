@@ -146,23 +146,26 @@ describe('#init should return undefined and ', function () {
 		expect(initDownloadModal).not.toHaveBeenCalled();
 	});
 
-	test('should initialise syndication features including rich article access the user has republishing product code S1 and S2', async () => {
+	test('should initialise syndication features including rich article access if getUserStatus returns with allowed.rich_article = TRUE', async () => {
 		const flagMock = {
 			get: () => true,
 		};
 
-		const user = userFixture;
 		getSyndicationAccess.mockResolvedValue(['S1', 'S2', 'P1']);
-		getUserStatus.mockResolvedValue(userFixture);
+
+
+		const richArtUser = JSON.parse(JSON.stringify(userFixture));
+		richArtUser.allowed.rich_article = true;
+
+		getUserStatus.mockResolvedValue(richArtUser);
 
 		const subject = await init(flagMock);
 
 		expect(subject).toBe(undefined);
-		expect(userFixture.allowed.rich_article).toBe(true);
-		expect(initDataStore).toHaveBeenCalledWith(user);
-		expect(initIconify).toHaveBeenCalledWith(user);
-		expect(initDownloadModal).toHaveBeenCalledWith(user);
-		expect(initNavigation).toHaveBeenCalledWith(user);
+		expect(initDataStore).toHaveBeenCalledWith(richArtUser);
+		expect(initIconify).toHaveBeenCalledWith(richArtUser);
+		expect(initDownloadModal).toHaveBeenCalledWith(richArtUser);
+		expect(initNavigation).toHaveBeenCalledWith(richArtUser);
 	});
 
 });
