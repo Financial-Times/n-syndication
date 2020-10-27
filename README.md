@@ -28,7 +28,7 @@ $ npx sass ./test/main.scss --load-path=./bower_components/
 
 ### Developing with a next app
 
-The best way to develop with your changes on the site is to use [`bower link`](https://bower.io/docs/api/#link) in a running app. (If using `n-ui` to build you'll need to [set the `NEXT_APP_SHELL=local` variable](https://github.com/Financial-Times/n-ui#testing-in-an-app))
+Currently the best way to develop with your changes on the site is to use [`bower link`](https://bower.io/docs/api/#link) in a running app.
 
 ## Deployment
 

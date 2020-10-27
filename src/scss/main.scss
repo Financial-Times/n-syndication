@@ -2,6 +2,7 @@
 @import "o-colors/main";
 @import "o-overlay/main";
 @import "o-visual-effects/main";
+@import "o-message/main";
 
 .n-syndication-icon {
 	@include oIconsContent(
@@ -281,4 +282,12 @@
 .n-syndication-modal-message .syndication-message__content--warning {
 	color: oColorsByName("crimson");
 	font-weight: 600;
+}
+
+.n-syndication-rich-content-message {
+	margin-bottom: 1vh;
+}
+
+.o-message__content .o-message__content-main .n-syndication-rich-message_content-highlight {
+	font-weight: 400;
 }

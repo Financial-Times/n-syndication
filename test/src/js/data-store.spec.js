@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 const underTest = require('../../../src/js/data-store');
 
 describe('./src/js/data-store', function () {

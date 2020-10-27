@@ -3,7 +3,7 @@
 import {$$, broadcast} from 'n-ui-foundations';
 
 import {DATA_STORE, fetchItems} from './data-store';
-import {getMessage} from './config';
+import {getMessage} from './messages';
 import {getContentIDFromHTMLElement, prepend, toElement} from './util';
 
 const SYNDICATION_INSERTION_RULES = {
