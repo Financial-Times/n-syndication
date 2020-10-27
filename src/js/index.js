@@ -14,7 +14,7 @@ export async function init (flags) {
 
 	const syndicationAccess = await getSyndicationAccess();
 
-	if (syndicationAccess.length === -1 || !syndicationAccess.includes(SYNDICATION_ACCESS.STANDARD)) {
+	if (!syndicationAccess.length || !syndicationAccess.includes(SYNDICATION_ACCESS.STANDARD)) {
 		return;
 	}
 
