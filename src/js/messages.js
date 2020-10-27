@@ -52,7 +52,7 @@ export function richContentMessage (
 
 	const messagesContent = [];
 
-	if (allowed.rich_article) {
+	if (allowed.rich_articles) {
 		if (hasGraphics && !canAllGraphicsBeSyndicated) {
 			messagesContent.push({
 				messageType: 'neutral',

@@ -36,7 +36,7 @@ describe('messages', () => {
 		const msg2 = { messageType: 'error', message: MESSAGES.WORD_FORMAT };
 
 		beforeEach(() => {
-			userStatusFixture.allowed.rich_article = true;
+			userStatusFixture.allowed.rich_articles = true;
 		});
 
 		it('returns an empty string if item does not have graphics', () => {
