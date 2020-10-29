@@ -8,7 +8,7 @@ import {TRACKING} from './config';
 
 import {toElement} from './util';
 import {getAllItemsForID, getItemByHTMLElement} from './data-store';
-import {getMessage, richContentMessage } from './messages';
+import {getMessage, getAdditionalMessages } from './messages';
 
 const MAX_LOCAL_FORMAT_TIME_MS = 300000;
 const localStore = new Superstore('local', 'syndication');
@@ -160,6 +160,8 @@ function createElement (item) {
 		downloadTrackingId = 'download-items';
 	}
 
+	debugger;
+
 	return toElement(`<div class="n-syndication-modal-shadow"></div>
 							<div class="n-syndication-modal n-syndication-modal-${item.type}" role="dialog" aria-labelledby="'Download:  ${title}" tabindex="0">
 								<header class="n-syndication-modal-heading">
@@ -171,7 +173,7 @@ function createElement (item) {
 									<div class="n-syndication-modal-message">
 									${getMessage(item, USER_DATA)}
 									</div>
-									${richContentWarnings (item)}
+									${getAdditionalMessages (item, USER_DATA)}
 									<div class="n-syndication-actions" data-content-id="${item.id}" data-iso-lang="${item.lang}">
 										<a class="n-syndication-action" data-action="save" ${disableSaveButton ? 'disabled' : ''} data-trackable="${saveTrackingId}" href="${saveHref}">${saveText}</a>
 										<a class="n-syndication-action n-syndication-action-primary" data-action="download" ${disableDownloadButton ? 'disabled' : ''} ${downloadTrackingId ? `data-trackable="${downloadTrackingId}"` : ''} href="${downloadHref}">${downloadText}</a>
@@ -299,33 +301,6 @@ function show (evt) {
 
 function visible () {
 	return !!(OVERLAY_MODAL_ELEMENT && document.body.contains(OVERLAY_MODAL_ELEMENT));
-}
-
-function messageTemplate (messageType = 'neutral', messageText) {
-
-	return `<div class="o-message o-message--alert o-message--${messageType} n-syndication-rich-content-message" data-o-component="o-message">
-		<div class="o-message__container">
-			<div class="o-message__content">
-				<p class="o-message__content-main">
-					<span class="o-message__content-highlight n-syndication-rich-message_content-highlight">${messageText}</span>
-				</p>
-			</div>
-		</div>
-	</div>`;
-}
-
-function richContentWarnings (item) {
-	const theMessages = richContentMessage(item, USER_DATA);
-
-	if (theMessages.length === -1) {
-		return null;
-	}
-
-	const richContentWarningsMessages = theMessages
-		.map((message) => messageTemplate(message.messageType, message.message))
-		.join('');
-
-	return richContentWarningsMessages;
 }
 
 

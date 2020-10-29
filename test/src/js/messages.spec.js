@@ -91,5 +91,17 @@ describe('messages', () => {
 			expect(richContentMsg[0]).toEqual(msg1);
 			expect(richContentMsg[1]).toEqual(msg2);
 		});
+
+		it('returns a string of HTML that contains the graphics unavailable message AND the word format message if hasGraphics is TRUE and canAllGraphicsBeSyndicated is TRUE and download_format is NOT docx', () => {
+			const items = Object.assign({}, itemsFixture, { hasGraphics: true, canAllGraphicsBeSyndicated: true });
+			const userStatus = Object.assign({}, userStatusFixture, {
+				download_format: 'plain',
+			});
+			const richContentMsg = richContentMessage(items, userStatus);
+
+			expect(Array.isArray(richContentMsg)).toBe(true);
+			expect(richContentMsg.length).toBe(1);
+			expect(richContentMsg[0]).toEqual(msg2);
+		});
 	});
 });
