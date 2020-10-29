@@ -45,6 +45,14 @@ export function getMessage (item, {MAINTENANCE_MODE, contributor_content}) {
 	return interpolate(message, item);
 }
 
+export function getAdditionalMessages (item, user) {
+	const richContentMessages = richContentMessage(item, user);
+
+	return richContentMessages
+		.map(messageTemplate)
+		.join('');
+}
+
 export function richContentMessage (
 	{ hasGraphics = false, canAllGraphicsBeSyndicated = false } = {},
 	{ download_format = 'plain', allowed = {} } = {}
@@ -52,23 +60,35 @@ export function richContentMessage (
 
 	const messagesContent = [];
 
-	if (allowed.rich_article) {
+	if (allowed.rich_articles) {
 		if (hasGraphics && !canAllGraphicsBeSyndicated) {
 			messagesContent.push({
 				messageType: 'neutral',
 				message: MESSAGES.GRAPHICS,
 			});
-
-			//Nested condition because only required if first condition true
-			if (download_format && download_format !== 'docx') {
-
-				messagesContent.push({
-					messageType: 'error',
-					message: MESSAGES.WORD_FORMAT,
-				});
-			}
 		}
+
+		if (hasGraphics && download_format !== 'docx') {
+			messagesContent.push({
+				messageType: 'error',
+				message: MESSAGES.WORD_FORMAT,
+			});
+		}
+
 	}
 
 	return messagesContent;
+}
+
+function messageTemplate ({ messageType = 'neutral', message = '' }) {
+
+	return `<div class="o-message o-message--alert o-message--${messageType} n-syndication-rich-content-message" data-o-component="o-message">
+		<div class="o-message__container">
+			<div class="o-message__content">
+				<p class="o-message__content-main">
+					<span class="o-message__content-highlight n-syndication-rich-message_content-highlight">${message}</span>
+				</p>
+			</div>
+		</div>
+	</div>`;
 }

@@ -36,7 +36,7 @@ describe('messages', () => {
 		const msg2 = { messageType: 'error', message: MESSAGES.WORD_FORMAT };
 
 		beforeEach(() => {
-			userStatusFixture.allowed.rich_article = true;
+			userStatusFixture.allowed.rich_articles = true;
 		});
 
 		it('returns an empty string if item does not have graphics', () => {
@@ -90,6 +90,18 @@ describe('messages', () => {
 			expect(richContentMsg.length).toBe(2);
 			expect(richContentMsg[0]).toEqual(msg1);
 			expect(richContentMsg[1]).toEqual(msg2);
+		});
+
+		it('returns a string of HTML that contains the graphics unavailable message AND the word format message if hasGraphics is TRUE and canAllGraphicsBeSyndicated is TRUE and download_format is NOT docx', () => {
+			const items = Object.assign({}, itemsFixture, { hasGraphics: true, canAllGraphicsBeSyndicated: true });
+			const userStatus = Object.assign({}, userStatusFixture, {
+				download_format: 'plain',
+			});
+			const richContentMsg = richContentMessage(items, userStatus);
+
+			expect(Array.isArray(richContentMsg)).toBe(true);
+			expect(richContentMsg.length).toBe(1);
+			expect(richContentMsg[0]).toEqual(msg2);
 		});
 	});
 });
