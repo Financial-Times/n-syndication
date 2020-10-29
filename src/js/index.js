@@ -12,8 +12,6 @@ export async function init (flags) {
 		return;
 	}
 
-	debugger;
-
 	const syndicationAccess = await getSyndicationAccess();
 
 	if (!syndicationAccess.length || !syndicationAccess.includes(SYNDICATION_ACCESS.STANDARD)) {

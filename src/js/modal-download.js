@@ -160,8 +160,6 @@ function createElement (item) {
 		downloadTrackingId = 'download-items';
 	}
 
-	debugger;
-
 	return toElement(`<div class="n-syndication-modal-shadow"></div>
 							<div class="n-syndication-modal n-syndication-modal-${item.type}" role="dialog" aria-labelledby="'Download:  ${title}" tabindex="0">
 								<header class="n-syndication-modal-heading">
