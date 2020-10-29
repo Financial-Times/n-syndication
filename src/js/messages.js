@@ -80,13 +80,13 @@ export function richContentMessage (
 	return messagesContent;
 }
 
-function messageTemplate ({ messageType = 'neutral', messageText = '' }) {
+function messageTemplate ({ messageType = 'neutral', message = '' }) {
 
 	return `<div class="o-message o-message--alert o-message--${messageType} n-syndication-rich-content-message" data-o-component="o-message">
 		<div class="o-message__container">
 			<div class="o-message__content">
 				<p class="o-message__content-main">
-					<span class="o-message__content-highlight n-syndication-rich-message_content-highlight">${messageText}</span>
+					<span class="o-message__content-highlight n-syndication-rich-message_content-highlight">${message}</span>
 				</p>
 			</div>
 		</div>
