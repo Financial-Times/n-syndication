@@ -18,15 +18,12 @@
 	display: inline-block;
 	height: 20px;
 	margin-right: 2px;
-	vertical-align: text-top;
+	vertical-align: middle;
 	width: 20px;
 }
 
-.n-syndication-icon.n-syndication-icon-state-no,
-.n-syndication-icon.n-syndication-icon-state-verify,
-.n-syndication-icon.n-syndication-icon-state-withcontributorpayment,
-.n-syndication-icon.n-syndication-icon-state-yes {
-	vertical-align: text-top;
+.n-syndication-icon + * {
+	vertical-align: middle;
 }
 
 .n-syndication-icon-state-msg_4000,
@@ -37,7 +34,8 @@
 	@include oIconsContent(
 		$icon-name: "cross",
 		$color: oColorsByName("white"),
-		$size: 20
+		$size: 20,
+		$include-base-styles: false
 	);
 	background-color: rgba(oColorsByName("claret"), 0.85);
 }
@@ -50,7 +48,8 @@
 	@include oIconsContent(
 		$icon-name: "tick",
 		$color: oColorsByName("white"),
-		$size: 20
+		$size: 20,
+		$include-base-styles: false
 	);
 	background-color: rgba(oColorsByName("jade"), 0.85);
 }
@@ -62,7 +61,8 @@
 	@include oIconsContent(
 		$icon-name: "dollar",
 		$color: oColorsByName("white"),
-		$size: 20
+		$size: 20,
+		$include-base-styles: false
 	);
 	background-color: rgba(oColorsByName("jade"), 0.85);
 }
@@ -74,7 +74,8 @@
 	@include oIconsContent(
 		$icon-name: "minus",
 		$color: oColorsByName("white"),
-		$size: 20
+		$size: 20,
+		$include-base-styles: false
 	);
 	background-color: rgba(oColorsByName("mandarin"), 0.85);
 }
@@ -87,7 +88,6 @@
 .o-topper__headline .n-syndication-icon {
 	border-radius: 26px;
 	height: 26px;
-	vertical-align: baseline;
 	width: 26px;
 }
 
@@ -99,7 +99,6 @@
 .video__description .video__title .n-syndication-icon {
 	border-radius: 24px;
 	height: 24px;
-	vertical-align: baseline;
 	width: 24px;
 }
 
@@ -107,10 +106,6 @@
 	border-radius: 16px;
 	height: 16px;
 	width: 16px;
-}
-
-.hero__heading .n-syndication-icon {
-	vertical-align: baseline;
 }
 
 // modal
