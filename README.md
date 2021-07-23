@@ -28,13 +28,13 @@ $ npx sass ./test/main.scss --load-path=./bower_components/
 
 ### Developing with a next app
 
-~~Currently the best way to develop with your changes on the site is to use [`bower link`](https://bower.io/docs/api/#link) in a running app.~~ Unfortunately there more instructions needed to develop this library within a next app. There is ticket [ACC-1156](https://financialtimes.atlassian.net/browse/ACC-1156) to investigate the best way to develop this library within a next app.
+Instruction for developing the library within a next app will be are in development ([ACC-1156](https://financialtimes.atlassian.net/browse/ACC-1156)).
 
 ## Deployment
 
 Create a release tag [in Github](https://github.com/Financial-Times/n-syndication/releases) following the Semver convention and prefixing the release number with `v`. This will make this available as a bower component at that version.
 
-If you are wanting to deploy to FT.com, after creating the tag you will need to coordinate the release for [these repos](https://github.com/search?q=org%3AFinancial-Times+filename%3Abower.json+n-syndication+NOT+repo%3AFinancial-Times%2Fnext-alpha-front-page+NOT+repo%3AFinancial-Times%2Fn-ui+NOT+repo%3AFinancial-Times%2Fn-syndication&type=Code). If the tag's version number is within the repo's defined version range for `n-syndication`, you will only need to prompt the code owners to do a deploy. If it is not, you should create a pull request updating the package or make the code owners aware of the available update.
+If you are wanting to deploy to FT.com, after creating the tag you will need to coordinate the release for [these repos](https://github.com/search?q=org%3AFinancial-Times+filename%3Abower.json+n-syndication+NOT+repo%3AFinancial-Times%2Fnext-alpha-front-page+NOT+repo%3AFinancial-Times%2Fn-ui+NOT+repo%3AFinancial-Times%2Fn-syndication&type=Code). You should create a pull request updating the package version in the repo's `bower.json`.
 
 ## How does it work
 
