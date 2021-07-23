@@ -28,7 +28,7 @@ $ npx sass ./test/main.scss --load-path=./bower_components/
 
 ### Developing with a next app
 
-Currently the best way to develop with your changes on the site is to use [`bower link`](https://bower.io/docs/api/#link) in a running app.
+~~Currently the best way to develop with your changes on the site is to use [`bower link`](https://bower.io/docs/api/#link) in a running app.~~ Unfortunately there more instructions needed to develop this library within a next app. There is ticket [ACC-1156](https://financialtimes.atlassian.net/browse/ACC-1156) to investigate the best way to develop this library within a next app.
 
 ## Deployment
 
