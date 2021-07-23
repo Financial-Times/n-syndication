@@ -34,8 +34,7 @@ $ npx sass ./test/main.scss --load-path=./bower_components/
 
 Create a release tag [in Github](https://github.com/Financial-Times/n-syndication/releases) following the Semver convention and prefixing the release number with `v`. This will make this available as a bower component at that version.
 
-If you are wanting to deploy to FT.com, after creating the tag you'll need to bump the version number in [`n-ui`’s `bower.json`](https://github.com/Financial-Times/n-ui/blob/master/bower.json). You will then need to release a new version of `n-ui` (due to how frontend assets are bundled) which should release to the wider site.
-
+If you are wanting to deploy to FT.com, after creating the tag you will need to coordinate the release for [these repos](https://github.com/search?q=org%3AFinancial-Times+filename%3Abower.json+n-syndication+NOT+repo%3AFinancial-Times%2Fnext-alpha-front-page+NOT+repo%3AFinancial-Times%2Fn-ui+NOT+repo%3AFinancial-Times%2Fn-syndication&type=Code). If the tag's version number is within the repo's defined version range for `n-syndication`, you will only need to prompt the code owners to do a deploy. If it is not, you should create a pull request updating the package or make the code owners aware of the available update.
 
 ## How does it work
 
