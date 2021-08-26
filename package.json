@@ -32,7 +32,16 @@
     "webpack-sources": "^1.0.1",
     "webpack-stats-plugin": "^0.1.1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "n-ui-foundations": "github:financial-times/n-ui-foundations#nobower",
+    "next-session-client": "^3.0.1",
+    "o-buttons": "npm:@financial-times/o-buttons@^6.0.2",
+    "o-overlay": "npm:@financial-times/o-overlay@^3.0.0",
+    "o-tracking": "npm:@financial-times/o-tracking@^2.0.3",
+    "o-visual-effects": "npm:@financial-times/o-visual-effects@^3.0.0",
+    "o-message": "npm:@financial-times/o-message@^4.1.8",
+    "superstore": "^2.1.0"
+  },
   "config": {},
   "engines": {
     "node": "12.x"
@@ -45,7 +54,7 @@
   "husky": {
     "hooks": {
       "commit-msg": "node_modules/.bin/secret-squirrel-commitmsg",
-      "pre-commit": "node_modules/.bin/secret-squirrel",
+      "pre-commit": "node_modules/.bin/secret-squirrel && node ./scripts/fromBowerToNpm.js",
       "pre-push": "make verify -j3"
     }
   }
