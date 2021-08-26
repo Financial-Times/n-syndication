@@ -4,4 +4,5 @@ module.exports = {
 	transform: {
 		'.(js|jsx)': '@sucrase/jest-plugin'
 	},
+	transformIgnorePatterns: ['/node_modules//(?!(@financial-times)/)'],
 };
