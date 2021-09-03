@@ -26,6 +26,12 @@ Verify that the Sass can compile by running
 $ npx sass ./test/main.scss --load-path=./bower_components/
 ```
 
+And by running:
+
+```sh
+$ npx sass ./test/main.scss --load-path=./node_modules --load-path=./node_modules/@financial-times
+```
+
 ### Developing with a next app
 
 Instruction for developing the library within a next app will be are in development ([ACC-1156](https://financialtimes.atlassian.net/browse/ACC-1156)).
