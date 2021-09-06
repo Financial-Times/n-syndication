@@ -40,7 +40,8 @@
     "o-tracking": "npm:@financial-times/o-tracking@^2.0.3",
     "o-visual-effects": "npm:@financial-times/o-visual-effects@^3.0.0",
     "o-message": "npm:@financial-times/o-message@^4.1.8",
-    "superstore": "^2.1.0"
+    "superstore": "^2.1.0",
+    "o-viewport": "npm:@financial-times/o-viewport@^5.0.0"
   },
   "config": {},
   "engines": {

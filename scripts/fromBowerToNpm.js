@@ -7,13 +7,14 @@ function standardNpmPackage (version, name) {
 }
 
 const resolutionMap = {
-	'n-ui-foundations': () => 'github:financial-times/n-ui-foundations#nobower',
-	'next-session-client': (version) => `${version}`,
-	'o-buttons': standardNpmPackage,
-	'o-overlay': standardNpmPackage,
-	'o-tracking': standardNpmPackage,
-	'o-visual-effects': standardNpmPackage,
-	'o-message': standardNpmPackage,
+	"n-ui-foundations": () => "github:financial-times/n-ui-foundations#nobower",
+	"next-session-client": (version) => `${version}`,
+	"o-buttons": standardNpmPackage,
+	"o-overlay": standardNpmPackage,
+	"o-tracking": standardNpmPackage,
+	"o-visual-effects": standardNpmPackage,
+	"o-message": standardNpmPackage,
+	"o-viewport": standardNpmPackage,
 };
 
 for (const dependency in bowerPackage.dependencies) {
