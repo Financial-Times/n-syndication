@@ -13,8 +13,7 @@ const resolutionMap = {
 	"o-overlay": standardNpmPackage,
 	"o-tracking": standardNpmPackage,
 	"o-visual-effects": standardNpmPackage,
-	"o-message": standardNpmPackage,
-	"o-viewport": standardNpmPackage,
+	"o-message": standardNpmPackage
 };
 
 for (const dependency in bowerPackage.dependencies) {
