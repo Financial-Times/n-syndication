@@ -21,7 +21,8 @@ const SYNDICATION_INSERTION_RULES = {
 	'article.article-grid': {fn: 'querySelector', slc: '.o-topper__headline', up: 1},
 	'div.hero': {fn: 'querySelector', slc: '.hero__heading'},
 	'main.video': {fn: 'querySelector', slc: '.video__title'},
-	'li.o-teaser__related-item': {}
+	'li.o-teaser__related-item': {},
+	'.js-teaser-headline': {}
 };
 let USER_DATA;
 
