@@ -5,7 +5,7 @@
   "description": "Implementation for the syndication indicator, for users who subscribe to the new FT syndication platform",
   "devDependencies": {
     "@babel/runtime": "^7.10.2",
-    "@financial-times/n-gage": "^5.1.2",
+    "@financial-times/n-gage": "^8.3.2",
     "@financial-times/n-heroku-tools": "^8.0.0",
     "@sucrase/jest-plugin": "^2.0.0",
     "autoprefixer": "^6.3.6",
