@@ -64,10 +64,10 @@ The Content API has the property `canBeSyndicated` which is a string containing 
 ## This is just some javascript - is there other code elsewhere?
 Yep - These links will probably be wrong pretty soon but will hopefully point you in the right direction:
 
-**n-teaser** - https://github.com/Financial-Times/n-teaser/blob/master/src/presenters/teaser-presenter.js#L77
+**n-teaser** - https://github.com/Financial-Times/n-teaser/blob/main/src/presenters/teaser-presenter.js#L77
 Here we add an additional modifier if syndication is available on this article
 
-**next-article** - https://github.com/Financial-Times/next-article/blob/master/views/content.html#L20
+**next-article** - https://github.com/Financial-Times/next-article/blob/main/views/content.html#L20
 Here a data attribute is added containing the syndication status of the article.
 
 **generic** - add the following data attributes to your markup:
