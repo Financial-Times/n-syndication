@@ -83,7 +83,7 @@ function actionModalFromClick (evt) {
 		if (visible()) {
 			const action = evt.target.getAttribute('data-action');
 
-			if (evt.target.matches('.n-syndication-modal-shadow') || (action && action === 'one')) {
+			if (evt.target.matches('.n-syndication-modal-shadow') || (action && action === 'close-maintenance')) {
 				evt.preventDefault();
 
 				delayHide();
@@ -146,8 +146,8 @@ function createElement (item) {
 									If you require articles during the maintenance period, we will be able to provide them if you email <u>syndication@ft.com</u> with your requirement.
 									</div>
 									<div class="n-syndication-actions" data-content-id="${item.id}" data-iso-lang="${item.lang}">
-									<button data-action="one" class="close-button-maintenance">
-									<a><span data-action="one" class="close-message-maintenance">Thanks, I understand</span></a>
+									<button data-action="close-maintenance" class="close-button-maintenance">
+									<a><span data-action="close-maintenance" class="close-message-maintenance">Thanks, I understand</span></a>
 									</button>
 									</div>
 								</section>
