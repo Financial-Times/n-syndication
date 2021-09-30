@@ -35,7 +35,7 @@ export async function init (flags) {
 	}
 
 	initDataStore(user);
-	initIconify(user);
+	initIconify(user, flags);
 	initDownloadModal(user);
 	$$('.video__actions__download').forEach(el => el.parentNode.removeChild(el));
 }

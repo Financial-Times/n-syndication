@@ -27,7 +27,7 @@ function getContentIDFromHTMLElement (el) {
 		}
 
 		//		if (el.hasAttribute(ATTR_CONTENT_ID)) {
-		let id = el.getAttribute('data-content-id');
+		let id = el.getAttribute('data-syndication-content-id') || el.getAttribute('data-content-id');
 
 		// there is a case where an item has a `data-content-id` with no value.
 		// I can't figure it out right now, so temporary "fix"...

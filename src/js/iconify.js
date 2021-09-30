@@ -9,25 +9,35 @@ import {getContentIDFromHTMLElement, prepend, toElement} from './util';
 const SYNDICATION_INSERTION_RULES = {
 	['a.card__concept-article-link']: {fn: 'closest', slc: '.card__concept-article'},
 	['a.topic-card__concept-article-link']: {fn: 'closest', slc: '.topic-card__concept-article'},
-	['a.package__content-item']: {fn: 'querySelector', slc: '.package__title'},
 	['.story__link']: {fn: 'closest', slc: 'article[data-trackable="story"]'},
 	// matcher for n-teaser
 	'a': {fn: 'closest', slc: '.o-teaser__heading'},
 	// matcher for x-teaser
 	'.o-teaser': {fn: 'querySelector', slc: '.o-teaser__heading'},
 	'.stream-item': {fn: 'querySelector', slc: '.card-openable__headline'},
-	'article[class="article"]': {fn: 'querySelector', slc: '.o-topper__headline'},
-	'article.article--brand': {fn: 'querySelector', slc: '.o-topper__headline'},
-	'article.article-grid': {fn: 'querySelector', slc: '.o-topper__headline', up: 1},
 	'div.hero': {fn: 'querySelector', slc: '.hero__heading'},
 	'main.video': {fn: 'querySelector', slc: '.video__title'},
 	'li.o-teaser__related-item': {},
 	'.js-teaser-headline': {}
 };
 let USER_DATA;
+// Temporary let used whilst we test switching the selectors used for ft.com article pages
+let SWITCH_SELECTOR = false;
 
-function init (user) {
+function init (user, flags) {
 	USER_DATA = user;
+
+	if (flags.get('syndicationSwitchSelector')) {
+		// This prevents us from needing to pass flags through all the functions
+		SWITCH_SELECTOR = true;
+	} else {
+		// Use the old/control selectors for next article when the flag is off
+		SYNDICATION_INSERTION_RULES['article[class="article"]'] = {fn: 'querySelector', slc: '.o-topper__headline'};
+		SYNDICATION_INSERTION_RULES['article.article--brand'] = {fn: 'querySelector', slc: '.o-topper__headline'};
+		SYNDICATION_INSERTION_RULES['article.article-grid'] = {fn: 'querySelector', slc: '.o-topper__headline', up: 1};
+		SYNDICATION_INSERTION_RULES['a.package__content-item'] = {fn: 'querySelector', slc: '.package__title'};
+	}
+
 	addEventListener('asyncContentLoaded', () => syndicate(), true);
 	addEventListener('nSyndication.dataChanged', () => updatePage(), true);
 
@@ -55,6 +65,13 @@ function findElementToSyndicate (element) {
 	const elementIsNotFormOrButton =
 		element.tagName.toUpperCase() !== 'FORM'
 		&& element.tagName.toUpperCase() !== 'BUTTON';
+
+
+	// data-syndication-content-id should be used on the element we want to syndicate
+	// This means there is no need to search for the element
+	if (element.hasAttribute('data-syndication-content-id') && SWITCH_SELECTOR && elementIsNotFormOrButton) {
+		return element;
+	}
 
 	if (element !== document.documentElement && elementIsNotFormOrButton) {
 		const entries = Object.entries(SYNDICATION_INSERTION_RULES);
@@ -90,6 +107,7 @@ function findElementToSyndicate (element) {
 
 function getSyndicatableItems () {
 	return $$([
+		'[data-syndication-content-id]',
 		'[data-content-id]',
 		'[data-id]',
 		'a.card__concept-article-link',
@@ -155,7 +173,7 @@ function updatePage (els) {
 	}
 
 	const elementsByContentID = Array.from(els).reduce((acc, el) => {
-		const contentID = el.getAttribute('data-content-id');
+		const contentID = el.getAttribute('data-syndication-content-id') || el.getAttribute('data-content-id');
 
 		if (!Array.isArray(acc[contentID])) {
 			acc[contentID] = [];
