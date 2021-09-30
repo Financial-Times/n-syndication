@@ -7,7 +7,7 @@ import Superstore from 'superstore';
 import {TRACKING} from './config';
 
 import {toElement} from './util';
-import {getAllItemsForID, getItemByHTMLElement} from './data-store';
+import {getItemByHTMLElement} from './data-store';
 
 const localStore = new Superstore('local', 'syndication');
 
@@ -68,8 +68,8 @@ function actionModalFromClick (evt) {
 		show(evt);
 	} else if (evt.target.matches('.n-syndication-action[data-action="save"]')) {
 		delayHide();
-	} 
-	 else {
+	}
+	else {
 		if (visible()) {
 			const action = evt.target.getAttribute('data-action');
 
@@ -132,7 +132,7 @@ function createElement (item) {
 									You will not be able to use the Syndication tool during this time.
 									</div>
 									<div class="n-syndication-maintenance-modal-lower-message">
-									If you require articles during the maintenance period, we will be able to provide them if you email 
+									If you require articles during the maintenance period, we will be able to provide them if you email
 									<u><a href = "mailto: syndication@ft.com" style=" color: black" target="_blank">syndication@ft.com</a></u>
 									with your requirement.
 									</div>
