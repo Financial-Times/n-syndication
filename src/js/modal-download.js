@@ -108,7 +108,6 @@ function actionModalFromKeyboard (evt) {
 			if (evt.target.matches('[data-content-id][data-syndicated="true"].n-syndication-icon')) {
 				show(evt);
 			}
-
 			break;
 	}
 

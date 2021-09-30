@@ -52,7 +52,6 @@ function actionModalFromClick (evt) {
 	trackingEvent.contractID = USER_DATA.contract_id;
 	trackingEvent.product = TRACKING.CATEGORY;
 	trackingEvent.url = location.href;
-	trackingEvent.action = evt.target.getAttribute('data-trackable');
 
 	if (item) {
 		trackingEvent.lang = item.lang;
@@ -68,22 +67,13 @@ function actionModalFromClick (evt) {
 
 		show(evt);
 	} else if (evt.target.matches('.n-syndication-action[data-action="save"]')) {
-		save(evt);
-
-		hide();
-
-		show(evt);
-
 		delayHide();
-	} else if (evt.target.matches('.n-syndication-action[data-action="download"]')) {
-		download(evt);
-
-		delayHide();
-	} else {
+	} 
+	 else {
 		if (visible()) {
 			const action = evt.target.getAttribute('data-action');
 
-			if (evt.target.matches('.n-syndication-modal-shadow') || (action && action === 'one')) {
+			if (evt.target.matches('.n-syndication-modal-shadow') || (action && action === 'maintenance-modal-close')) {
 				evt.preventDefault();
 
 				delayHide();
@@ -130,7 +120,6 @@ function createElement (item) {
 							<div class="n-syndication-modal n-syndication-modal-${item.type}" role="dialog" aria-labelledby="'Download:  ${title}" tabindex="0">
 								<header class="n-syndication-modal-heading">
 								<span class="o-icons-icon o-icons-icon--warning-alt demo-icon n-syndication-maintenance-icon"></span>
-
 									<a class="n-syndication-modal-close" data-action="close" 'data-trackable="close-syndication-modal" role="button" href="#" aria-label="Close" title="Close" tabindex="0"></a>
 									<span role="heading" class="n-syndication-maintenance-modal-title" >Maintenance work is scheduled in ${DAYS_LEFT} days on Oct 6, 2021</span>
 								</header>
@@ -143,39 +132,18 @@ function createElement (item) {
 									You will not be able to use the Syndication tool during this time.
 									</div>
 									<div class="n-syndication-maintenance-modal-lower-message">
-									If you require articles during the maintenance period, we will be able to provide them if you email <u>syndication@ft.com</u> with your requirement.
+									If you require articles during the maintenance period, we will be able to provide them if you email 
+									<u><a href = "mailto: syndication@ft.com" style=" color: black" target="_blank">syndication@ft.com</a></u>
+									with your requirement.
 									</div>
 									<div class="n-syndication-actions" data-content-id="${item.id}" data-iso-lang="${item.lang}">
-									<button data-action="one" class="close-button-maintenance">
-									<a><span data-action="one" class="close-message-maintenance">Thanks, I understand</span></a>
+									<button data-action="maintenance-modal-close" class="close-button-maintenance">
+									<a><span data-action="maintenance-modal-close" class="close-message-maintenance">Thanks, I understand</span></a>
 									</button>
 									</div>
 								</section>
 							</div>`);
 
-}
-
-function delayHide (ms = 500) {
-	let tid = setTimeout(() => {
-		clearTimeout(tid);
-		tid = null;
-
-		hide();
-	}, ms);
-}
-
-function download (evt) {
-	const item = getItemByHTMLElement(evt.target);
-	const items = getAllItemsForID(item.id);
-
-	items.forEach(item => {
-		item.downloaded = true;
-		item.messageCode = 'MSG_2100';
-	});
-
-	broadcast('nSyndication.downloadItem', {
-		item: item
-	});
 }
 
 function hide () {
@@ -190,6 +158,15 @@ function hide () {
 	}
 }
 
+function delayHide (ms = 500) {
+	let tid = setTimeout(() => {
+		clearTimeout(tid);
+		tid = null;
+
+		hide();
+	}, ms);
+}
+
 function reposition () {
 	if (!visible()) {
 		return;
@@ -202,13 +179,6 @@ function reposition () {
 
 	OVERLAY_MODAL_ELEMENT.style.left = `${x}px`;
 	OVERLAY_MODAL_ELEMENT.style.top = `${y}px`;
-}
-
-function save (evt) {
-	const item = getItemByHTMLElement(evt.target);
-	const items = getAllItemsForID(item.id);
-
-	items.forEach(item => item.saved = true);
 }
 
 function shouldPreventDefault (el) {
