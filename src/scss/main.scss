@@ -3,6 +3,8 @@
 @import "o-overlay/main";
 @import "o-visual-effects/main";
 @import "o-message/main";
+@import "o-icons/main";
+
 
 .n-syndication-icon {
 	@include oIconsContent(
@@ -24,6 +26,16 @@
 
 .n-syndication-icon + * {
 	vertical-align: middle;
+}
+
+.n-syndication-maintenance-icon {
+	@include oIconsContent(
+		$icon-name: "warning-alt",
+		$color: oColorsByName("crimson"),
+		$size: 70,
+		$include-base-styles: true
+	);
+	margin-left: 170px;
 }
 
 .n-syndication-icon-state-msg_4000,
@@ -180,6 +192,23 @@
 		bottom: -10px;
 	}
 }
+.n-syndication-maintenance-modal-title {
+	margin: 10px 10px 10px 20px;
+	display: block;
+	line-height: 25px;
+	overflow: auto;
+
+	font-family: "financier display", "times new roman", serif;
+	font-size: 23px;
+	font-weight: 800;
+	line-height: 26px;
+
+	font-family: 'MetricWeb';
+	text-align: center;
+	width: 381px;
+	margin-top: auto;
+}
+
 .n-syndication-modal-title {
 	margin: 10px 10px 10px 20px;
 	display: block;
@@ -191,12 +220,44 @@
 	font-weight: normal;
 	line-height: 26px;
 }
+
+.n-syndication-maintenance-modal-word-count {
+	font-family: metric, arial, sans-serif;
+	font-size: 16px;
+	font-weight: 500;
+
+	font-family: 'MetricWeb';
+	margin-left: 60px;
+	display: block;
+}
+
 .n-syndication-modal-word-count {
 	color: rgba(oColorsByName("black"), 0.4);
 	font-family: metric, arial, sans-serif;
 	font-size: 16px;
 	font-weight: normal;
 }
+
+.close-button-maintenance {
+	margin: auto;
+	background-color: #0D7680;
+	border: 2px solid #0d7680;
+	display: flex;
+	margin-top: 20px;
+	height: 50px;
+	width: 220px;
+}
+
+.close-message-maintenance {
+	color: white;
+	font-family: 'MetricWeb';
+	font-weight: 900;
+	font-size: 21px;
+	position: absolute;
+	margin-left: 12px;
+	margin-top: 9px;
+}
+
 .n-syndication-modal-content {
 	position: relative;
 	box-sizing: border-box;
@@ -212,6 +273,17 @@
 	}
 
 	padding-top: 0;
+}
+
+.n-syndication-maintenance-modal-message,
+.n-syndication-maintenance-modal-message p {
+	color: rgba(oColorsByName("black"), 0.8);
+	font-family: metric, arial, sans-serif;
+	font-size: 14px;
+	line-height: 20px;
+
+	margin-top: 20px;
+	font-weight: 900;
 }
 
 .n-syndication-modal-message,
@@ -285,4 +357,8 @@
 
 .o-message__content .o-message__content-main .n-syndication-rich-message_content-highlight {
 	font-weight: 400;
+}
+
+.n-syndication-maintenance-modal-lower-message {
+	margin-top: 10px;
 }
