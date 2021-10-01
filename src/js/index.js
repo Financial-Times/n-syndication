@@ -6,6 +6,8 @@ import {init as initDownloadModal} from './modal-download';
 import {init as initNavigation} from './navigation';
 import { getSyndicationAccess } from './user-access';
 import { SYNDICATION_ACCESS } from './config';
+import {init as initMaintenanceModal, daysUntilMaintenance} from './modal-maintenance';
+
 
 export async function init (flags) {
 	if (!flags.get('syndication')) {
@@ -37,5 +39,11 @@ export async function init (flags) {
 	initDataStore(user);
 	initIconify(user);
 	initDownloadModal(user);
+
+	let daysLeft = daysUntilMaintenance('October 6, 2021 10:30:00');
+	if (daysLeft>=0) {
+		initMaintenanceModal(user, daysLeft);
+	}
+
 	$$('.video__actions__download').forEach(el => el.parentNode.removeChild(el));
 }

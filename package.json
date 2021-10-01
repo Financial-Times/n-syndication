@@ -36,12 +36,13 @@
     "n-ui-foundations": "github:financial-times/n-ui-foundations#nobower",
     "next-session-client": "^3.0.1",
     "o-buttons": "npm:@financial-times/o-buttons@^6.0.2",
+    "o-message": "npm:@financial-times/o-message@^4.1.8",
     "o-overlay": "npm:@financial-times/o-overlay@^3.0.0",
     "o-tracking": "npm:@financial-times/o-tracking@^2.0.3",
+    "o-viewport": "npm:@financial-times/o-viewport@^5.0.0",
     "o-visual-effects": "npm:@financial-times/o-visual-effects@^3.0.0",
-    "o-message": "npm:@financial-times/o-message@^4.1.8",
     "superstore": "^2.1.0",
-    "o-viewport": "npm:@financial-times/o-viewport@^5.0.0"
+    "o-icons": "npm:@financial-times/o-icons@^7.0.0"
   },
   "config": {},
   "engines": {

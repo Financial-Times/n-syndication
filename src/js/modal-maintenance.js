@@ -7,21 +7,17 @@ import Superstore from 'superstore';
 import {TRACKING} from './config';
 
 import {toElement} from './util';
-import {getAllItemsForID, getItemByHTMLElement} from './data-store';
-import {getMessage, getAdditionalMessages } from './messages';
+import {getItemByHTMLElement} from './data-store';
 
-const MAX_LOCAL_FORMAT_TIME_MS = 300000;
 const localStore = new Superstore('local', 'syndication');
-const isDownloadPage = location.pathname.includes('/download');
-const isSavePage = location.pathname.includes('/save');
 
 let OVERLAY_FRAGMENT;
 let OVERLAY_MODAL_ELEMENT;
 let OVERLAY_SHADOW_ELEMENT;
-let DOWNLOAD_FORMAT;
 let USER_DATA;
+let DAYS_LEFT;
 
-function init (user) {
+function init (user, daysLeft) {
 	addEventListener('click', actionModalFromClick, true);
 
 	addEventListener('keyup', actionModalFromKeyboard, true);
@@ -30,6 +26,19 @@ function init (user) {
 	oViewport.listenTo('resize');
 
 	USER_DATA = user;
+	DAYS_LEFT = daysLeft;
+}
+
+function daysUntilMaintenance (date) {
+	let dateNow = new Date(Date.now());
+	let maintenanceDate = new Date(date);
+	const diffTime = maintenanceDate - dateNow;
+	const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+	if (diffDays>=0){
+		return diffDays;
+	}
+	return -1;
 }
 
 function actionModalFromClick (evt) {
@@ -43,7 +52,6 @@ function actionModalFromClick (evt) {
 	trackingEvent.contractID = USER_DATA.contract_id;
 	trackingEvent.product = TRACKING.CATEGORY;
 	trackingEvent.url = location.href;
-	trackingEvent.action = evt.target.getAttribute('data-trackable');
 
 	if (item) {
 		trackingEvent.lang = item.lang;
@@ -59,22 +67,13 @@ function actionModalFromClick (evt) {
 
 		show(evt);
 	} else if (evt.target.matches('.n-syndication-action[data-action="save"]')) {
-		save(evt);
-
-		hide();
-
-		show(evt);
-
 		delayHide();
-	} else if (evt.target.matches('.n-syndication-action[data-action="download"]')) {
-		download(evt);
-
-		delayHide();
-	} else {
+	}
+	else {
 		if (visible()) {
 			const action = evt.target.getAttribute('data-action');
 
-			if (evt.target.matches('.n-syndication-modal-shadow') || (action && action === 'close')) {
+			if (evt.target.matches('.n-syndication-modal-shadow') || (action && action === 'maintenance-modal-close')) {
 				evt.preventDefault();
 
 				delayHide();
@@ -108,118 +107,43 @@ function actionModalFromKeyboard (evt) {
 			if (evt.target.matches('[data-content-id][data-syndicated="true"].n-syndication-icon')) {
 				show(evt);
 			}
+
 			break;
 	}
 
 }
 
-function isDownloadDisabled (item) {
-	return [
-		USER_DATA.MAINTENANCE_MODE === true,
-		item.type === 'package',
-		item.notAvailable === true,
-		item.canBeSyndicated === 'verify',
-		item.canBeSyndicated === 'withContributorPayment' && USER_DATA.contributor_content !== true,
-		item.canBeSyndicated === 'no',
-		!item.canBeSyndicated,
-		item.canDownload < 1
-	].includes(true);
-}
-
-function isSaveDisabled (item) {
-	return [
-		item.saved === true,
-		USER_DATA.MAINTENANCE_MODE === true,
-		item.type === 'package',
-		item.notAvailable !== true && item.canBeSyndicated === 'no',
-		item.notAvailable !== true && !item.canBeSyndicated
-	].includes(true);
-}
-
 function createElement (item) {
-	const disableDownloadButton = isDownloadDisabled(item);
-	const disableSaveButton = isSaveDisabled(item);
-	const downloadHref = disableDownloadButton ? '#' : generateDownloadURI(item.id, item);
-	const downloadText = disableDownloadButton ? 'Download unavailable' : 'Download';
-	const saveHref = disableSaveButton ? '#' : generateSaveURI(item['id'], item) ;
-	const saveTrackingId = isDownloadPage ? 'save-for-later' : 'save-for-later-downloads-page';
 	const title = USER_DATA.MAINTENANCE_MODE === true ? '' : item.title;
-	let downloadTrackingId;
-	let saveText;
-
-	if (item.saved === true) {
-		saveText = 'Already saved';
-	} else {
-		saveText = disableSaveButton ? 'Save unavailable' : 'Save for later';
-	}
-
-	if (isDownloadPage) {
-		downloadTrackingId = 'redownload';
-	} else if (!isSavePage) {
-		downloadTrackingId = 'download-items';
-	}
 
 	return toElement(`<div class="n-syndication-modal-shadow"></div>
 							<div class="n-syndication-modal n-syndication-modal-${item.type}" role="dialog" aria-labelledby="'Download:  ${title}" tabindex="0">
 								<header class="n-syndication-modal-heading">
+								<span class="o-icons-icon o-icons-icon--warning-alt demo-icon n-syndication-maintenance-icon"></span>
 									<a class="n-syndication-modal-close" data-action="close" 'data-trackable="close-syndication-modal" role="button" href="#" aria-label="Close" title="Close" tabindex="0"></a>
-									<span role="heading" class="n-syndication-modal-title">${title}</span>
+									<span role="heading" class="n-syndication-maintenance-modal-title" >Maintenance work is scheduled in ${DAYS_LEFT} days on Oct 6, 2021</span>
 								</header>
 								<section class=" n-syndication-modal-content">
-									${(item.wordCount ? `<span class="n-syndication-modal-word-count">Word count: ${item.wordCount}</span>` : '')}
-									<div class="n-syndication-modal-message">
-									${getMessage(item, USER_DATA)}
+								<div class="n-syndication-maintenance-modal-word-count">
+									${ '<span>10:30 - 14:30 BST (British Summer Time)</span>'} <br>
+									${ '<span>5:30 - 9:30 EDT (Eastern Daylight Time)</span>'}
+								</div>
+									<div class="n-syndication-maintenance-modal-message">
+									You will not be able to use the Syndication tool during this time.
 									</div>
-									${getAdditionalMessages (item, USER_DATA)}
+									<div class="n-syndication-maintenance-modal-lower-message">
+									If you require articles during the maintenance period, we will be able to provide them if you email
+									<u><a href = "mailto: syndication@ft.com" style=" color: black" target="_blank">syndication@ft.com</a></u>
+									with your requirement.
+									</div>
 									<div class="n-syndication-actions" data-content-id="${item.id}" data-iso-lang="${item.lang}">
-										<a class="n-syndication-action" data-action="save" ${disableSaveButton ? 'disabled' : ''} data-trackable="${saveTrackingId}" href="${saveHref}">${saveText}</a>
-										<a class="n-syndication-action n-syndication-action-primary" data-action="download" ${disableDownloadButton ? 'disabled' : ''} ${downloadTrackingId ? `data-trackable="${downloadTrackingId}"` : ''} href="${downloadHref}">${downloadText}</a>
+									<button data-action="maintenance-modal-close" class="close-button-maintenance">
+									<a><span data-action="maintenance-modal-close" class="close-message-maintenance">Thanks, I understand</span></a>
+									</button>
 									</div>
 								</section>
 							</div>`);
-}
 
-function delayHide (ms = 500) {
-	let tid = setTimeout(() => {
-		clearTimeout(tid);
-		tid = null;
-
-		hide();
-	}, ms);
-}
-
-function download (evt) {
-	const item = getItemByHTMLElement(evt.target);
-	const items = getAllItemsForID(item.id);
-
-	items.forEach(item => {
-		item.downloaded = true;
-		item.messageCode = 'MSG_2100';
-	});
-
-	broadcast('nSyndication.downloadItem', {
-		item: item
-	});
-}
-
-function generateDownloadURI (contentID, item) {
-	let uri = `${location.port ? '' : 'https://dl.syndication.ft.com'}/syndication/download/${contentID}${DOWNLOAD_FORMAT}`;
-
-	if (item.lang) {
-		uri += (uri.includes('?') ? '&' : '?') + `lang=${item.lang}`;
-	}
-
-	return uri;
-}
-
-function generateSaveURI (contentID, item) {
-	let uri = `/syndication/save/${contentID}${DOWNLOAD_FORMAT}`;
-
-	if (item.lang) {
-		uri += (uri.includes('?') ? '&' : '?') + `lang=${item.lang}`;
-	}
-
-	return uri;
 }
 
 function hide () {
@@ -234,6 +158,15 @@ function hide () {
 	}
 }
 
+function delayHide (ms = 500) {
+	let tid = setTimeout(() => {
+		clearTimeout(tid);
+		tid = null;
+
+		hide();
+	}, ms);
+}
+
 function reposition () {
 	if (!visible()) {
 		return;
@@ -246,13 +179,6 @@ function reposition () {
 
 	OVERLAY_MODAL_ELEMENT.style.left = `${x}px`;
 	OVERLAY_MODAL_ELEMENT.style.top = `${y}px`;
-}
-
-function save (evt) {
-	const item = getItemByHTMLElement(evt.target);
-	const items = getAllItemsForID(item.id);
-
-	items.forEach(item => item.saved = true);
 }
 
 function shouldPreventDefault (el) {
@@ -274,17 +200,7 @@ function show (evt) {
 		evt.preventDefault();
 	}
 
-	localStore.get('download_format').then(val => {
-		if (val) {
-			if (Date.now() - val.time <= MAX_LOCAL_FORMAT_TIME_MS) {
-				DOWNLOAD_FORMAT = `?format=${val.format}`;
-			} else {
-				DOWNLOAD_FORMAT = '';
-			}
-		} else {
-			DOWNLOAD_FORMAT = '';
-		}
-
+	localStore.get('download_format').then(() => {
 		OVERLAY_FRAGMENT = createElement(getItemByHTMLElement(evt.target));
 
 		OVERLAY_MODAL_ELEMENT = OVERLAY_FRAGMENT.lastElementChild || OVERLAY_FRAGMENT.lastChild;
@@ -302,5 +218,6 @@ function visible () {
 
 
 export {
-	init
+	init,
+	daysUntilMaintenance
 };

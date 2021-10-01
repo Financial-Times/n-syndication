@@ -4,6 +4,7 @@
 .stylelintrc
 package-lock.json*
 .vscode
+*.env*
 
 /bower_components/
 /node_modules/
