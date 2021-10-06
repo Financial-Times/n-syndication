@@ -40,7 +40,7 @@ export async function init (flags) {
 	initIconify(user);
 	initDownloadModal(user);
 
-	let daysLeft = daysUntilMaintenance('October 6, 2021 10:30:00');
+	let daysLeft = daysUntilMaintenance('October 5, 2021 10:30:00');
 	if (daysLeft>=0) {
 		initMaintenanceModal(user, daysLeft);
 	}
