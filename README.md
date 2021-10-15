@@ -1,10 +1,25 @@
 # n-syndication [![CircleCI](https://circleci.com/gh/Financial-Times/n-syndication.svg?style=svg)](https://circleci.com/gh/Financial-Times/n-syndication)
 
-A client side library available as a Bower component that displays links next to headlines allowing syndication customers to download or save content for republishing.
 
-## What is Syndication and how does it work
+## Troubleshooting
+All troubleshooting information is gathered in the [Syndication API Troubleshooting runbook](https://runbooks.ftops.tech/next-syndication-api).
 
-For an explanation, including a Slides deck which explains the infrastructure, please see [the Wiki page](https://github.com/Financial-Times/next/wiki/Syndication)
+## What is n-syndication and how does it work
+
+A client side library available as a Bower component that displays icons next to headlines allowing syndication customers to download or save content for republishing.
+
+* [n-syndication wiki page](https://github.com/Financial-Times/next-syndication-api/wiki/n-syndication-icons-display-library) gives some background context on how the icons work
+
+See [getting started](https://github.com/Financial-Times/next-syndication-api/wiki/Syndication-API:-authentication#getting-started) on the authentication wiki page if you need to be added as a syndication subscriber.
+
+You can develop with n-syndication without installing all of syndication. See instructions for local development and developing with a Next app.
+
+If your app is failing locally as if you need the syndication API installed locally, you probably have some syndication port details in `next-router`'s `.env` variables. Removing them should get the app to call the live production syndication API instead.
+
+### More information about the syndication system
+
+* [The Syndication Wiki](https://github.com/Financial-Times/next-syndication-api/wiki) explains the system and its architecture, including endpoints and authentication.
+* [Next Wiki](https://github.com/Financial-Times/next/wiki/Syndication) covers GDPR SAR and erasure requests so that people without github access can read it, as it is automatically published to https://customer-products.in.ft.com/wiki/Syndication.
 
 ## Local Development
 
@@ -41,25 +56,6 @@ Instruction for developing the library within a next app will be are in developm
 Create a release tag [in Github](https://github.com/Financial-Times/n-syndication/releases) following the Semver convention and prefixing the release number with `v`. This will make this available as a bower component at that version.
 
 If you are wanting to deploy to FT.com, after creating the tag you will need to coordinate the release for [these repos](https://github.com/search?q=org%3AFinancial-Times+filename%3Abower.json+n-syndication+NOT+repo%3AFinancial-Times%2Fnext-alpha-front-page+NOT+repo%3AFinancial-Times%2Fn-ui+NOT+repo%3AFinancial-Times%2Fn-syndication&type=Code). You should create a pull request updating the package version in the repo's `bower.json`.
-
-## How does it work
-
-The `n-syndication` module first checks to see if a user is "syndication enabled".
-
-If they are it aggregates all the content IDs it finds on a page by querying for all the `[data-content-id]` attributes in each [n-teaser](https://github.com/Financial-Times/n-teaser).
-
-It sends them to the [next-syndication-api](https://github.com/Financial-Times/next-syndication-api), which returns back an Array of Objects for each content ID that can be syndicated according to what this user's contract specifies.
-
-When a user then clicks a syndicator icon, a modal is displayed with `save` and/or `download` buttons enabled/disabled, along with the appropriate messaging, also according to the user's contractual rights.
-
-## I can't see the icons!
-
-You need to be a syndication subscriber to see them. On a technical level this means having `S1` in your [products list](https://session-next.ft.com/products), which should be the default case for all FT developer accounts, but if not then contact syndhelp@ft.com.
-
-The icons can be toggled on/off using the `syndication` flag via the [Flag Toggler](https://toggler.ft.com/).
-
-## Where does the data come from?
-The Content API has the property `canBeSyndicated` which is a string containing either `yes`, `no` or `verify`.  This property is available in Next's Elastic search cluster and in [Next API](https://github.com/Financial-Times/next-api)
 
 ## This is just some javascript - is there other code elsewhere?
 Yep - These links will probably be wrong pretty soon but will hopefully point you in the right direction:
