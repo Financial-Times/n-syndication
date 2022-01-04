@@ -2,7 +2,6 @@
 .editorconfig
 .eslintrc.js
 .stylelintrc
-package-lock.json*
 .vscode
 *.env*
 
