@@ -7,6 +7,12 @@
     "@babel/runtime": "^7.10.2",
     "@financial-times/n-gage": "^8.3.2",
     "@financial-times/n-heroku-tools": "^8.0.0",
+    "@financial-times/o-buttons": "^7.3.0",
+    "@financial-times/o-icons": "^7.2.1",
+    "@financial-times/o-message": "^5.2.1",
+    "@financial-times/o-overlay": "^4.2.3",
+    "@financial-times/o-tracking": "^4.2.1",
+    "@financial-times/o-visual-effects": "^4.1.1",
     "@sucrase/jest-plugin": "^2.0.0",
     "autoprefixer": "^6.3.6",
     "babel-core": "^6.25.0",
@@ -34,16 +40,18 @@
     "webpack-stats-plugin": "^0.1.1"
   },
   "dependencies": {
-    "n-ui-foundations": "github:financial-times/n-ui-foundations#nobower",
     "next-session-client": "^3.0.1",
-    "o-buttons": "npm:@financial-times/o-buttons@^6.0.2",
-    "o-icons": "npm:@financial-times/o-icons@^6.3.0",
-    "o-message": "npm:@financial-times/o-message@^4.1.8",
-    "o-overlay": "npm:@financial-times/o-overlay@^3.0.0",
-    "o-tracking": "npm:@financial-times/o-tracking@^3.0.0",
     "o-viewport": "npm:@financial-times/o-viewport@^5.0.0",
-    "o-visual-effects": "npm:@financial-times/o-visual-effects@^3.0.0",
     "superstore": "^2.1.0"
+  },
+  "peerDependencies": {
+    "@financial-times/o-buttons": "^7.3.0",
+    "@financial-times/o-overlay": "^4.2.3",
+    "@financial-times/o-tracking": "^4.2.1",
+    "@financial-times/o-visual-effects": "^4.1.1",
+    "@financial-times/o-message": "^5.2.1",
+    "@financial-times/o-icons": "^7.2.1",
+    "n-ui-foundations": "^8.0.0"
   },
   "config": {},
   "engines": {
