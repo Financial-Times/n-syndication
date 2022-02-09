@@ -4,7 +4,6 @@ const path = require('path');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-const BowerResolvePlugin = require('bower-resolve-webpack-plugin');
 
 const extractOptions = [{
 	loader: 'css-loader',
@@ -29,7 +28,6 @@ const extractOptions = [{
 	options: {
 		sourcemap: true,
 		includePaths: [
-			path.resolve('./bower_components'),
 			path.resolve('./node_modules'),
 			path.resolve('./node_modules/@financial-times')
 		],
@@ -48,21 +46,17 @@ module.exports = {
 
 	resolve: {
 
-		plugins: [
-			// This will handle a bower.json's `main` property being an array.
-			new BowerResolvePlugin()
-		],
+		plugins: [],
 
 		// In which folders the resolver look for modules relative paths are
 		// looked up in every parent folder (like node_modules) absolute
 		// paths are looked up directly the order is respected
 		modules: [
-			'bower_components',
 			'node_modules',
 		],
 
 		// These JSON files are read in directories
-		descriptionFiles: ['bower.json', 'package.json'],
+		descriptionFiles: ['package.json'],
 
 		// These fields in the description files are looked up when trying to resolve the package directory
 		mainFields: ['main', 'browser'],

@@ -1,6 +1,6 @@
 module.exports = {
-	moduleDirectories: ['node_modules', 'bower_components'],
-	testPathIgnorePatterns: ['/node_modules/', '/bower_components/', '/cypress/'],
+	moduleDirectories: ['node_modules'],
+	testPathIgnorePatterns: ['/node_modules/', '/cypress/'],
 	transform: {
 		'.(js|jsx)': '@sucrase/jest-plugin'
 	},

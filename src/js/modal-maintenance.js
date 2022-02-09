@@ -1,7 +1,7 @@
 'use strict';
 
 import {broadcast} from 'n-ui-foundations';
-import oViewport from 'o-viewport';
+import oViewport from '@financial-times/o-viewport';
 import Superstore from 'superstore';
 
 import {TRACKING} from './config';
