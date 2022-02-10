@@ -5,4 +5,5 @@ module.exports = {
 		'.(js|jsx)': '@sucrase/jest-plugin'
 	},
 	transformIgnorePatterns: ['/node_modules//(?!(@financial-times)/)'],
+	resolver: './jest-resolver' // added resolver to process origami browser packages
 };
