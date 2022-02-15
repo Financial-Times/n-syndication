@@ -6,7 +6,7 @@ All troubleshooting information is gathered in the [Syndication API Troubleshoot
 
 ## What is n-syndication and how does it work
 
-A client side library available as a Bower component that displays icons next to headlines allowing syndication customers to download or save content for republishing.
+A client side library that displays icons next to headlines allowing syndication customers to download or save content for republishing.
 
 * [n-syndication wiki page](https://github.com/Financial-Times/next-syndication-api/wiki/n-syndication-icons-display-library) gives some background context on how the icons work
 
@@ -38,7 +38,7 @@ $ make test
 Verify that the Sass can compile by running
 
 ```sh
-$ npx sass ./test/main.scss --load-path=./bower_components/
+$ npx sass ./test/main.scss --load-path=./node_modules
 ```
 
 And by running:
@@ -53,9 +53,9 @@ Instruction for developing the library within a next app will be are in developm
 
 ## Deployment
 
-Create a release tag [in Github](https://github.com/Financial-Times/n-syndication/releases) following the Semver convention and prefixing the release number with `v`. This will make this available as a bower component at that version.
+Create a release tag [in Github](https://github.com/Financial-Times/n-syndication/releases) following the Semver convention and prefixing the release number with `v`. This will make this available as a NPM package at that version.
 
-If you are wanting to deploy to FT.com, after creating the tag you will need to coordinate the release for [these repos](https://github.com/search?q=org%3AFinancial-Times+filename%3Abower.json+n-syndication+NOT+repo%3AFinancial-Times%2Fnext-alpha-front-page+NOT+repo%3AFinancial-Times%2Fn-ui+NOT+repo%3AFinancial-Times%2Fn-syndication&type=Code). You should create a pull request updating the package version in the repo's `bower.json`.
+If you are wanting to deploy to FT.com, after creating the tag you will need to coordinate the release for [these repos](https://github.com/search?q=org%3AFinancial-Times+filename%3Apackage.json+n-syndication+NOT+repo%3AFinancial-Times%2Fnext-alpha-front-page+NOT+repo%3AFinancial-Times%2Fn-ui+NOT+repo%3AFinancial-Times%2Fn-syndication&type=Code). You should create a pull request updating the package version in the repo's `package.json`.
 
 ## This is just some javascript - is there other code elsewhere?
 Yep - These links will probably be wrong pretty soon but will hopefully point you in the right direction:
