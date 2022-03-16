@@ -34,7 +34,7 @@
     "lintspaces-cli": "^0.6.0",
     "sass-lint": "^1.10.2",
     "snyk": "^1.167.2",
-    "webpack": "^2.6.1",
+    "webpack": "^3.0.0",
     "webpack-merge": "^4.1.0",
     "webpack-sources": "^1.0.1",
     "webpack-stats-plugin": "^0.1.1"
