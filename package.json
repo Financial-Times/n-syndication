@@ -40,7 +40,7 @@
     "webpack-stats-plugin": "^0.1.1"
   },
   "dependencies": {
-    "next-session-client": "^3.0.1",
+    "next-session-client": "^4.0.0",
     "superstore": "^2.1.0"
   },
   "peerDependencies": {
@@ -51,7 +51,7 @@
     "@financial-times/o-tracking": "^4.2.1",
     "@financial-times/o-viewport": "^5.1.1",
     "@financial-times/o-visual-effects": "^4.1.1",
-    "n-ui-foundations": "^8.0.0"
+    "n-ui-foundations": "^9.0.0"
   },
   "config": {},
   "engines": {
