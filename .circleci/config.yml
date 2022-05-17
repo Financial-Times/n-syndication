@@ -10,7 +10,7 @@ references:
       - image: circleci/node:<< parameters.node-version >>-browsers
     parameters:
       node-version:
-        default: "16.15"
+        default: "16.14"
         type: string
 
   container_config_lambda_node12:
