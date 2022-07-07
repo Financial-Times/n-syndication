@@ -7,7 +7,7 @@
     "@babel/runtime": "^7.10.2",
     "@financial-times/n-gage": "^8.3.2",
     "@financial-times/n-heroku-tools": "^8.0.0",
-    "@financial-times/o-buttons": "^7.3.0",
+    "@financial-times/o-buttons": "^7.6.0",
     "@financial-times/o-colors": "^6.4.2",
     "@financial-times/o-icons": "^7.2.1",
     "@financial-times/o-message": "^5.2.1",
