@@ -15,9 +15,8 @@ let OVERLAY_FRAGMENT;
 let OVERLAY_MODAL_ELEMENT;
 let OVERLAY_SHADOW_ELEMENT;
 let USER_DATA;
-let DAYS_LEFT;
 
-function init (user, daysLeft) {
+function init (user) {
 	addEventListener('click', actionModalFromClick, true);
 
 	addEventListener('keyup', actionModalFromKeyboard, true);
@@ -26,7 +25,6 @@ function init (user, daysLeft) {
 	oViewport.listenTo('resize');
 
 	USER_DATA = user;
-	DAYS_LEFT = daysLeft;
 }
 
 function daysUntilMaintenance (date) {
@@ -121,20 +119,16 @@ function createElement (item) {
 								<header class="n-syndication-modal-heading">
 								<span class="o-icons-icon o-icons-icon--warning-alt demo-icon n-syndication-maintenance-icon"></span>
 									<a class="n-syndication-modal-close" data-action="close" 'data-trackable="close-syndication-modal" role="button" href="#" aria-label="Close" title="Close" tabindex="0"></a>
-									<span role="heading" class="n-syndication-maintenance-modal-title" >Maintenance work is scheduled in ${DAYS_LEFT} days on Oct 6, 2021</span>
+									<span role="heading" class="n-syndication-maintenance-modal-title" >Sorry, maintenance work is in progress</span>
 								</header>
 								<section class=" n-syndication-modal-content">
-								<div class="n-syndication-maintenance-modal-word-count">
-									${ '<span>10:30 - 14:30 BST (British Summer Time)</span>'} <br>
-									${ '<span>5:30 - 9:30 EDT (Eastern Daylight Time)</span>'}
-								</div>
 									<div class="n-syndication-maintenance-modal-message">
-									You will not be able to use the Syndication tool during this time.
+									<strong>You are not able to use the Syndication tool during this time.</strong> We will notify you via email once it’s back up and running again.
 									</div>
 									<div class="n-syndication-maintenance-modal-lower-message">
-									If you require articles during the maintenance period, we will be able to provide them if you email
+									If you require articles during the maintenance period, please email
 									<u><a href = "mailto: syndication@ft.com" style=" color: black" target="_blank">syndication@ft.com</a></u>
-									with your requirement.
+									with your requirement, and we will be happy to help.
 									</div>
 									<div class="n-syndication-actions" data-content-id="${item.id}" data-iso-lang="${item.lang}">
 									<button data-action="maintenance-modal-close" class="close-button-maintenance">
