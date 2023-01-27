@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 'use strict';
 
 import { richContentMessage, getMessage } from '../../../src/js/messages';
