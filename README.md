@@ -20,6 +20,7 @@ If your app is failing locally as if you need the syndication API installed loca
 
 * [The Syndication Wiki](https://github.com/Financial-Times/next-syndication-api/wiki) explains the system and its architecture, including endpoints and authentication.
 * [Next Wiki](https://github.com/Financial-Times/next/wiki/Syndication) covers GDPR SAR and erasure requests so that people without github access can read it, as it is automatically published to https://customer-products.in.ft.com/wiki/Syndication.
+* [Database Credentials & Key Rotation](https://github.com/Financial-Times/next-syndication-api/wiki#database-credentials-and-key-rotation) info related with key rotation in the systems
 
 ## Local Development
 
