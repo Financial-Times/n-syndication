@@ -1,13 +1,13 @@
 'use strict';
 
-import {broadcast} from 'n-ui-foundations';
+import { broadcast } from 'n-ui-foundations';
 import oViewport from '@financial-times/o-viewport';
 import Superstore from 'superstore';
 
-import {TRACKING} from './config';
+import { TRACKING } from './config';
 
-import {toElement} from './util';
-import {getItemByHTMLElement} from './data-store';
+import { toElement } from './util';
+import { getItemByHTMLElement } from './data-store';
 
 const localStore = new Superstore('local', 'syndication');
 
@@ -17,10 +17,10 @@ let OVERLAY_SHADOW_ELEMENT;
 let USER_DATA;
 
 function init (user) {
-	addEventListener('click', actionModalFromClick, true);
+	addEventListener('click',module.exports.actionModalFromClick, true);
 
-	addEventListener('keyup', actionModalFromKeyboard, true);
-	addEventListener('resize', reposition, true);
+	addEventListener('keyup',module.exports.actionModalFromKeyboard, true);
+	addEventListener('resize',module.exports.reposition, true);
 
 	oViewport.listenTo('resize');
 
@@ -33,7 +33,7 @@ function daysUntilMaintenance (date) {
 	const diffTime = maintenanceDate - dateNow;
 	const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-	if (diffDays>=0){
+	if (diffDays >= 0) {
 		return diffDays;
 	}
 	return -1;
@@ -41,7 +41,6 @@ function daysUntilMaintenance (date) {
 
 function actionModalFromClick (evt) {
 	const item = getItemByHTMLElement(evt.target);
-
 	let fire = true;
 
 	const trackingEvent = {};
@@ -58,23 +57,33 @@ function actionModalFromClick (evt) {
 		trackingEvent.syndication_content = item.type;
 	}
 
-	if (evt.target.matches('[data-content-id][data-syndicated="true"].n-syndication-icon')) {
-		show(evt);
-	} else if (evt.target.matches('[data-content-id][data-syndicated="true"].download-button')) {
+	if (
+		evt.target.matches(
+			'[data-content-id][data-syndicated="true"].n-syndication-icon'
+		)
+	) {
+		exports.show(evt);
+	} else if (
+		evt.target.matches(
+			'[data-content-id][data-syndicated="true"].download-button'
+		)
+	) {
 		evt.preventDefault();
 
-		show(evt);
+		exports.show(evt);
 	} else if (evt.target.matches('.n-syndication-action[data-action="save"]')) {
-		delayHide();
-	}
-	else {
-		if (visible()) {
+		exports.delayHide();
+	} else {
+		if (exports.visible()) {
 			const action = evt.target.getAttribute('data-action');
 
-			if (evt.target.matches('.n-syndication-modal-shadow') || (action && action === 'maintenance-modal-close')) {
+			if (
+				evt.target.matches('.n-syndication-modal-shadow') ||
+				(action && action === 'maintenance-modal-close')
+			) {
 				evt.preventDefault();
 
-				delayHide();
+				exports.delayHide();
 			}
 		} else {
 			fire = false;
@@ -86,9 +95,8 @@ function actionModalFromClick (evt) {
 
 function actionModalFromKeyboard (evt) {
 	switch (evt.key) {
-		case 'Escape' :
-			hide();
-
+		case 'Escape':
+			exports.hide();
 			const trackingEvent = {};
 
 			trackingEvent.category = TRACKING.CATEGORY;
@@ -100,33 +108,33 @@ function actionModalFromKeyboard (evt) {
 			broadcast('oTracking.event', trackingEvent);
 
 			break;
-		case ' ' :
-		case 'Enter' :
-			if (evt.target.matches('[data-content-id][data-syndicated="true"].n-syndication-icon')) {
-				show(evt);
+		case ' ':
+		case 'Enter':
+			if (
+				evt.target.matches(
+					'[data-content-id][data-syndicated="true"].n-syndication-icon'
+				)
+			) {
+				exports.show(evt);
 			}
 
 			break;
 	}
-
 }
 
 function createElement (item) {
-	const title = USER_DATA.MAINTENANCE_MODE === true ? '' : item.title;
+	try {
+		const title = USER_DATA.MAINTENANCE_MODE === true ? '' : item.title;
 
-	return toElement(`<div class="n-syndication-modal-shadow"></div>
+		return toElement(`<div class="n-syndication-modal-shadow"></div>
 							<div class="n-syndication-modal n-syndication-modal-${item.type}" role="dialog" aria-labelledby="'Download:  ${title}" tabindex="0">
 								<header class="n-syndication-modal-heading">
 								<span class="o-icons-icon o-icons-icon--warning-alt demo-icon n-syndication-maintenance-icon"></span>
 									<a class="n-syndication-modal-close" data-action="close" 'data-trackable="close-syndication-modal" role="button" href="#" aria-label="Close" title="Close" tabindex="0"></a>
-									<span role="heading" class="n-syndication-maintenance-modal-title" >Sorry, maintenance work is in progress</span>
-								</header>
-								<section class=" n-syndication-modal-content">
-									<div class="n-syndication-maintenance-modal-message">
+									<span role="heading" class="n-syndication-maintenance-modal-title" >Sorry, maintenance work is in progress</span></header><section class=" n-syndication-modal-content"><div class="n-syndication-maintenance-modal-message">
 									<strong>You are not able to use the Syndication tool during this time.</strong> We will notify you via email once it’s back up and running again.
 									</div>
-									<div class="n-syndication-maintenance-modal-lower-message">
-									If you require articles during the maintenance period, please email
+									<div class="n-syndication-maintenance-modal-lower-message">If you require articles during the maintenance period, please email
 									<u><a href = "mailto: syndication@ft.com" style=" color: black" target="_blank">syndication@ft.com</a></u>
 									with your requirement, and we will be happy to help.
 									</div>
@@ -137,7 +145,14 @@ function createElement (item) {
 									</div>
 								</section>
 							</div>`);
-
+	} catch (error) {
+		broadcast('oErrors.log', {
+			error: error,
+			info: {
+				component: 'next-syndication-redux',
+			},
+		});
+	}
 }
 
 function hide () {
@@ -157,61 +172,77 @@ function delayHide (ms = 500) {
 		clearTimeout(tid);
 		tid = null;
 
-		hide();
+		exports.hide();
 	}, ms);
 }
 
 function reposition () {
-	if (!visible()) {
+	if (!exports.visible()) {
 		return;
 	}
 
 	const DOC_EL = document.documentElement;
 
-	let x = (DOC_EL.clientWidth / 2) - (OVERLAY_MODAL_ELEMENT.clientWidth / 2);
-	let y = Math.max((DOC_EL.clientHeight / 3) - (OVERLAY_MODAL_ELEMENT.clientHeight / 2), 100);
+	let x = DOC_EL.clientWidth / 2 - OVERLAY_MODAL_ELEMENT.clientWidth / 2;
+	let y = Math.max(
+		DOC_EL.clientHeight / 3 - OVERLAY_MODAL_ELEMENT.clientHeight / 2,
+		100
+	);
 
 	OVERLAY_MODAL_ELEMENT.style.left = `${x}px`;
 	OVERLAY_MODAL_ELEMENT.style.top = `${y}px`;
 }
-
 function shouldPreventDefault (el) {
-	do {
-		if (el.tagName.toUpperCase() === 'A') {
+	while (el) {
+		if (el.tagName && el.tagName.toUpperCase() === 'A') {
 			return true;
 		}
-	} while (el = el.parentElement);
-
+		el = el.parentElement;
+	}
 	return false;
 }
 
 function show (evt) {
-	if (visible()) {
-		hide();
-	}
+	try {
+		if (exports.visible()) {
+			exports.hide();
+		}
 
-	if (shouldPreventDefault(evt.target.parentElement)) {
-		evt.preventDefault();
-	}
+		if (shouldPreventDefault(evt.target.parentElement)) {
+			evt.preventDefault();
+		}
 
-	localStore.get('download_format').then(() => {
-		OVERLAY_FRAGMENT = createElement(getItemByHTMLElement(evt.target));
+		localStore.get('download_format').then(() => {
+			OVERLAY_FRAGMENT = exports.createElement(getItemByHTMLElement(evt.target));
 
-		OVERLAY_MODAL_ELEMENT = OVERLAY_FRAGMENT.lastElementChild || OVERLAY_FRAGMENT.lastChild;
-		OVERLAY_SHADOW_ELEMENT = OVERLAY_FRAGMENT.firstElementChild || OVERLAY_FRAGMENT.firstChild;
+			OVERLAY_MODAL_ELEMENT =
+				OVERLAY_FRAGMENT.lastElementChild || OVERLAY_FRAGMENT.lastChild;
+			OVERLAY_SHADOW_ELEMENT =
+				OVERLAY_FRAGMENT.firstElementChild || OVERLAY_FRAGMENT.firstChild;
 
-		document.body.appendChild(OVERLAY_FRAGMENT);
+			document.body.appendChild(OVERLAY_FRAGMENT);
 
-		reposition();
-	});
+			exports.reposition();
+		});
+	} catch (error) {}
 }
 
 function visible () {
-	return !!(OVERLAY_MODAL_ELEMENT && document.body.contains(OVERLAY_MODAL_ELEMENT));
+	return !!(
+		OVERLAY_MODAL_ELEMENT && document.body.contains(OVERLAY_MODAL_ELEMENT)
+	);
 }
 
-
-export {
+module.exports = exports = {
 	init,
-	daysUntilMaintenance
+	USER_DATA,
+	daysUntilMaintenance,
+	visible,
+	show,
+	hide,
+	actionModalFromClick,
+	actionModalFromKeyboard,
+	reposition,
+	createElement,
+	delayHide
 };

@@ -114,5 +114,6 @@ export {
 	getContentAttributeFromHTMLElement,
 	getContentIDFromHTMLElement,
 	prepend,
+	getContentIDFromHref,
 	toElement
 };

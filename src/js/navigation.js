@@ -1,6 +1,6 @@
 'use strict';
 
-import {$, broadcast} from 'n-ui-foundations';
+import { $, broadcast } from 'n-ui-foundations';
 
 function buildNavItem (user) {
 	const elNavItemLink = document.createElement('a');
@@ -16,7 +16,7 @@ function buildNavItem (user) {
 			contractID: user.contract_id,
 			product: 'syndication',
 			referrer: location.href,
-			url: evt.target.href || evt.target.getAttribute('href')
+			url: evt.target.href || evt.target.getAttribute('href'),
 		});
 	});
 
@@ -40,7 +40,7 @@ function insertDesktopNavItem (user) {
 	}
 
 	let userNav = container.querySelector('[data-trackable="user-nav"]');
-	if( !userNav ) {
+	if (!userNav) {
 		userNav = document.createElement('ul');
 		userNav.classList.add('o-header__nav-list');
 		userNav.classList.add('o-header__nav-list--right');
@@ -73,6 +73,9 @@ function init (user) {
 	insertDrawerNavItem(user);
 }
 
-export {
-	init
+module.exports = exports = {
+	init,
+	insertDrawerNavItem,
+	insertDesktopNavItem,
+	buildNavItem
 };

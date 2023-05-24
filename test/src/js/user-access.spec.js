@@ -1,6 +1,3 @@
-// 'use strict';
-
-//Mocks
 jest.mock('next-session-client');
 import {products as getUserProducts}from 'next-session-client';
 //Fixtures

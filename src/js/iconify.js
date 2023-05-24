@@ -1,41 +1,62 @@
 'use strict';
 
-import {$$, broadcast} from 'n-ui-foundations';
+import { $$, broadcast } from 'n-ui-foundations';
 
-import {DATA_STORE, fetchItems} from './data-store';
-import {getMessage} from './messages';
-import {getContentIDFromHTMLElement, prepend, toElement} from './util';
+import { DATA_STORE, fetchItems } from './data-store';
+import { getMessage } from './messages';
+import { getContentIDFromHTMLElement, prepend, toElement } from './util';
 
 const SYNDICATION_INSERTION_RULES = {
-	['a.card__concept-article-link']: {fn: 'closest', slc: '.card__concept-article'},
-	['a.topic-card__concept-article-link']: {fn: 'closest', slc: '.topic-card__concept-article'},
-	['a.package__content-item']: {fn: 'querySelector', slc: '.package__title'},
-	['.story__link']: {fn: 'closest', slc: 'article[data-trackable="story"]'},
+	['a.card__concept-article-link']: {
+		fn: 'closest',
+		slc: '.card__concept-article',
+	},
+	['a.topic-card__concept-article-link']: {
+		fn: 'closest',
+		slc: '.topic-card__concept-article',
+	},
+	['a.package__content-item']: { fn: 'querySelector', slc: '.package__title' },
+	['.story__link']: { fn: 'closest', slc: 'article[data-trackable="story"]' },
 	// matcher for n-teaser
-	'a': {fn: 'closest', slc: '.o-teaser__heading'},
+	a: { fn: 'closest', slc: '.o-teaser__heading' },
 	// matcher for x-teaser
-	'.o-teaser': {fn: 'querySelector', slc: '.o-teaser__heading'},
-	'.stream-item': {fn: 'querySelector', slc: '.card-openable__headline'},
-	'article[class="article"]': {fn: 'querySelector', slc: '.o-topper__headline'},
-	'article.article--brand': {fn: 'querySelector', slc: '.o-topper__headline'},
-	'article.article-grid': {fn: 'querySelector', slc: '.o-topper__headline', up: 1},
-	'div.hero': {fn: 'querySelector', slc: '.hero__heading'},
-	'main.video': {fn: 'querySelector', slc: '.video__title'},
+	'.o-teaser': { fn: 'querySelector', slc: '.o-teaser__heading' },
+	'.stream-item': { fn: 'querySelector', slc: '.card-openable__headline' },
+	'article[class="article"]': {
+		fn: 'querySelector',
+		slc: '.o-topper__headline',
+	},
+	'article.article--brand': { fn: 'querySelector', slc: '.o-topper__headline' },
+	'article.article-grid': {
+		fn: 'querySelector',
+		slc: '.o-topper__headline',
+		up: 1,
+	},
+	'div.hero': { fn: 'querySelector', slc: '.hero__heading' },
+	'main.video': { fn: 'querySelector', slc: '.video__title' },
 	'li.o-teaser__related-item': {},
-	'.js-teaser-headline': {}
+	'.js-teaser-headline': {},
 };
 let USER_DATA;
 
 function init (user) {
 	USER_DATA = user;
-	addEventListener('asyncContentLoaded', () => syndicate(), true);
-	addEventListener('nSyndication.dataChanged', () => updatePage(), true);
+	addEventListener(
+		'asyncContentLoaded',
+		() => module.exports.syndicate(),
+		true
+	);
+	addEventListener(
+		'nSyndication.dataChanged',
+		() => module.exports.updatePage(),
+		true
+	);
 
-	return syndicate();
+	return module.exports.syndicate();
 }
 
 function createElement (item) {
-	const {messageCode, lang = 'en', id, type} = item;
+	const { messageCode, lang = 'en', id, type } = item;
 	const stateClass = `n-syndication-icon-state-${messageCode}`.toLowerCase();
 	const template = `<button
 							class="n-syndication-icon ${stateClass}"
@@ -53,8 +74,8 @@ function createElement (item) {
 
 function findElementToSyndicate (element) {
 	const elementIsNotFormOrButton =
-		element.tagName.toUpperCase() !== 'FORM'
-		&& element.tagName.toUpperCase() !== 'BUTTON';
+		element.tagName.toUpperCase() !== 'FORM' &&
+		element.tagName.toUpperCase() !== 'BUTTON';
 
 	if (element !== document.documentElement && elementIsNotFormOrButton) {
 		const entries = Object.entries(SYNDICATION_INSERTION_RULES);
@@ -89,14 +110,16 @@ function findElementToSyndicate (element) {
 }
 
 function getSyndicatableItems () {
-	return $$([
-		'[data-content-id]',
-		'[data-id]',
-		'a.card__concept-article-link',
-		'a.topic-card__concept-article-link',
-		'a.package__content-item',
-		'.story__link'
-	].join(', '));
+	return $$(
+		[
+			'[data-content-id]',
+			'[data-id]',
+			'a.card__concept-article-link',
+			'a.topic-card__concept-article-link',
+			'a.package__content-item',
+			'.story__link',
+		].join(', ')
+	);
 }
 
 function getSyndicatableItemIDs (items) {
@@ -115,21 +138,21 @@ function getSyndicatableItemIDs (items) {
 }
 
 function syndicate () {
-	const ELEMENTS = getSyndicatableItems();
+	const ELEMENTS = module.exports.getSyndicatableItems();
 
-	const ITEM_IDS = getSyndicatableItemIDs(ELEMENTS);
+	const ITEM_IDS = exports.getSyndicatableItemIDs(ELEMENTS);
 
 	return fetchItems(ITEM_IDS);
 }
 
 function syndicateElement (item, el) {
-	const element = findElementToSyndicate(el);
+	const element = module.exports.findElementToSyndicate(el);
 
 	if (element !== null && element.getAttribute('data-syndicated') !== 'true') {
 		element.classList.add('n-syndication');
 		element.classList.add(`n-syndication-state-${item.canBeSyndicated}`);
 
-		prepend(element, createElement(item));
+		prepend(element, module.exports.createElement(item));
 
 		element.setAttribute('data-content-type', item.type);
 		element.setAttribute('data-syndicated', 'true');
@@ -146,12 +169,12 @@ function syndicateElements (item, els) {
 		return;
 	}
 
-	els.forEach(el => syndicateElement(item, el));
+	els.forEach((el) => module.exports.syndicateElement(item, el));
 }
 
 function updatePage (els) {
 	if (!Array.isArray(els)) {
-		els = getSyndicatableItems();
+		els = module.exports.getSyndicatableItems();
 	}
 
 	const elementsByContentID = Array.from(els).reduce((acc, el) => {
@@ -166,11 +189,21 @@ function updatePage (els) {
 		return acc;
 	}, {});
 
-	DATA_STORE.forEach(item => syndicateElements(item, elementsByContentID[item['id']]));
+	DATA_STORE.forEach((item) =>
+		module.exports.syndicateElements(item, elementsByContentID[item['id']])
+	);
 
 	broadcast('nSyndication.iconified');
 }
 
-export {
-	init
+module.exports = exports = {
+	init,
+	createElement,
+	findElementToSyndicate,
+	updatePage,
+	syndicateElements,
+	getSyndicatableItemIDs,
+	getSyndicatableItems,
+	syndicate,
+	syndicateElement,
 };
