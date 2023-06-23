@@ -1,8 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-'use strict';
-
 import { richContentMessage, getMessage } from '../../../src/js/messages';
 import { MESSAGES } from '../../../src/js/config';
 const itemsFixture = require('../../fixtures/items.json');
