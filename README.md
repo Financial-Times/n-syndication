@@ -8,9 +8,9 @@ All troubleshooting information is gathered in the [Syndication API Troubleshoot
 
 A client side library that displays icons next to headlines allowing syndication customers to download or save content for republishing.
 
-* [n-syndication wiki page](https://github.com/Financial-Times/next-syndication-api/wiki/n-syndication-icons-display-library) gives some background context on how the icons work
+* [n-syndication wiki page](https://financialtimes.atlassian.net/wiki/spaces/Accounts/pages/8120991905/n-syndication+icons+display+library) gives some background context on how the icons work
 
-See [getting started](https://github.com/Financial-Times/next-syndication-api/wiki/Syndication-API:-authentication#getting-started) on the authentication wiki page if you need to be added as a syndication subscriber.
+See [getting started](https://financialtimes.atlassian.net/wiki/spaces/Accounts/pages/8120533017/Syndication) on the authentication wiki page if you need to be added as a syndication subscriber.
 
 You can develop with n-syndication without installing all of syndication. See instructions for local development and developing with a Next app.
 
@@ -18,7 +18,7 @@ If your app is failing locally as if you need the syndication API installed loca
 
 ### More information about the syndication system
 
-* [The Syndication Wiki](https://github.com/Financial-Times/next-syndication-api/wiki) explains the system and its architecture, including endpoints and authentication.
+* [The Syndication Wiki](https://financialtimes.atlassian.net/wiki/spaces/Accounts/pages/8120533017/Syndication) explains the system and its architecture, including endpoints and authentication.
 * [Next Wiki](https://github.com/Financial-Times/next/wiki/Syndication) covers GDPR SAR and erasure requests so that people without github access can read it, as it is automatically published to https://customer-products.in.ft.com/wiki/Syndication.
 * [Database Credentials & Key Rotation](https://github.com/Financial-Times/next-syndication-api/wiki#database-credentials-and-key-rotation) info related with key rotation in the systems
 
