@@ -57,14 +57,13 @@
   },
   "config": {},
   "engines": {
-    "node": "14.x || 16.x",
-    "npm": "7.x || 8.x"
+    "node": "16.x || 18.x",
+    "npm": "7.x || 8.x || 9.x"
   },
   "scripts": {
     "commit": "commit-wizard",
     "test": "make test",
     "prepare": "npx snyk protect || npx snyk protect -d || true",
-    "preinstall": "[ \"$INIT_CWD\" != \"$PWD\" ] || npm_config_yes=true npx check-engine",
     "lint": "eslint . --ext .jsx,.js",
     "lint-fix": "eslint . --ext .jsx,.js --fix"
   },
@@ -77,7 +76,6 @@
     }
   },
   "volta": {
-    "node": "16.14.0",
-    "npm": "7.24.2"
+    "node": "18.17.1"
   }
 }
