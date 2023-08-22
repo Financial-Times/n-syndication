@@ -3,6 +3,7 @@ import oViewport from '@financial-times/o-viewport';
 import Superstore from 'superstore';
 
 const modalDownload = require('../../../src/js/modal-download');
+import OverlayVisibilityManager from '../../../src/js/modal-state-manager';
 
 import { TRACKING } from '../../../src/js/config';
 
@@ -45,6 +46,12 @@ describe('./src/js/modal-download', () => {
 		set: jest.fn(),
 	};
 	const USER_DATA = { contract_id: '123' };
+	const overlayManagerMockInstance = {
+		isOverlayVisible: jest.fn(),
+		hideOverlay: jest.fn(),
+		delayModalHide: jest.fn(),
+		USER_DATA
+	};
 	beforeEach(() => {
 		jest
 			.spyOn(Superstore.prototype, 'get')
@@ -52,16 +59,16 @@ describe('./src/js/modal-download', () => {
 		jest
 			.spyOn(Superstore.prototype, 'set')
 			.mockImplementation(localStoreMock.set);
-		modalDownload.USER_DATA = USER_DATA;
-		jest.spyOn(modalDownload, 'hide');
 		jest.spyOn(modalDownload, 'show');
-		jest.spyOn(modalDownload, 'delayHide');
 		jest.spyOn(modalDownload, 'download');
 		jest.spyOn(modalDownload, 'save');
-		jest.spyOn(modalDownload, 'visible');
+		jest.spyOn(OverlayVisibilityManager.prototype, 'hideOverlay').mockImplementation(overlayManagerMockInstance.hideOverlay);
+		jest.spyOn(OverlayVisibilityManager.prototype, 'isOverlayVisible').mockImplementation(overlayManagerMockInstance.isOverlayVisible);
+		jest.spyOn(OverlayVisibilityManager.prototype, 'delayModalHide').mockImplementation(overlayManagerMockInstance.delayModalHide);
+
 	});
 
-	afterEach(()=>{
+	afterEach(() => {
 		jest.clearAllMocks();
 	});
 
@@ -84,19 +91,19 @@ describe('./src/js/modal-download', () => {
 		);
 		expect(addEventListenerSpy).toHaveBeenCalledWith(
 			'resize',
-			modalDownload.reposition,
+			OverlayVisibilityManager.prototype.reposition,
 			true
 		);
 
 		expect(oViewport.listenTo).toHaveBeenCalledWith('resize');
 
-		expect(modalDownload.USER_DATA).toStrictEqual(user);
+		expect(overlayManagerMockInstance.USER_DATA).toStrictEqual(user);
 	});
 
 	it('actionModalFromKeyboard should hide the modal on "Escape" key press and trigger tracking event', () => {
 		const trackingEvent = {
 			category: 'syndication',
-			contractID: modalDownload.USER_DATA.contract_id,
+			contractID: overlayManagerMockInstance.USER_DATA.contract_id,
 			product: TRACKING.CATEGORY,
 			url: location.href,
 			action: 'close-syndication-modal',
@@ -104,7 +111,7 @@ describe('./src/js/modal-download', () => {
 
 		modalDownload.actionModalFromKeyboard({ key: 'Escape' });
 
-		expect(modalDownload.hide).toHaveBeenCalled();
+		expect(overlayManagerMockInstance.hideOverlay).toHaveBeenCalled();
 		expect(broadcast).toHaveBeenCalledWith('oTracking.event', trackingEvent);
 	});
 
@@ -157,7 +164,7 @@ describe('./src/js/modal-download', () => {
 
 		expect(broadcast).toHaveBeenCalledWith('oTracking.event', {
 			category: TRACKING.CATEGORY,
-			contractID: modalDownload.USER_DATA.contract_id,
+			contractID: overlayManagerMockInstance.USER_DATA.contract_id,
 			product: TRACKING.CATEGORY,
 			url: location.href,
 			action: 'save',
@@ -185,8 +192,8 @@ describe('./src/js/modal-download', () => {
 
 		modalDownload.actionModalFromClick(evt);
 
-		expect(modalDownload.delayHide).toHaveBeenCalled();
-		expect(modalDownload.hide).toHaveBeenCalled();
+		expect(overlayManagerMockInstance.delayModalHide).toHaveBeenCalled();
+		expect(overlayManagerMockInstance.hideOverlay).toHaveBeenCalled();
 		expect(modalDownload.save).toHaveBeenCalled();
 		expect(modalDownload.show).toHaveBeenCalled();
 	});
@@ -209,7 +216,7 @@ describe('./src/js/modal-download', () => {
 		modalDownload.actionModalFromClick(evt);
 
 		expect(modalDownload.download).toHaveBeenCalled();
-		expect(modalDownload.delayHide).toHaveBeenCalled();
+		expect(overlayManagerMockInstance.delayModalHide).toHaveBeenCalled();
 	});
 
 	it('should prevent default and call module.exports.show when matching download button', () => {
@@ -250,7 +257,9 @@ describe('./src/js/modal-download', () => {
 			},
 			preventDefault: jest.fn(),
 		};
-		jest.spyOn(modalDownload, 'delayHide');
+		// jest.spyOn(modalDownload, 'delayHide');
+
+		overlayManagerMockInstance.isOverlayVisible.mockReturnValue(true);
 
 		modalDownload.actionModalFromClick(evt);
 
@@ -266,10 +275,10 @@ describe('./src/js/modal-download', () => {
 			preventDefault: jest.fn(),
 		};
 
-		jest.spyOn(modalDownload, 'visible').mockReturnValue(false);
+		overlayManagerMockInstance.isOverlayVisible.mockReturnValue(false);
 
 		modalDownload.actionModalFromClick(evt);
 
-		expect(modalDownload.delayHide).not.toHaveBeenCalled();
+		expect(overlayManagerMockInstance.delayModalHide).not.toHaveBeenCalled();
 	});
 });
