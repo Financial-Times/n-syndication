@@ -6,8 +6,6 @@ import {init as initDataStore} from './data-store';
 import {init as initDownloadModal} from './modal-download';
 import {TRACKING} from './config';
 
-//import tracking from 'o-tracking';
-
 function init (flags, user) {
 	if (user) {
 		_init(flags, user);

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 'use strict';
 
 import { broadcast } from 'n-ui-foundations';
@@ -8,23 +9,22 @@ import { TRACKING } from './config';
 
 import { toElement } from './util';
 import { getItemByHTMLElement } from './data-store';
+import { createTrackingEvent, isCloseAction,isDownloadButton,isSaveAction, isSyndicationIcon} from './modal-utils';
+
+import OverlayVisibilityManager from './modal-state-manager';
 
 const localStore = new Superstore('local', 'syndication');
-
-let OVERLAY_FRAGMENT;
-let OVERLAY_MODAL_ELEMENT;
-let OVERLAY_SHADOW_ELEMENT;
-let USER_DATA;
+const overlayManager = new OverlayVisibilityManager();
 
 function init (user) {
-	addEventListener('click',module.exports.actionModalFromClick, true);
+	addEventListener('click', module.exports.actionModalFromClick, true);
 
-	addEventListener('keyup',module.exports.actionModalFromKeyboard, true);
-	addEventListener('resize',module.exports.reposition, true);
+	addEventListener('keyup', module.exports.actionModalFromKeyboard, true);
+	addEventListener('resize', overlayManager.reposition, true);
 
 	oViewport.listenTo('resize');
 
-	USER_DATA = user;
+	overlayManager.USER_DATA = user;
 }
 
 function daysUntilMaintenance (date) {
@@ -38,69 +38,43 @@ function daysUntilMaintenance (date) {
 	}
 	return -1;
 }
-
 function actionModalFromClick (evt) {
-	const item = getItemByHTMLElement(evt.target);
-	let fire = true;
+	try {
+		const item = getItemByHTMLElement(evt.target);
+		let fire = true;
+		const trackingEvent = createTrackingEvent(evt, item, overlayManager);
 
-	const trackingEvent = {};
-
-	trackingEvent.category = TRACKING.CATEGORY;
-	trackingEvent.contractID = USER_DATA.contract_id;
-	trackingEvent.product = TRACKING.CATEGORY;
-	trackingEvent.url = location.href;
-
-	if (item) {
-		trackingEvent.lang = item.lang;
-		trackingEvent.message = item.messageCode;
-		trackingEvent.article_id = item['id'];
-		trackingEvent.syndication_content = item.type;
-	}
-
-	if (
-		evt.target.matches(
-			'[data-content-id][data-syndicated="true"].n-syndication-icon'
-		)
-	) {
-		exports.show(evt);
-	} else if (
-		evt.target.matches(
-			'[data-content-id][data-syndicated="true"].download-button'
-		)
-	) {
-		evt.preventDefault();
-
-		exports.show(evt);
-	} else if (evt.target.matches('.n-syndication-action[data-action="save"]')) {
-		exports.delayHide();
-	} else {
-		if (exports.visible()) {
-			const action = evt.target.getAttribute('data-action');
-
-			if (
-				evt.target.matches('.n-syndication-modal-shadow') ||
-				(action && action === 'maintenance-modal-close')
-			) {
-				evt.preventDefault();
-
-				exports.delayHide();
-			}
+		if (isSyndicationIcon(evt.target)) {
+			exports.show(evt);
+		}else if (isDownloadButton(evt.target)) {
+			evt.preventDefault();
+			exports.show(evt);
+		} else if (isSaveAction(evt.target)) {
+			overlayManager.delayModalHide();
 		} else {
-			fire = false;
+			const isOverlayVisible = overlayManager.isOverlayVisible();
+			if (isOverlayVisible && isCloseAction(evt.target)) {
+				evt.preventDefault();
+				overlayManager.delayModalHide();
+			} else {
+				fire = false;
+			}
 		}
-	}
 
-	!fire || broadcast('oTracking.event', trackingEvent);
+		!fire || broadcast('oTracking.event', trackingEvent);
+	} catch (error) {
+		console.error('An error occurred:', error);
+	}
 }
 
 function actionModalFromKeyboard (evt) {
 	switch (evt.key) {
 		case 'Escape':
-			exports.hide();
+			overlayManager.hideOverlay();
 			const trackingEvent = {};
 
 			trackingEvent.category = TRACKING.CATEGORY;
-			trackingEvent.contractID = USER_DATA.contract_id;
+			trackingEvent.contractID = overlayManager.USER_DATA.contract_id;
 			trackingEvent.product = TRACKING.CATEGORY;
 			trackingEvent.url = location.href;
 			trackingEvent.action = 'close-syndication-modal';
@@ -110,11 +84,7 @@ function actionModalFromKeyboard (evt) {
 			break;
 		case ' ':
 		case 'Enter':
-			if (
-				evt.target.matches(
-					'[data-content-id][data-syndicated="true"].n-syndication-icon'
-				)
-			) {
+			if (isSyndicationIcon(evt.target)) {
 				exports.show(evt);
 			}
 
@@ -124,7 +94,7 @@ function actionModalFromKeyboard (evt) {
 
 function createElement (item) {
 	try {
-		const title = USER_DATA.MAINTENANCE_MODE === true ? '' : item.title;
+		const title = overlayManager.USER_DATA.MAINTENANCE_MODE === true ? '' : item.title;
 
 		return toElement(`<div class="n-syndication-modal-shadow"></div>
 							<div class="n-syndication-modal n-syndication-modal-${item.type}" role="dialog" aria-labelledby="'Download:  ${title}" tabindex="0">
@@ -155,94 +125,30 @@ function createElement (item) {
 	}
 }
 
-function hide () {
-	if (visible()) {
-		OVERLAY_MODAL_ELEMENT.remove();
-
-		OVERLAY_SHADOW_ELEMENT.remove();
-
-		OVERLAY_FRAGMENT = null;
-		OVERLAY_MODAL_ELEMENT = null;
-		OVERLAY_SHADOW_ELEMENT = null;
-	}
-}
-
-function delayHide (ms = 500) {
-	let tid = setTimeout(() => {
-		clearTimeout(tid);
-		tid = null;
-
-		exports.hide();
-	}, ms);
-}
-
-function reposition () {
-	if (!exports.visible()) {
-		return;
-	}
-
-	const DOC_EL = document.documentElement;
-
-	let x = DOC_EL.clientWidth / 2 - OVERLAY_MODAL_ELEMENT.clientWidth / 2;
-	let y = Math.max(
-		DOC_EL.clientHeight / 3 - OVERLAY_MODAL_ELEMENT.clientHeight / 2,
-		100
-	);
-
-	OVERLAY_MODAL_ELEMENT.style.left = `${x}px`;
-	OVERLAY_MODAL_ELEMENT.style.top = `${y}px`;
-}
-function shouldPreventDefault (el) {
-	while (el) {
-		if (el.tagName && el.tagName.toUpperCase() === 'A') {
-			return true;
-		}
-		el = el.parentElement;
-	}
-	return false;
-}
-
 function show (evt) {
 	try {
-		if (exports.visible()) {
-			exports.hide();
+		const isOverlayVisible = overlayManager.isOverlayVisible();
+		if (isOverlayVisible) {
+			overlayManager.hideOverlay();
 		}
 
-		if (shouldPreventDefault(evt.target.parentElement)) {
+		if (overlayManager.shouldPreventDefault(evt.target.parentElement)) {
 			evt.preventDefault();
 		}
 
 		localStore.get('download_format').then(() => {
-			OVERLAY_FRAGMENT = exports.createElement(getItemByHTMLElement(evt.target));
+			const overlayFragment = createElement(getItemByHTMLElement(evt.target));
+			overlayManager.showOverlay(overlayFragment);
 
-			OVERLAY_MODAL_ELEMENT =
-				OVERLAY_FRAGMENT.lastElementChild || OVERLAY_FRAGMENT.lastChild;
-			OVERLAY_SHADOW_ELEMENT =
-				OVERLAY_FRAGMENT.firstElementChild || OVERLAY_FRAGMENT.firstChild;
-
-			document.body.appendChild(OVERLAY_FRAGMENT);
-
-			exports.reposition();
 		});
-	} catch (error) {}
-}
-
-function visible () {
-	return !!(
-		OVERLAY_MODAL_ELEMENT && document.body.contains(OVERLAY_MODAL_ELEMENT)
-	);
+	} catch (error) { }
 }
 
 module.exports = exports = {
 	init,
-	USER_DATA,
 	daysUntilMaintenance,
-	visible,
 	show,
-	hide,
 	actionModalFromClick,
 	actionModalFromKeyboard,
-	reposition,
-	createElement,
-	delayHide
+	createElement
 };
