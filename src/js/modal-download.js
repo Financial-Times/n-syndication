@@ -258,7 +258,7 @@ function show (evt) {
 
 
 
-module.exports = exports = {
+export {
 	init,
 	actionModalFromKeyboard,
 	isDownloadDisabled,

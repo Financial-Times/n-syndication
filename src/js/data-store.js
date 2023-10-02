@@ -178,7 +178,7 @@ function refresh (data) {
 	};
 }
 
-module.exports = exports = {
+export {
 	DATA_STORE,
 	DATA_STORE_MAP,
 	USER_DATA,

@@ -144,7 +144,7 @@ function show (evt) {
 	} catch (error) { }
 }
 
-module.exports = exports = {
+export {
 	init,
 	daysUntilMaintenance,
 	show,
