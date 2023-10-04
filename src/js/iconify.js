@@ -43,16 +43,16 @@ function init (user) {
 	USER_DATA = user;
 	addEventListener(
 		'asyncContentLoaded',
-		() => module.exports.syndicate(),
+		() => exports.syndicate(),
 		true
 	);
 	addEventListener(
 		'nSyndication.dataChanged',
-		() => module.exports.updatePage(),
+		() => exports.updatePage(),
 		true
 	);
 
-	return module.exports.syndicate();
+	return exports.syndicate();
 }
 
 function createElement (item) {
@@ -138,7 +138,7 @@ function getSyndicatableItemIDs (items) {
 }
 
 function syndicate () {
-	const ELEMENTS = module.exports.getSyndicatableItems();
+	const ELEMENTS = exports.getSyndicatableItems();
 
 	const ITEM_IDS = exports.getSyndicatableItemIDs(ELEMENTS);
 
@@ -146,13 +146,13 @@ function syndicate () {
 }
 
 function syndicateElement (item, el) {
-	const element = module.exports.findElementToSyndicate(el);
+	const element = exports.findElementToSyndicate(el);
 
 	if (element !== null && element.getAttribute('data-syndicated') !== 'true') {
 		element.classList.add('n-syndication');
 		element.classList.add(`n-syndication-state-${item.canBeSyndicated}`);
 
-		prepend(element, module.exports.createElement(item));
+		prepend(element, exports.createElement(item));
 
 		element.setAttribute('data-content-type', item.type);
 		element.setAttribute('data-syndicated', 'true');
@@ -169,12 +169,12 @@ function syndicateElements (item, els) {
 		return;
 	}
 
-	els.forEach((el) => module.exports.syndicateElement(item, el));
+	els.forEach((el) => exports.syndicateElement(item, el));
 }
 
 function updatePage (els) {
 	if (!Array.isArray(els)) {
-		els = module.exports.getSyndicatableItems();
+		els = exports.getSyndicatableItems();
 	}
 
 	const elementsByContentID = Array.from(els).reduce((acc, el) => {
@@ -190,13 +190,13 @@ function updatePage (els) {
 	}, {});
 
 	DATA_STORE.forEach((item) =>
-		module.exports.syndicateElements(item, elementsByContentID[item['id']])
+		exports.syndicateElements(item, elementsByContentID[item['id']])
 	);
 
 	broadcast('nSyndication.iconified');
 }
 
-module.exports = exports = {
+export {
 	init,
 	createElement,
 	findElementToSyndicate,
