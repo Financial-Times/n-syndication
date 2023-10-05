@@ -17,9 +17,9 @@ const localStore = new Superstore('local', 'syndication');
 const overlayManager = new OverlayVisibilityManager();
 
 function init (user) {
-	addEventListener('click', module.exports.actionModalFromClick, true);
+	addEventListener('click', exports.actionModalFromClick, true);
 
-	addEventListener('keyup', module.exports.actionModalFromKeyboard, true);
+	addEventListener('keyup', exports.actionModalFromKeyboard, true);
 	addEventListener('resize', overlayManager.reposition, true);
 
 	oViewport.listenTo('resize');
@@ -144,7 +144,7 @@ function show (evt) {
 	} catch (error) { }
 }
 
-module.exports = exports = {
+export {
 	init,
 	daysUntilMaintenance,
 	show,

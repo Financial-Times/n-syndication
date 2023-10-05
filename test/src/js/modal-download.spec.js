@@ -219,7 +219,7 @@ describe('./src/js/modal-download', () => {
 		expect(overlayManagerMockInstance.delayModalHide).toHaveBeenCalled();
 	});
 
-	it('should prevent default and call module.exports.show when matching download button', () => {
+	it('should prevent default and call exports.show when matching download button', () => {
 		const evt = {
 			target: {
 				matches: jest.fn((selector) => {

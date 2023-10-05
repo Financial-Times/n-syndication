@@ -73,7 +73,7 @@ function init (user) {
 	insertDrawerNavItem(user);
 }
 
-module.exports = exports = {
+export {
 	init,
 	insertDrawerNavItem,
 	insertDesktopNavItem,

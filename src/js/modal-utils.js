@@ -45,7 +45,7 @@ function isCloseAction (target) {
 
 
 
-module.exports = exports = {
+export {
 	isCloseAction,
 	isDownloadAction,
 	isSaveAction,

@@ -85,7 +85,7 @@ function actionModalFromKeyboard (evt) {
 		case ' ':
 		case 'Enter':
 			if (isSyndicationIcon(evt.target)) {
-				module.exports.show(evt);
+				exports.show(evt);
 			}
 			break;
 	}
@@ -258,7 +258,7 @@ function show (evt) {
 
 
 
-module.exports = exports = {
+export {
 	init,
 	actionModalFromKeyboard,
 	isDownloadDisabled,

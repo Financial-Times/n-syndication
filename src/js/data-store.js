@@ -18,12 +18,12 @@ function init (user, data = null) {
 
 	addEventListener(
 		'nSyndication.fetch',
-		(evt) => module.exports.refresh(evt.detail.response),
+		(evt) => exports.refresh(evt.detail.response),
 		true
 	);
 
 	if (Array.isArray(data)) {
-		module.exports.refresh(data);
+		exports.refresh(data);
 	}
 }
 
@@ -178,7 +178,7 @@ function refresh (data) {
 	};
 }
 
-module.exports = exports = {
+export {
 	DATA_STORE,
 	DATA_STORE_MAP,
 	USER_DATA,
