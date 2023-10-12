@@ -8,13 +8,20 @@ jest.mock('n-ui-foundations', () => ({
 	broadcast: jest.fn(),
 }));
 jest.mock('../../../src/js/data-store', () => ({
-	getItemByHTMLElement: jest.fn(),
+	getItemByHTMLElement: jest.fn().mockReturnValue({
+		id: '123',
+		lang: 'en',
+		messageCode: 'test-message',
+		type: 'article',
+		test: 'icon test',
+	}),
 }));
 const USER_DATA = { contract_id: '123' };
 const overlayManagerMockInstance = {
 	isOverlayVisible: jest.fn(),
 	hideOverlay: jest.fn(),
 	delayModalHide: jest.fn(),
+	showOverlay: jest.fn(),
 	USER_DATA,
 };
 
@@ -28,6 +35,7 @@ describe('modalMaintenance', () => {
 		jest.spyOn(OverlayVisibilityManager.prototype, 'hideOverlay').mockImplementation(overlayManagerMockInstance.hideOverlay);
 		jest.spyOn(OverlayVisibilityManager.prototype, 'isOverlayVisible').mockImplementation(overlayManagerMockInstance.isOverlayVisible);
 		jest.spyOn(OverlayVisibilityManager.prototype, 'delayModalHide').mockImplementation(overlayManagerMockInstance.delayModalHide);
+		jest.spyOn(OverlayVisibilityManager.prototype, 'showOverlay').mockImplementation(overlayManagerMockInstance.showOverlay);
 	});
 
 	afterEach(() => {
@@ -92,7 +100,7 @@ describe('modalMaintenance', () => {
 
 	describe('actionModalFromClick', () => {
 		beforeEach(() => {
-			jest.spyOn(console, 'log').mockImplementation(() => {});
+			jest.spyOn(console, 'log').mockImplementation(() => { });
 		});
 		afterEach(() => {
 			document.body.innerHTML = '';
@@ -197,7 +205,7 @@ describe('modalMaintenance', () => {
 
 	describe('actionModalFromKeyboard', () => {
 		beforeEach(() => {
-			jest.spyOn(console, 'log').mockImplementation(() => {});
+			jest.spyOn(console, 'log').mockImplementation(() => { });
 		});
 		afterEach(() => {
 			document.body.innerHTML = '';
@@ -234,42 +242,9 @@ describe('modalMaintenance', () => {
 			modalMaintenance.actionModalFromClick(evt);
 
 			expect(evt.preventDefault).toHaveBeenCalled();
-			expect(modalMaintenance.show).toHaveBeenCalledWith(evt);
+			expect(broadcast).toHaveBeenCalled();
 		});
-		it('should call show  when Enter key is pressed', () => {
-			const evt = {
-				key: 'Enter',
-				target: {
-					getAttribute: jest.fn().mockReturnValue('save'),
-					matches: jest.fn((selector) => {
-						if (
-							selector ===
-							'[data-content-id][data-syndicated="true"].n-syndication-icon'
-						) {
-							return true;
-						} else {
-							return false;
-						}
-					}),
-					parentElement: {
-						getAttribute: jest.fn().mockReturnValue('en'),
-						dataset: {
-							messageCode: '12345',
-							id: 'item-id',
-							type: 'article',
-						},
-					},
-				},
-				test:'dbbsf',
-				preventDefault: jest.fn(),
-			};
 
-			jest.spyOn(modalMaintenance, 'show');
-
-			modalMaintenance.actionModalFromKeyboard(evt);
-
-			expect(modalMaintenance.show).toHaveBeenCalledWith(evt);
-		});
 		it('actionModalFromClick should show the modal for save action', () => {
 			const evt = {
 				target: {

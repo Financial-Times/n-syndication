@@ -43,16 +43,16 @@ function init (user) {
 	USER_DATA = user;
 	addEventListener(
 		'asyncContentLoaded',
-		() => exports.syndicate(),
+		() => syndicate(),
 		true
 	);
 	addEventListener(
 		'nSyndication.dataChanged',
-		() => exports.updatePage(),
+		() => updatePage(),
 		true
 	);
 
-	return exports.syndicate();
+	return syndicate();
 }
 
 function createElement (item) {
@@ -138,21 +138,21 @@ function getSyndicatableItemIDs (items) {
 }
 
 function syndicate () {
-	const ELEMENTS = exports.getSyndicatableItems();
+	const ELEMENTS = getSyndicatableItems();
+	const ITEM_IDS = getSyndicatableItemIDs(ELEMENTS);
 
-	const ITEM_IDS = exports.getSyndicatableItemIDs(ELEMENTS);
 
 	return fetchItems(ITEM_IDS);
 }
 
 function syndicateElement (item, el) {
-	const element = exports.findElementToSyndicate(el);
+	const element = findElementToSyndicate(el);
 
 	if (element !== null && element.getAttribute('data-syndicated') !== 'true') {
 		element.classList.add('n-syndication');
 		element.classList.add(`n-syndication-state-${item.canBeSyndicated}`);
 
-		prepend(element, exports.createElement(item));
+		prepend(element, createElement(item));
 
 		element.setAttribute('data-content-type', item.type);
 		element.setAttribute('data-syndicated', 'true');
@@ -169,12 +169,12 @@ function syndicateElements (item, els) {
 		return;
 	}
 
-	els.forEach((el) => exports.syndicateElement(item, el));
+	els.forEach((el) => syndicateElement(item, el));
 }
 
 function updatePage (els) {
 	if (!Array.isArray(els)) {
-		els = exports.getSyndicatableItems();
+		els = getSyndicatableItems();
 	}
 
 	const elementsByContentID = Array.from(els).reduce((acc, el) => {
@@ -190,7 +190,7 @@ function updatePage (els) {
 	}, {});
 
 	DATA_STORE.forEach((item) =>
-		exports.syndicateElements(item, elementsByContentID[item['id']])
+		syndicateElements(item, elementsByContentID[item['id']])
 	);
 
 	broadcast('nSyndication.iconified');

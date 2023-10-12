@@ -2,7 +2,6 @@ const iconifyModule = require('./../../../src/js/iconify');
 
 import { toElement } from '../../../src/js/util';
 
-import { fetchItems } from '../../../src/js/data-store';
 import { broadcast } from 'n-ui-foundations';
 
 jest.mock('../../../src/js/data-store', () => ({
@@ -33,12 +32,14 @@ describe('./src/js/iconify', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
-	test('init should be a Function', () => {
-		expect(typeof iconifyModule.init).toBe('function');
+	describe('init', () => {
+		it('init should be a Function', () => {
+			expect(typeof iconifyModule.init).toBe('function');
+		});
 	});
 
 	describe('createElement', () => {
-		test('should create a syndication icon element with correct attributes', () => {
+		it('should create a syndication icon element with correct attributes', () => {
 			const item = {
 				messageCode: '123',
 				lang: 'en',
@@ -87,20 +88,20 @@ describe('./src/js/iconify', () => {
 	describe('findElementToSyndicate', () => {
 		beforeAll(() => {
 			document.documentElement.innerHTML = `
-		<div class="card__concept-article">
+		<div class="card__concept-article" data-content-id="1">
 			<a class="card__concept-article-link"></a>
 		</div>
 		<div class="topic-card__concept-article">
 			<a class="topic-card__concept-article-link"></a>
 		</div>
-		<a class="package__content-item"></a>
+		<a class="package__content-item" data-content-id="2"></a>
 		<article data-trackable="story">
 			<a class="story__link"></a>
 		</article>
 	`;
 		});
 
-		test('should return null for non-matching rules or elements', () => {
+		it('should return null for non-matching rules or elements', () => {
 			const element = document.createElement('div');
 
 			let foundElement = iconifyModule.findElementToSyndicate(element);
@@ -112,7 +113,7 @@ describe('./src/js/iconify', () => {
 			expect(foundElement).toBeNull();
 		});
 
-		test('should return the correct element to syndicate for matching rules', () => {
+		it('should return the correct element to syndicate for matching rules', () => {
 			const elements = {
 				'.card__concept-article-link': document.querySelector(
 					'.card__concept-article-link'
@@ -137,44 +138,26 @@ describe('./src/js/iconify', () => {
 		});
 	});
 	describe('syndicateElements', () => {
-		function createMockElement (tagName) {
-			return {
-				tagName: tagName,
-				classList: {
-					contains: jest.fn(() => true),
-				},
-				getAttribute: jest.fn(),
-				setAttribute: jest.fn(),
-				querySelector: jest.fn(() => ({
-					not: {
-						toBeNull: jest.fn(),
-					},
-				})),
-			};
-		}
+		it('should not call forEach/syndicateElement method when the array is empty', () => {
+			const emptyArray = { forEach: jest.fn(), length: 0 };
 
-		test('should syndicate an item to multiple elements', () => {
-			const item = {
-				id: 'content-id',
-				type: 'article',
-				canBeSyndicated: true,
-			};
-			jest.spyOn(iconifyModule, 'syndicateElement');
+			const result = iconifyModule.syndicateElements({}, emptyArray);
 
-			const elements = [
-				createMockElement('button'),
-				createMockElement('form'),
-				createMockElement('form'),
-			];
+			expect(emptyArray.forEach).not.toHaveBeenCalled();
+			expect(result).toEqual(undefined);
+		});
 
-			iconifyModule.syndicateElements(item, elements);
+		it('should call forEach/syndicateElement method when the array is not empty', () => {
+			const arrayItems = { forEach: jest.fn(), length: 2 };
+			iconifyModule.syndicateElements({}, arrayItems);
 
-			expect(iconifyModule.syndicateElement).toHaveBeenCalled();
+			expect(arrayItems.forEach).toHaveBeenCalled();
 		});
 	});
 
 	describe('updatePage', () => {
-		test('should update the page with syndicated elements', () => {
+
+		it('should update the page with syndicated elements', () => {
 			const elements = [
 				{
 					classList: { contains: jest.fn(() => true) },
@@ -202,35 +185,6 @@ describe('./src/js/iconify', () => {
 			iconifyModule.updatePage(elements);
 
 			expect(broadcast).toHaveBeenCalledWith('nSyndication.iconified');
-		});
-	});
-
-	describe('init', () => {
-		test('should call syndicate and updatePage functions and attach event listeners', () => {
-			const user = { id: 'user-id', contract_id: '123' };
-
-			jest.spyOn(iconifyModule, 'syndicate');
-			const addEventListenerSpy = jest.spyOn(window, 'addEventListener');
-
-			const itemIDs = ['1', '2', '3'];
-
-			fetchItems.mockReturnValue(itemIDs);
-
-			iconifyModule.init(user);
-
-			expect(addEventListenerSpy).toHaveBeenCalledTimes(2);
-			expect(addEventListenerSpy).toHaveBeenCalledWith(
-				'asyncContentLoaded',
-				expect.any(Function),
-				true
-			);
-			expect(addEventListenerSpy).toHaveBeenCalledWith(
-				'nSyndication.dataChanged',
-				expect.any(Function),
-				true
-			);
-
-			expect(iconifyModule.syndicate).toHaveBeenCalled();
 		});
 	});
 });

@@ -21,9 +21,9 @@ const isDownloadPage = location.pathname.includes('/download');
 const isSavePage = location.pathname.includes('/save');
 
 function init (user) {
-	addEventListener('click', exports.actionModalFromClick, true);
+	addEventListener('click', actionModalFromClick, true);
 
-	addEventListener('keyup', exports.actionModalFromKeyboard, true);
+	addEventListener('keyup', actionModalFromKeyboard, true);
 	addEventListener('resize', overlayManager.reposition, true);
 
 	oViewport.listenTo('resize');
@@ -38,17 +38,17 @@ function actionModalFromClick (evt) {
 		const trackingEvent = createTrackingEvent(evt, item, overlayManager);
 
 		if (isSyndicationIcon(evt.target)) {
-			exports.show(evt);
+			show(evt);
 		} else if (isDownloadButton(evt.target)) {
 			evt.preventDefault();
-			exports.show(evt);
+			show(evt);
 		} else if (isSaveAction(evt.target)) {
-			exports.save(evt);
+			save(evt);
 			overlayManager.hideOverlay();
-			exports.show(evt);
+			show(evt);
 			overlayManager.delayModalHide();
 		} else if (isDownloadAction(evt.target)) {
-			exports.download(evt);
+			download(evt);
 			overlayManager.delayModalHide();
 		} else {
 			const isOverlayVisible = overlayManager.isOverlayVisible();
@@ -85,7 +85,7 @@ function actionModalFromKeyboard (evt) {
 		case ' ':
 		case 'Enter':
 			if (isSyndicationIcon(evt.target)) {
-				exports.show(evt);
+				show(evt);
 			}
 			break;
 	}
@@ -117,8 +117,8 @@ function isSaveDisabled (item) {
 
 function createElement (item) {
 	try {
-		const disableDownloadButton = exports.isDownloadDisabled(item);
-		const disableSaveButton = exports.isSaveDisabled(item);
+		const disableDownloadButton = isDownloadDisabled(item);
+		const disableSaveButton = isSaveDisabled(item);
 		const downloadHref = disableDownloadButton
 			? '#'
 			: generateDownloadURI(item.id, item);
