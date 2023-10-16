@@ -18,12 +18,12 @@ function init (user, data = null) {
 
 	addEventListener(
 		'nSyndication.fetch',
-		(evt) => exports.refresh(evt.detail.response),
+		(evt) => refresh(evt.detail.response),
 		true
 	);
 
 	if (Array.isArray(data)) {
-		exports.refresh(data);
+		refresh(data);
 	}
 }
 
@@ -89,7 +89,7 @@ function getItemByHTMLElement (el) {
 	const id = getContentIDFromHTMLElement(el);
 	const lang = getContentAttributeFromHTMLElement(el, 'data-iso-lang') || 'en';
 
-	return module.exports.getItemByID(id, lang);
+	return getItemByID(id, lang);
 }
 
 function getAllItemsForID (id) {

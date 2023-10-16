@@ -17,9 +17,9 @@ const localStore = new Superstore('local', 'syndication');
 const overlayManager = new OverlayVisibilityManager();
 
 function init (user) {
-	addEventListener('click', exports.actionModalFromClick, true);
+	addEventListener('click', actionModalFromClick, true);
 
-	addEventListener('keyup', exports.actionModalFromKeyboard, true);
+	addEventListener('keyup', actionModalFromKeyboard, true);
 	addEventListener('resize', overlayManager.reposition, true);
 
 	oViewport.listenTo('resize');
@@ -45,10 +45,10 @@ function actionModalFromClick (evt) {
 		const trackingEvent = createTrackingEvent(evt, item, overlayManager);
 
 		if (isSyndicationIcon(evt.target)) {
-			exports.show(evt);
+			show(evt);
 		}else if (isDownloadButton(evt.target)) {
 			evt.preventDefault();
-			exports.show(evt);
+			show(evt);
 		} else if (isSaveAction(evt.target)) {
 			overlayManager.delayModalHide();
 		} else {
@@ -85,7 +85,7 @@ function actionModalFromKeyboard (evt) {
 		case ' ':
 		case 'Enter':
 			if (isSyndicationIcon(evt.target)) {
-				exports.show(evt);
+				show(evt);
 			}
 
 			break;
