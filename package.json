@@ -42,7 +42,7 @@
     "webpack-stats-plugin": "^0.3.0"
   },
   "dependencies": {
-    "next-session-client": "^4.0.0",
+    "next-session-client": "^5.0.0",
     "superstore": "^2.1.0"
   },
   "peerDependencies": {
