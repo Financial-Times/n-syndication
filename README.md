@@ -27,13 +27,13 @@ If your app is failing locally as if you need the syndication API installed loca
 ```sh
 $ git clone git@github.com:Financial-Times/n-syndication.git
 $ cd n-syndication
-$ make install
+$ npm install
 ```
 
 Run the (incomplete) test suite with
 
 ```sh
-$ make test
+$ npm test
 ```
 
 Verify that the Sass can compile by running
