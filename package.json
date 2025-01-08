@@ -40,7 +40,7 @@
     "jest-environment-jsdom": "^29.3.1",
     "lintspaces-cli": "^0.6.0",
     "mini-css-extract-plugin": "^2.7.6",
-    "node-sass": "^9.0.0",
+    "sass": "^1.83.1",
     "postcss-loader": "^7.3.3",
     "sass-lint": "^1.13.1",
     "sass-loader": "^13.3.2",
@@ -67,8 +67,8 @@
   },
   "config": {},
   "engines": {
-    "node": "18.x",
-    "npm": "7.x || 8.x || 9.x"
+    "node": "22.x",
+    "npm": "10.x"
   },
   "scripts": {
     "commit": "commit-wizard",
@@ -86,6 +86,6 @@
     }
   },
   "volta": {
-    "node": "18.17.1"
+    "node": "22.12.0"
   }
 }
