@@ -14,4 +14,4 @@ hooks:
 options:
   '@dotcom-tool-kit/circleci':
     nodeVersion:
-      - '18.20-browsers'
+      - '22.12-browsers'
