@@ -3,15 +3,18 @@ plugins:
   - "@dotcom-tool-kit/component"
   - "@dotcom-tool-kit/jest"
   - "@dotcom-tool-kit/eslint"
-hooks:
+commands:
   test:local:
     - Eslint
-    - JestLocal
+    - Jest
   test:ci:
-    - JestCI
+    - Jest:
+        ci: true
   build:local:
-    - WebpackDevelopment
+    - Webpack:
+        envName: 'development'
+
 options:
-  '@dotcom-tool-kit/circleci':
-    nodeVersion:
-      - '22.12-browsers'
+  plugins:
+    '@dotcom-tool-kit/circleci':
+      cimgNodeVersions: [22.12-browsers]
