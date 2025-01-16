@@ -49,6 +49,8 @@ workflows:
             - tool-kit/test
           context: npm-publish-token
           filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+(-.+)?/
             branches:
               ignore: /.*/
   nightly:
