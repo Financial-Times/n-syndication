@@ -14,7 +14,6 @@
     "@dotcom-tool-kit/jest": "^4.2.3",
     "@dotcom-tool-kit/webpack": "^4.2.3",
     "@financial-times/eslint-config-next": "^7.1.0",
-    "@financial-times/o-colors": "^6.4.2",
     "@financial-times/o-icons": "^7.2.1",
     "@financial-times/o-message": "^6.0.0",
     "@financial-times/o-tracking": "^4.2.1",
