@@ -67,7 +67,7 @@ function createElement (item) {
 							data-trackable="syn-icon"
 							data-message-code="${messageCode}"
 							type="button">
-							<span class="o-normalise-visually-hidden">${getMessage(item, USER_DATA)}</span>
+							<span class="o3-visually-hidden">${getMessage(item, USER_DATA)}</span>
 						</button>`;
 	return toElement(template);
 }

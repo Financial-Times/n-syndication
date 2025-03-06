@@ -59,7 +59,7 @@ describe('./src/js/iconify', () => {
 				buttonElement.setAttribute('data-syndicated', 'true');
 
 				const spanElement = document.createElement('span');
-				spanElement.classList.add('o-normalise-visually-hidden');
+				spanElement.classList.add('o3-visually-hidden');
 				spanElement.textContent = 'Expected message based on item properties';
 
 				buttonElement.appendChild(spanElement);
@@ -77,7 +77,7 @@ describe('./src/js/iconify', () => {
 			expect(element.getAttribute('data-syndicated')).toBe('true');
 
 			const spanElement = element.querySelector(
-				'span.o-normalise-visually-hidden'
+				'span.o3-visually-hidden'
 			);
 			expect(spanElement.textContent).toBe(
 				'Expected message based on item properties'

@@ -313,7 +313,7 @@ describe('modalMaintenance', () => {
 
 			const expectedModal = `<div class="n-syndication-modal-shadow"></div><div aria-labelledby="'Download:  ${item.title}" class="n-syndication-modal n-syndication-modal-${item.type}" role="dialog" tabindex="0">
 			<header class="n-syndication-modal-heading">
-				<span class="o-icons-icon o-icons-icon--warning-alt demo-icon n-syndication-maintenance-icon"></span>
+				<span class="--o3-icon-warning-alt demo-icon n-syndication-maintenance-icon"></span>
 				<a 'data-trackable="close-syndication-modal" aria-label="Close" class="n-syndication-modal-close" data-action="close" href="#" role="button" tabindex="0" title="Close"></a>
 				<span class="n-syndication-maintenance-modal-title" role="heading">Sorry, maintenance work is in progress</span>
 				</header>
