@@ -1,9 +1,7 @@
-@import "@financial-times/o-buttons/main";
 @import "@financial-times/o-colors/main";
 @import "@financial-times/o-overlay/main";
 @import "@financial-times/o-visual-effects/main";
 @import "@financial-times/o-message/main";
-@import "@financial-times/o-icons/main";
 
 @mixin nSyndicationIcon($icon-name, $color: var(--o3-color-palette-white), $size: 24px) {
     &::before {
@@ -280,16 +278,6 @@
 
 .n-syndication-actions {
   text-align: right;
-}
-
-.n-syndication-action {
-  @include oButtons($opts: ("type": "secondary"
-    ));
-}
-
-.n-syndication-action-primary {
-  @include oButtons($opts: ("type": "primary"
-    ));
 }
 
 .n-syndication-action,

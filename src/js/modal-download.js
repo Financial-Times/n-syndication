@@ -165,9 +165,9 @@ function createElement (item) {
 									${getAdditionalMessages(item, overlayManager.USER_DATA)}
 									<div class="n-syndication-actions" data-content-id="${item.id
 }" data-iso-lang="${item.lang}">
-										<a class="n-syndication-action" data-action="save" ${disableSaveButton ? 'disabled' : ''
+										<a class="n-syndication-action o3-button o3-button--secondary" data-action="save" ${disableSaveButton ? 'disabled' : ''
 } data-trackable="${saveTrackingId}" href="${saveHref}">${saveText}</a>
-										<a class="n-syndication-action n-syndication-action-primary" data-action="download" ${disableDownloadButton ? 'disabled' : ''
+										<a class="n-syndication-action o3-button o3-button--primary" data-action="download" ${disableDownloadButton ? 'disabled' : ''
 } ${downloadTrackingId ? `data-trackable="${downloadTrackingId}"` : ''
 } href="${downloadHref}">${downloadText}</a>
 									</div>
