@@ -1,10 +1,11 @@
 'use strict';
 
-import {broadcast} from 'n-ui-foundations';
 import getUserStatus from './get-user-status';
 import {init as initDataStore} from './data-store';
 import {init as initDownloadModal} from './modal-download';
 import {TRACKING} from './config';
+import { broadCast } from './util';
+
 
 function init (flags, user) {
 	if (user) {
@@ -49,7 +50,7 @@ function broadcastClick (evt, user) {
 	}
 
 	if (publish === true) {
-		broadcast('oTracking.event', {
+		broadCast('oTracking.event', {
 			category: TRACKING.CATEGORY,
 			action: evt.target.getAttribute('data-trackable'),
 			app: TRACKING.DATA.context.app,

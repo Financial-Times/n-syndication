@@ -1,13 +1,12 @@
 /* eslint-disable no-console */
 'use strict';
 
-import { broadcast } from 'n-ui-foundations';
 import oViewport from '@financial-times/o-viewport';
 import Superstore from 'superstore';
 
 import { TRACKING } from './config';
 
-import { toElement } from './util';
+import { toElement, broadCast } from './util';
 import { getAllItemsForID, getItemByHTMLElement } from './data-store';
 import { getMessage, getAdditionalMessages } from './messages';
 import { createTrackingEvent, isCloseAction, isDownloadAction, isDownloadButton, isSaveAction, isSyndicationIcon } from './modal-utils';
@@ -60,7 +59,7 @@ function actionModalFromClick (evt) {
 			}
 		}
 
-		!fire || broadcast('oTracking.event', trackingEvent);
+		!fire || broadCast('oTracking.event', trackingEvent);
 	} catch (error) {
 		console.error('An error occurred:', error);
 	}
@@ -79,7 +78,7 @@ function actionModalFromKeyboard (evt) {
 			trackingEvent.url = location.href;
 			trackingEvent.action = 'close-syndication-modal';
 
-			broadcast('oTracking.event', trackingEvent);
+			broadCast('oTracking.event', trackingEvent);
 
 			break;
 		case ' ':
@@ -165,16 +164,16 @@ function createElement (item) {
 									${getAdditionalMessages(item, overlayManager.USER_DATA)}
 									<div class="n-syndication-actions" data-content-id="${item.id
 }" data-iso-lang="${item.lang}">
-										<a class="n-syndication-action" data-action="save" ${disableSaveButton ? 'disabled' : ''
+										<a class="n-syndication-action o3-button o3-button--secondary" data-action="save" ${disableSaveButton ? 'disabled' : ''
 } data-trackable="${saveTrackingId}" href="${saveHref}">${saveText}</a>
-										<a class="n-syndication-action n-syndication-action-primary" data-action="download" ${disableDownloadButton ? 'disabled' : ''
+										<a class="n-syndication-action o3-button o3-button--primary" data-action="download" ${disableDownloadButton ? 'disabled' : ''
 } ${downloadTrackingId ? `data-trackable="${downloadTrackingId}"` : ''
 } href="${downloadHref}">${downloadText}</a>
 									</div>
 								</section>
 							</div>`);
 	} catch (error) {
-		broadcast('oErrors.log', {
+		broadCast('oErrors.log', {
 			error: error,
 			info: {
 				component: 'next-syndication-redux',
@@ -194,7 +193,7 @@ function download (evt) {
 		item.messageCode = 'MSG_2100';
 	});
 
-	broadcast('nSyndication.downloadItem', {
+	broadCast('nSyndication.downloadItem', {
 		item: item,
 	});
 }

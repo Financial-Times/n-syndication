@@ -1,10 +1,9 @@
 import getUserStatus from '../../../src/js/get-user-status';
-import {broadcast} from 'n-ui-foundations';
+import { broadCast } from '../../../src/js/util';
 
-jest.mock('n-ui-foundations', () => ({
-	broadcast: jest.fn(),
+jest.mock('../../../src/js/util', () => ({
+	broadCast: jest.fn(),
 }));
-
 describe('./src/js/get-user-status', () => {
 	test('getUserStatus should return user status when response is OK', async () => {
 		const mockResponse = {
@@ -20,7 +19,7 @@ describe('./src/js/get-user-status', () => {
 		});
 		expect(mockResponse.json).toHaveBeenCalled();
 		expect(userStatus).toEqual({status: 'active'});
-		expect(broadcast).not.toHaveBeenCalled();
+		expect(broadCast).not.toHaveBeenCalled();
 	});
 
 	test('getUserStatus should return null when response status is 401', async () => {
@@ -36,7 +35,7 @@ describe('./src/js/get-user-status', () => {
 			credentials: 'include',
 		});
 		expect(userStatus).toBeNull();
-		expect(broadcast).not.toHaveBeenCalled();
+		expect(broadCast).not.toHaveBeenCalled();
 	});
 
 	test('getUserStatus should return error object when response status is 503 and content-type is application/json', async () => {
@@ -61,7 +60,7 @@ describe('./src/js/get-user-status', () => {
 			migrated: true,
 			MAINTENANCE_MODE: true,
 		});
-		expect(broadcast).not.toHaveBeenCalled();
+		expect(broadCast).not.toHaveBeenCalled();
 	});
 	test('getUserStatus should throw an error when response status is not 401 or 503', async () => {
 		const mockResponse = {
@@ -78,7 +77,7 @@ describe('./src/js/get-user-status', () => {
 				credentials: 'include',
 			});
 			expect(mockResponse.text).toHaveBeenCalled();
-			expect(broadcast).toHaveBeenCalled();
+			expect(broadCast).toHaveBeenCalled();
 		}
 	});
 

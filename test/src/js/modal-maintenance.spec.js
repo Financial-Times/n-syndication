@@ -1,12 +1,16 @@
 const modalMaintenance = require('../../../src/js/modal-maintenance');
-import { broadcast } from 'n-ui-foundations';
+const { broadCast } = require('../../../src/js/util');
 import OverlayVisibilityManager from '../../../src/js/modal-state-manager';
-
 import { getItemByHTMLElement } from '../../../src/js/data-store';
 
-jest.mock('n-ui-foundations', () => ({
-	broadcast: jest.fn(),
-}));
+jest.mock('../../../src/js/util', () => {
+	const originalModule = jest.requireActual('../../../src/js/util');
+	return {
+		__esModule: true,
+		...originalModule,
+		broadCast: jest.fn(),
+	};
+});
 jest.mock('../../../src/js/data-store', () => ({
 	getItemByHTMLElement: jest.fn().mockReturnValue({
 		id: '123',
@@ -139,8 +143,8 @@ describe('modalMaintenance', () => {
 
 			expect(getItemByHTMLElement).toHaveBeenCalledTimes(1);
 			expect(getItemByHTMLElement).toHaveBeenCalledWith(evt.target);
-			expect(broadcast).toHaveBeenCalledTimes(1);
-			expect(broadcast).toHaveBeenCalledWith('oTracking.event', expectedData);
+			expect(broadCast).toHaveBeenCalledTimes(1);
+			expect(broadCast).toHaveBeenCalledWith('oTracking.event', expectedData);
 		});
 
 		it('should not call broadcast when item is not found', () => {
@@ -177,7 +181,7 @@ describe('modalMaintenance', () => {
 
 			modalMaintenance.actionModalFromClick(evt);
 			expect(overlayManagerMockInstance.delayModalHide).toHaveBeenCalled();
-			expect(broadcast).toHaveBeenCalled();
+			expect(broadCast).toHaveBeenCalled();
 		});
 
 		it('actionModalFromClick should not do anything if modal is not visible', () => {
@@ -242,7 +246,7 @@ describe('modalMaintenance', () => {
 			modalMaintenance.actionModalFromClick(evt);
 
 			expect(evt.preventDefault).toHaveBeenCalled();
-			expect(broadcast).toHaveBeenCalled();
+			expect(broadCast).toHaveBeenCalled();
 		});
 
 		it('actionModalFromClick should show the modal for save action', () => {
@@ -293,7 +297,7 @@ describe('modalMaintenance', () => {
 
 			modalMaintenance.actionModalFromKeyboard(evt);
 			expect(overlayManagerMockInstance.hideOverlay).toHaveBeenCalled();
-			expect(broadcast).toHaveBeenCalledTimes(1);
+			expect(broadCast).toHaveBeenCalledTimes(1);
 		});
 	});
 
@@ -313,7 +317,7 @@ describe('modalMaintenance', () => {
 
 			const expectedModal = `<div class="n-syndication-modal-shadow"></div><div aria-labelledby="'Download:  ${item.title}" class="n-syndication-modal n-syndication-modal-${item.type}" role="dialog" tabindex="0">
 			<header class="n-syndication-modal-heading">
-				<span class="o-icons-icon o-icons-icon--warning-alt demo-icon n-syndication-maintenance-icon"></span>
+				<span class="--o3-icon-warning-alt demo-icon n-syndication-maintenance-icon"></span>
 				<a 'data-trackable="close-syndication-modal" aria-label="Close" class="n-syndication-modal-close" data-action="close" href="#" role="button" tabindex="0" title="Close"></a>
 				<span class="n-syndication-maintenance-modal-title" role="heading">Sorry, maintenance work is in progress</span>
 				</header>

@@ -1,6 +1,6 @@
 'use strict';
 
-import { $, broadcast } from 'n-ui-foundations';
+import { broadCast } from './util';
 
 function buildNavItem (user) {
 	const elNavItemLink = document.createElement('a');
@@ -10,7 +10,7 @@ function buildNavItem (user) {
 	elNavItemLink.setAttribute('href', '/republishing/contract');
 	elNavItemLink.textContent = 'Republishing';
 	elNavItemLink.addEventListener('click', (evt) => {
-		broadcast('oTracking.event', {
+		broadCast('oTracking.event', {
 			category: 'syndication',
 			action: 'Republishing',
 			contractID: user.contract_id,
@@ -29,7 +29,7 @@ function buildNavItem (user) {
 }
 
 function insertDesktopNavItem (user) {
-	const elCt = $('#o-header-nav-desktop');
+	const elCt = document.querySelector('#o-header-nav-desktop');
 	if (!elCt) {
 		return;
 	}
@@ -53,7 +53,7 @@ function insertDesktopNavItem (user) {
 }
 
 function insertDrawerNavItem (user) {
-	const elCt = $('#o-header-drawer');
+	const elCt = document.querySelector('#o-header-drawer');
 	if (!elCt) {
 		return;
 	}

@@ -1,10 +1,8 @@
 'use strict';
 
-import { $$, broadcast } from 'n-ui-foundations';
-
 import { DATA_STORE, fetchItems } from './data-store';
 import { getMessage } from './messages';
-import { getContentIDFromHTMLElement, prepend, toElement } from './util';
+import {getContentIDFromHTMLElement, prepend, toElement, broadCast} from './util';
 
 const SYNDICATION_INSERTION_RULES = {
 	['a.card__concept-article-link']: {
@@ -67,7 +65,7 @@ function createElement (item) {
 							data-trackable="syn-icon"
 							data-message-code="${messageCode}"
 							type="button">
-							<span class="o-normalise-visually-hidden">${getMessage(item, USER_DATA)}</span>
+							<span class="o3-visually-hidden">${getMessage(item, USER_DATA)}</span>
 						</button>`;
 	return toElement(template);
 }
@@ -110,7 +108,7 @@ function findElementToSyndicate (element) {
 }
 
 function getSyndicatableItems () {
-	return $$(
+	return document.querySelectorAll(
 		[
 			'[data-content-id]',
 			'[data-id]',
@@ -193,7 +191,7 @@ function updatePage (els) {
 		syndicateElements(item, elementsByContentID[item['id']])
 	);
 
-	broadcast('nSyndication.iconified');
+	broadCast('nSyndication.iconified');
 }
 
 export {

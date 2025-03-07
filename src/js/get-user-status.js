@@ -1,6 +1,6 @@
 'use strict';
 
-import {broadcast} from 'n-ui-foundations';
+import { broadCast } from './util';
 
 export default async function getUserStatus () {
 	const url = '/syndication/user-status';
@@ -32,7 +32,7 @@ export default async function getUserStatus () {
 			throw new Error(`Next ${url} responded with "${text}" (${response.status})`);
 		}
 	} catch (error) {
-		broadcast('oErrors.log', {
+		broadCast('oErrors.log', {
 			error: error,
 			info: {
 				component: 'next-syndication-redux'

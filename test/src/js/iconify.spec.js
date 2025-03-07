@@ -1,17 +1,9 @@
 const iconifyModule = require('./../../../src/js/iconify');
-
-import { toElement } from '../../../src/js/util';
-
-import { broadcast } from 'n-ui-foundations';
+const { broadCast, toElement } = require('../../../src/js/util');
 
 jest.mock('../../../src/js/data-store', () => ({
 	fetchItems: jest.fn().mockReturnValue(['1', '2', '3']),
 	DATA_STORE: [{ id: 'content-id-1' }, { id: 'content-id-2' }],
-}));
-
-jest.mock('n-ui-foundations', () => ({
-	$$: jest.fn(),
-	broadcast: jest.fn(),
 }));
 
 jest.mock('../../../src/js/messages', () => ({
@@ -23,6 +15,7 @@ jest.mock('../../../src/js/messages', () => ({
 jest.mock('../../../src/js/util', () => ({
 	getContentIDFromHTMLElement: jest.fn(),
 	toElement: jest.fn(),
+	broadCast: jest.fn(),
 }));
 
 describe('./src/js/iconify', () => {
@@ -59,7 +52,7 @@ describe('./src/js/iconify', () => {
 				buttonElement.setAttribute('data-syndicated', 'true');
 
 				const spanElement = document.createElement('span');
-				spanElement.classList.add('o-normalise-visually-hidden');
+				spanElement.classList.add('o3-visually-hidden');
 				spanElement.textContent = 'Expected message based on item properties';
 
 				buttonElement.appendChild(spanElement);
@@ -77,7 +70,7 @@ describe('./src/js/iconify', () => {
 			expect(element.getAttribute('data-syndicated')).toBe('true');
 
 			const spanElement = element.querySelector(
-				'span.o-normalise-visually-hidden'
+				'span.o3-visually-hidden'
 			);
 			expect(spanElement.textContent).toBe(
 				'Expected message based on item properties'
@@ -184,7 +177,7 @@ describe('./src/js/iconify', () => {
 
 			iconifyModule.updatePage(elements);
 
-			expect(broadcast).toHaveBeenCalledWith('nSyndication.iconified');
+			expect(broadCast).toHaveBeenCalledWith('nSyndication.iconified');
 		});
 	});
 });

@@ -1,13 +1,18 @@
-import { broadcast } from 'n-ui-foundations';
+import { broadCast } from '../../../src/js/util';
 import oViewport from '@financial-times/o-viewport';
 import Superstore from 'superstore';
 
 const modalDownload = require('../../../src/js/modal-download');
 import OverlayVisibilityManager from '../../../src/js/modal-state-manager';
 import { TRACKING } from '../../../src/js/config';
-jest.mock('n-ui-foundations', () => ({
-	broadcast: jest.fn(),
-}));
+jest.mock('../../../src/js/util', () => {
+	const originalModule = jest.requireActual('../../../src/js/util');
+	return {
+		__esModule: true,
+		...originalModule,
+		broadCast: jest.fn(),
+	};
+});
 jest.mock('../../../src/js/config');
 
 jest.mock('../../../src/js/data-store', () => ({
@@ -109,7 +114,7 @@ describe('./src/js/modal-download', () => {
 		modalDownload.actionModalFromKeyboard({ key: 'Escape' });
 
 		expect(overlayManagerMockInstance.hideOverlay).toHaveBeenCalled();
-		expect(broadcast).toHaveBeenCalledWith('oTracking.event', trackingEvent);
+		expect(broadCast).toHaveBeenCalledWith('oTracking.event', trackingEvent);
 	});
 
 	it('isDownloadDisabled should return false for valid download conditions', () => {
@@ -143,7 +148,7 @@ describe('./src/js/modal-download', () => {
 
 		modalDownload.actionModalFromClick(evt);
 
-		expect(broadcast).toHaveBeenCalledWith('oTracking.event', {
+		expect(broadCast).toHaveBeenCalledWith('oTracking.event', {
 			category: TRACKING.CATEGORY,
 			contractID: overlayManagerMockInstance.USER_DATA.contract_id,
 			product: TRACKING.CATEGORY,
