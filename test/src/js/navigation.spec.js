@@ -4,11 +4,17 @@ import {
 	buildNavItem,
 	insertDrawerNavItem,
 } from '../../../src/js/navigation';
-import { $, broadcast } from 'n-ui-foundations';
+import { $ } from 'n-ui-foundations';
+import { broadCast } from '../../../src/js/util';
+
 
 jest.mock('n-ui-foundations', () => ({
 	$: jest.fn(),
-	broadcast: jest.fn(),
+	broadCast: jest.fn(),
+}));
+
+jest.mock('../../../src/js/util', () => ({
+	broadCast: jest.fn(),
 }));
 
 describe('./src/js/navigation', () => {
@@ -97,7 +103,7 @@ describe('./src/js/navigation', () => {
 
 		// Simulate a click event and check if the event listener is called
 		navLink.dispatchEvent(new Event('click'));
-		expect(broadcast).toHaveBeenCalled();
+		expect(broadCast).toHaveBeenCalled();
 	});
 
 	test('init should not insert nav items if the container elements are not found', () => {

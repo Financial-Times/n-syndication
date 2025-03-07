@@ -1,8 +1,5 @@
 const iconifyModule = require('./../../../src/js/iconify');
-
-import { toElement } from '../../../src/js/util';
-
-import { broadcast } from 'n-ui-foundations';
+const { broadCast, toElement } = require('../../../src/js/util');
 
 jest.mock('../../../src/js/data-store', () => ({
 	fetchItems: jest.fn().mockReturnValue(['1', '2', '3']),
@@ -10,10 +7,8 @@ jest.mock('../../../src/js/data-store', () => ({
 }));
 
 jest.mock('n-ui-foundations', () => ({
-	$$: jest.fn(),
-	broadcast: jest.fn(),
+	$$: jest.fn()
 }));
-
 jest.mock('../../../src/js/messages', () => ({
 	getMessage: jest
 		.fn()
@@ -23,6 +18,7 @@ jest.mock('../../../src/js/messages', () => ({
 jest.mock('../../../src/js/util', () => ({
 	getContentIDFromHTMLElement: jest.fn(),
 	toElement: jest.fn(),
+	broadCast: jest.fn(),
 }));
 
 describe('./src/js/iconify', () => {
@@ -184,7 +180,7 @@ describe('./src/js/iconify', () => {
 
 			iconifyModule.updatePage(elements);
 
-			expect(broadcast).toHaveBeenCalledWith('nSyndication.iconified');
+			expect(broadCast).toHaveBeenCalledWith('nSyndication.iconified');
 		});
 	});
 });

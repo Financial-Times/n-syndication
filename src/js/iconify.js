@@ -1,10 +1,9 @@
 'use strict';
 
-import { $$, broadcast } from 'n-ui-foundations';
-
+import { $$ } from 'n-ui-foundations';
 import { DATA_STORE, fetchItems } from './data-store';
 import { getMessage } from './messages';
-import { getContentIDFromHTMLElement, prepend, toElement } from './util';
+import {getContentIDFromHTMLElement, prepend, toElement, broadCast} from './util';
 
 const SYNDICATION_INSERTION_RULES = {
 	['a.card__concept-article-link']: {
@@ -193,7 +192,7 @@ function updatePage (els) {
 		syndicateElements(item, elementsByContentID[item['id']])
 	);
 
-	broadcast('nSyndication.iconified');
+	broadCast('nSyndication.iconified');
 }
 
 export {

@@ -1,10 +1,9 @@
 'use strict';
 
-import { broadcast } from 'n-ui-foundations';
-
 import {
 	getContentAttributeFromHTMLElement,
 	getContentIDFromHTMLElement,
+	broadCast
 } from './util';
 
 const DATA_STORE = [];
@@ -37,7 +36,7 @@ async function fetchItems (itemIDs) {
 			};
 		});
 
-		broadcast('nSyndication.fetch', {
+		broadCast('nSyndication.fetch', {
 			request: itemIDs,
 			response: fakeRes,
 		});
@@ -68,14 +67,14 @@ async function fetchItems (itemIDs) {
 
 			const items = await response.json();
 
-			broadcast('nSyndication.fetch', {
+			broadCast('nSyndication.fetch', {
 				request: itemIDs,
 				response: items,
 			});
 
 			return items;
 		} catch (error) {
-			broadcast('oErrors.log', {
+			broadCast('oErrors.log', {
 				error,
 				info: {
 					component: 'next-syndication-redux',
@@ -166,7 +165,7 @@ function refresh (data) {
 		DATA_STORE_MAP[_id] = item;
 	});
 
-	broadcast('nSyndication.dataChanged', {
+	broadCast('nSyndication.dataChanged', {
 		existing: EXISTING,
 		items: DATA_STORE,
 	});

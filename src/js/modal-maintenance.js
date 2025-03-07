@@ -1,13 +1,12 @@
 /* eslint-disable no-console */
 'use strict';
 
-import { broadcast } from 'n-ui-foundations';
 import oViewport from '@financial-times/o-viewport';
 import Superstore from 'superstore';
 
 import { TRACKING } from './config';
 
-import { toElement } from './util';
+import { toElement, broadCast } from './util';
 import { getItemByHTMLElement } from './data-store';
 import { createTrackingEvent, isCloseAction,isDownloadButton,isSaveAction, isSyndicationIcon} from './modal-utils';
 
@@ -61,7 +60,7 @@ function actionModalFromClick (evt) {
 			}
 		}
 
-		!fire || broadcast('oTracking.event', trackingEvent);
+		!fire || broadCast('oTracking.event', trackingEvent);
 	} catch (error) {
 		console.error('An error occurred:', error);
 	}
@@ -79,7 +78,7 @@ function actionModalFromKeyboard (evt) {
 			trackingEvent.url = location.href;
 			trackingEvent.action = 'close-syndication-modal';
 
-			broadcast('oTracking.event', trackingEvent);
+			broadCast('oTracking.event', trackingEvent);
 
 			break;
 		case ' ':
@@ -116,7 +115,7 @@ function createElement (item) {
 								</section>
 							</div>`);
 	} catch (error) {
-		broadcast('oErrors.log', {
+		broadCast('oErrors.log', {
 			error: error,
 			info: {
 				component: 'next-syndication-redux',

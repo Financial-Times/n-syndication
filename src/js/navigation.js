@@ -1,6 +1,7 @@
 'use strict';
 
-import { $, broadcast } from 'n-ui-foundations';
+import { $ } from 'n-ui-foundations';
+import { broadCast } from './util';
 
 function buildNavItem (user) {
 	const elNavItemLink = document.createElement('a');
@@ -10,7 +11,7 @@ function buildNavItem (user) {
 	elNavItemLink.setAttribute('href', '/republishing/contract');
 	elNavItemLink.textContent = 'Republishing';
 	elNavItemLink.addEventListener('click', (evt) => {
-		broadcast('oTracking.event', {
+		broadCast('oTracking.event', {
 			category: 'syndication',
 			action: 'Republishing',
 			contractID: user.contract_id,
