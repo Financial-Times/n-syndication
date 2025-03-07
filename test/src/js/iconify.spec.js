@@ -6,9 +6,6 @@ jest.mock('../../../src/js/data-store', () => ({
 	DATA_STORE: [{ id: 'content-id-1' }, { id: 'content-id-2' }],
 }));
 
-jest.mock('n-ui-foundations', () => ({
-	$$: jest.fn()
-}));
 jest.mock('../../../src/js/messages', () => ({
 	getMessage: jest
 		.fn()

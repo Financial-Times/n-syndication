@@ -4,14 +4,7 @@ import {
 	buildNavItem,
 	insertDrawerNavItem,
 } from '../../../src/js/navigation';
-import { $ } from 'n-ui-foundations';
 import { broadCast } from '../../../src/js/util';
-
-
-jest.mock('n-ui-foundations', () => ({
-	$: jest.fn(),
-	broadCast: jest.fn(),
-}));
 
 jest.mock('../../../src/js/util', () => ({
 	broadCast: jest.fn(),
@@ -27,16 +20,6 @@ describe('./src/js/navigation', () => {
 			<a data-trackable="Portfolio"></a>
 		</div>
 	`;
-
-		$.mockImplementation((selector) => {
-			if (selector === '#o-header-nav-desktop') {
-				return document.querySelector('#o-header-nav-desktop');
-			} else if (selector === '#o-header-drawer') {
-				return document.querySelector('#o-header-drawer');
-			}
-			return null;
-		});
-
 		jest.spyOn(document, 'querySelector');
 	});
 
@@ -130,8 +113,8 @@ describe('./src/js/navigation', () => {
 
 		insertDesktopNavItem(user);
 
-		expect($.mock.calls.length).toBe(1);
-		expect($.mock.calls[0][0]).toBe('#o-header-nav-desktop');
+		expect(document.querySelector.mock.calls.length).toBe(1);
+		expect(document.querySelector.mock.calls[0][0]).toBe('#o-header-nav-desktop');
 
 		expect(document.createElement).not.toHaveBeenCalled();
 	});
@@ -146,8 +129,8 @@ describe('./src/js/navigation', () => {
 
 		insertDrawerNavItem(user);
 
-		expect($.mock.calls.length).toBe(1);
-		expect($.mock.calls[0][0]).toBe('#o-header-drawer');
+		expect(document.querySelector.mock.calls.length).toBe(1);
+		expect(document.querySelector.mock.calls[0][0]).toBe('#o-header-drawer');
 
 		expect(document.createElement).not.toHaveBeenCalled();
 	});

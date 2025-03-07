@@ -1,6 +1,5 @@
 'use strict';
 
-import { $ } from 'n-ui-foundations';
 import { broadCast } from './util';
 
 function buildNavItem (user) {
@@ -30,7 +29,7 @@ function buildNavItem (user) {
 }
 
 function insertDesktopNavItem (user) {
-	const elCt = $('#o-header-nav-desktop');
+	const elCt = document.querySelector('#o-header-nav-desktop');
 	if (!elCt) {
 		return;
 	}
@@ -54,7 +53,7 @@ function insertDesktopNavItem (user) {
 }
 
 function insertDrawerNavItem (user) {
-	const elCt = $('#o-header-drawer');
+	const elCt = document.querySelector('#o-header-drawer');
 	if (!elCt) {
 		return;
 	}
