@@ -1,13 +1,12 @@
 /* eslint-disable no-console */
 'use strict';
 
-import { broadcast } from 'n-ui-foundations';
 import oViewport from '@financial-times/o-viewport';
 import Superstore from 'superstore';
 
 import { TRACKING } from './config';
 
-import { toElement } from './util';
+import { toElement, broadCast } from './util';
 import { getItemByHTMLElement } from './data-store';
 import { createTrackingEvent, isCloseAction,isDownloadButton,isSaveAction, isSyndicationIcon} from './modal-utils';
 
@@ -61,7 +60,7 @@ function actionModalFromClick (evt) {
 			}
 		}
 
-		!fire || broadcast('oTracking.event', trackingEvent);
+		!fire || broadCast('oTracking.event', trackingEvent);
 	} catch (error) {
 		console.error('An error occurred:', error);
 	}
@@ -79,7 +78,7 @@ function actionModalFromKeyboard (evt) {
 			trackingEvent.url = location.href;
 			trackingEvent.action = 'close-syndication-modal';
 
-			broadcast('oTracking.event', trackingEvent);
+			broadCast('oTracking.event', trackingEvent);
 
 			break;
 		case ' ':
@@ -99,7 +98,7 @@ function createElement (item) {
 		return toElement(`<div class="n-syndication-modal-shadow"></div>
 							<div class="n-syndication-modal n-syndication-modal-${item.type}" role="dialog" aria-labelledby="'Download:  ${title}" tabindex="0">
 								<header class="n-syndication-modal-heading">
-								<span class="o-icons-icon o-icons-icon--warning-alt demo-icon n-syndication-maintenance-icon"></span>
+								<span class="--o3-icon-warning-alt demo-icon n-syndication-maintenance-icon"></span>
 									<a class="n-syndication-modal-close" data-action="close" 'data-trackable="close-syndication-modal" role="button" href="#" aria-label="Close" title="Close" tabindex="0"></a>
 									<span role="heading" class="n-syndication-maintenance-modal-title" >Sorry, maintenance work is in progress</span></header><section class=" n-syndication-modal-content"><div class="n-syndication-maintenance-modal-message">
 									<strong>You are not able to use the Syndication tool during this time.</strong> We will notify you via email once it’s back up and running again.
@@ -116,7 +115,7 @@ function createElement (item) {
 								</section>
 							</div>`);
 	} catch (error) {
-		broadcast('oErrors.log', {
+		broadCast('oErrors.log', {
 			error: error,
 			info: {
 				component: 'next-syndication-redux',
