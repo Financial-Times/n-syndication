@@ -19,7 +19,7 @@
 .n-syndication-icon {
   padding: 0;
   @include nSyndicationIcon(--o3-icon-cross);
-  background-color: rgba(var(--o3-color-palette-slate), 0.55);
+  background-color: color-mix(in srgb, var(--o3-color-palette-slate) 55%, transparent);
   border-color: transparent;
   border-radius: 24px;
   border-width: 0;
@@ -46,7 +46,7 @@
 .n-syndication-icon-state-msg_5100,
 .n-syndication-icon-state-no {
   @include nSyndicationIcon(--o3-icon-cross);
-  background-color: rgba(var(--o3-color-palette-claret), 0.85);
+  background-color: color-mix(in srgb, var(--o3-color-palette-claret) 85%, transparent);
 }
 
 .n-syndication-icon-state-msg_2000,
@@ -55,7 +55,7 @@
 .n-syndication-icon-state-msg_4300,
 .n-syndication-icon-state-yes {
   @include nSyndicationIcon(--o3-icon-tick);
-  background-color: rgba(var(--o3-color-palette-jade), 0.85);
+  background-color: color-mix(in srgb, var(--o3-color-palette-jade) 85%, transparent);
 }
 
 .n-syndication-icon-state-msg_2300,
@@ -63,7 +63,7 @@
 .n-syndication-icon-state-msg_2340,
 .n-syndication-icon-state-withcontributorpayment {
   @include nSyndicationIcon(--o3-icon-dollar);
-  background-color: rgba(var(--o3-color-palette-jade), 0.85);
+  background-color: color-mix(in srgb, var(--o3-color-palette-jade) 85%, transparent);
 }
 
 .n-syndication-icon-state-msg_2200,
@@ -71,7 +71,7 @@
 .n-syndication-icon-state-msg_4250,
 .n-syndication-icon-state-verify {
   @include nSyndicationIcon(--o3-icon-minus);
-  background-color: rgba(var(--o3-color-palette-mandarin), 0.85);
+  background-color: color-mix(in srgb, var(--o3-color-palette-mandarin) 85%, transparent);
 }
 
 .n-syndication-icon-state-maintenance {
@@ -214,7 +214,7 @@
 }
 
 .n-syndication-modal-word-count {
-  color: rgba(var(--o3-color-palette-black), 0.4);
+  color:color-mix(in srgb, var(--o3-color-palette-black) 40%, transparent);
   font-family: metric, arial, sans-serif;
   font-size: 16px;
   font-weight: normal;
@@ -259,7 +259,7 @@
 
 .n-syndication-maintenance-modal-message,
 .n-syndication-maintenance-modal-message p {
-  color: rgba(var(--o3-color-palette-black), 0.8);
+  color:color-mix(in srgb, var(--o3-color-palette-black) 80%, transparent);
   font-family: metric, arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
@@ -270,7 +270,7 @@
 
 .n-syndication-modal-message,
 .n-syndication-modal-message p {
-  color: rgba(var(--o3-color-palette-black), 0.8);
+  color: color-mix(in srgb, var(--o3-color-palette-black) 80%, transparent);
   font-family: metric, arial, sans-serif;
   font-size: 14px;
   line-height: 20px;
@@ -287,7 +287,7 @@
 }
 
 .n-syndication-republishing {
-  background-color: rgba(var(--o3-color-palette-claret), 1);
+  background-color: var(--o3-color-palette-claret);
   color: var(--o3-color-palette-white);
   font-weight: bold;
 }
@@ -306,11 +306,11 @@
 }
 
 .o-header__drawer-menu-item .n-syndication-republishing {
-  background-color: rgba(var(--o3-color-palette-claret), 0.75);
+  background-color: color-mix(in srgb, var(--o3-color-palette-claret) 75%, transparent);
   transition: all 250ms ease-in-out;
 
   &:hover {
-    background-color: rgba(var(--o3-color-palette-claret), 1);
+    background-color: var(--o3-color-palette-claret);
     color: var(--o3-color-palette-white);
   }
 }
