@@ -19,6 +19,7 @@
 .n-syndication-icon {
   padding: 0;
   @include nSyndicationIcon(--o3-icon-cross);
+  background-color: rgba(38, 42, 51, 0.55); // Fallback color for --o3-color-palette-slate at 55% opacity
   background-color: color-mix(in srgb, var(--o3-color-palette-slate) 55%, transparent);
   border-color: transparent;
   border-radius: 24px;
@@ -46,6 +47,7 @@
 .n-syndication-icon-state-msg_5100,
 .n-syndication-icon-state-no {
   @include nSyndicationIcon(--o3-icon-cross);
+  background-color: rgba(153, 15, 61, 0.85); // Fallback color for --o3-color-palette-claret at 85% opacity
   background-color: color-mix(in srgb, var(--o3-color-palette-claret) 85%, transparent);
 }
 
@@ -55,6 +57,7 @@
 .n-syndication-icon-state-msg_4300,
 .n-syndication-icon-state-yes {
   @include nSyndicationIcon(--o3-icon-tick);
+  background-color: rgba(0, 153, 77, 0.85); // Fallback color for --o3-color-palette-jade at 85% opacity
   background-color: color-mix(in srgb, var(--o3-color-palette-jade) 85%, transparent);
 }
 
@@ -63,6 +66,7 @@
 .n-syndication-icon-state-msg_2340,
 .n-syndication-icon-state-withcontributorpayment {
   @include nSyndicationIcon(--o3-icon-dollar);
+  background-color: rgba(0, 153, 77, 0.85); // Fallback color for --o3-color-palette-jade at 85% opacity
   background-color: color-mix(in srgb, var(--o3-color-palette-jade) 85%, transparent);
 }
 
@@ -71,6 +75,7 @@
 .n-syndication-icon-state-msg_4250,
 .n-syndication-icon-state-verify {
   @include nSyndicationIcon(--o3-icon-minus);
+  background-color: rgba(255, 136, 51, 0.85); // Fallback color for --o3-color-palette-mandarin at 85% opacity
   background-color: color-mix(in srgb, var(--o3-color-palette-mandarin) 85%, transparent);
 }
 
@@ -128,7 +133,6 @@
   min-height: 160px;
   max-width: 420px;
   min-width: 360px;
-  //position: absolute;
   z-index: 1000;
 }
 
@@ -214,6 +218,7 @@
 }
 
 .n-syndication-modal-word-count {
+  color: rgba(0, 0, 0, 0.40); // Fallback color for --o3-color-palette-black at 40% opacity;
   color:color-mix(in srgb, var(--o3-color-palette-black) 40%, transparent);
   font-family: metric, arial, sans-serif;
   font-size: 16px;
@@ -259,6 +264,7 @@
 
 .n-syndication-maintenance-modal-message,
 .n-syndication-maintenance-modal-message p {
+  color: rgba(0, 0, 0, 0.80); // Fallback color for --o3-color-palette-black at 80% opacity
   color:color-mix(in srgb, var(--o3-color-palette-black) 80%, transparent);
   font-family: metric, arial, sans-serif;
   font-size: 14px;
@@ -270,6 +276,7 @@
 
 .n-syndication-modal-message,
 .n-syndication-modal-message p {
+  color: rgba(0, 0, 0, 0.80); // Fallback color for --o3-color-palette-black at 80% opacity
   color: color-mix(in srgb, var(--o3-color-palette-black) 80%, transparent);
   font-family: metric, arial, sans-serif;
   font-size: 14px;
@@ -306,6 +313,7 @@
 }
 
 .o-header__drawer-menu-item .n-syndication-republishing {
+  background-color: rgba(153, 15, 61, 0.75); // Fallback color for --o3-color-palette-claret at 75% opacity
   background-color: color-mix(in srgb, var(--o3-color-palette-claret) 75%, transparent);
   transition: all 250ms ease-in-out;
 
