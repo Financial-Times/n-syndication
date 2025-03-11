@@ -1,4 +1,3 @@
-import {$$} from 'n-ui-foundations';
 import getUserStatus from './get-user-status';
 import {init as initDataStore} from './data-store';
 import {init as initIconify} from './iconify';
@@ -45,5 +44,5 @@ export async function init (flags) {
 		initMaintenanceModal(user, daysLeft);
 	}
 
-	$$('.video__actions__download').forEach(el => el.parentNode.removeChild(el));
+	document.querySelectorAll('.video__actions__download').forEach(el => el.parentNode.removeChild(el));
 }

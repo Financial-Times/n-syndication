@@ -1,41 +1,43 @@
-@import "@financial-times/o-buttons/main";
-@import "@financial-times/o-colors/main";
+@import '@financial-times/o3-foundation/css/core.css';
 @import "@financial-times/o-overlay/main";
 @import "@financial-times/o-visual-effects/main";
 @import "@financial-times/o-message/main";
-@import "@financial-times/o-icons/main";
 
-
-.n-syndication-icon {
-	@include oIconsContent(
-		$icon-name: "cross",
-		$color: oColorsByName("white"),
-		$size: 20
-	);
-	background-color: rgba(oColorsByName("slate"), 0.55);
-	border-color: transparent;
-	border-radius: 20px;
-	border-width: 0;
-	cursor: pointer;
-	display: inline-block;
-	height: 20px;
-	margin-right: 2px;
-	vertical-align: middle;
-	width: 20px;
+@mixin nSyndicationIcon($icon-name, $color: var(--o3-color-palette-white), $size: 24px) {
+    &::before {
+        content: '';
+        display: inline-block;
+        mask-image: var($icon-name);
+        mask-repeat: no-repeat;
+        mask-size: contain;
+        width: $size;
+        height: $size;
+        background-color: $color;
+    }
 }
 
-.n-syndication-icon + * {
-	vertical-align: middle;
+.n-syndication-icon {
+  padding: 0;
+  @include nSyndicationIcon(--o3-icon-cross);
+  background-color: color-mix(in srgb, var(--o3-color-palette-slate) 55%, transparent);
+  border-color: transparent;
+  border-radius: 24px;
+  border-width: 0;
+  cursor: pointer;
+  display: inline-block;
+  height: 24px;
+  margin-right: 2px;
+  vertical-align: middle;
+  width: 24px;
+}
+
+.n-syndication-icon+* {
+  vertical-align: middle;
 }
 
 .n-syndication-maintenance-icon {
-	@include oIconsContent(
-		$icon-name: "warning-alt",
-		$color: oColorsByName("crimson"),
-		$size: 70,
-		$include-base-styles: true
-	);
-	margin-left: 170px;
+  @include nSyndicationIcon(--o3-icon-warning-alt, var(--o3-color-palette-crimson), 70px);
+  margin-left: 170px;
 }
 
 .n-syndication-icon-state-msg_4000,
@@ -43,13 +45,8 @@
 .n-syndication-icon-state-msg_5000,
 .n-syndication-icon-state-msg_5100,
 .n-syndication-icon-state-no {
-	@include oIconsContent(
-		$icon-name: "cross",
-		$color: oColorsByName("white"),
-		$size: 20,
-		$include-base-styles: false
-	);
-	background-color: rgba(oColorsByName("claret"), 0.85);
+  @include nSyndicationIcon(--o3-icon-cross);
+  background-color: color-mix(in srgb, var(--o3-color-palette-claret) 85%, transparent);
 }
 
 .n-syndication-icon-state-msg_2000,
@@ -57,50 +54,35 @@
 .n-syndication-icon-state-msg_4100,
 .n-syndication-icon-state-msg_4300,
 .n-syndication-icon-state-yes {
-	@include oIconsContent(
-		$icon-name: "tick",
-		$color: oColorsByName("white"),
-		$size: 20,
-		$include-base-styles: false
-	);
-	background-color: rgba(oColorsByName("jade"), 0.85);
+  @include nSyndicationIcon(--o3-icon-tick);
+  background-color: color-mix(in srgb, var(--o3-color-palette-jade) 85%, transparent);
 }
 
 .n-syndication-icon-state-msg_2300,
 .n-syndication-icon-state-msg_2320,
 .n-syndication-icon-state-msg_2340,
 .n-syndication-icon-state-withcontributorpayment {
-	@include oIconsContent(
-		$icon-name: "dollar",
-		$color: oColorsByName("white"),
-		$size: 20,
-		$include-base-styles: false
-	);
-	background-color: rgba(oColorsByName("jade"), 0.85);
+  @include nSyndicationIcon(--o3-icon-dollar);
+  background-color: color-mix(in srgb, var(--o3-color-palette-jade) 85%, transparent);
 }
 
 .n-syndication-icon-state-msg_2200,
 .n-syndication-icon-state-msg_4200,
 .n-syndication-icon-state-msg_4250,
 .n-syndication-icon-state-verify {
-	@include oIconsContent(
-		$icon-name: "minus",
-		$color: oColorsByName("white"),
-		$size: 20,
-		$include-base-styles: false
-	);
-	background-color: rgba(oColorsByName("mandarin"), 0.85);
+  @include nSyndicationIcon(--o3-icon-minus);
+  background-color: color-mix(in srgb, var(--o3-color-palette-mandarin) 85%, transparent);
 }
 
 .n-syndication-icon-state-maintenance {
-	background-image: none;
+  background-image: none;
 }
 
 .o-teaser--top-story .n-syndication-icon,
 .o-topper__headline .n-syndication-icon {
-	border-radius: 26px;
-	height: 26px;
-	width: 26px;
+  border-radius: 26px;
+  height: 26px;
+  width: 26px;
 }
 
 .hero__heading .n-syndication-icon,
@@ -109,256 +91,243 @@
 .o-teaser--large-portrait .n-syndication-icon,
 .video-scroller__item-large .o-teaser--stacked .n-syndication-icon,
 .video__description .video__title .n-syndication-icon {
-	border-radius: 24px;
-	height: 24px;
-	width: 24px;
+  border-radius: 24px;
+  height: 24px;
+  width: 24px;
 }
 
 .o-teaser__related .o-teaser__related-item .n-syndication-icon {
-	border-radius: 16px;
-	height: 16px;
-	width: 16px;
+  border-radius: 16px;
+  height: 16px;
+  width: 16px;
 }
 
 // modal
 .n-syndication-modal-shadow {
-	background-color: rgba(0, 0, 0, 0.2);
-	position: fixed;
-	height: 150%; // because on some phones scrolling upwards detaches a 100% height overlay from the bottom of the screen
-	width: 100%;
-	top: 0;
-	left: 0;
-	z-index: 10;
-	opacity: 1;
-	transition: opacity 0.3s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.2);
+  position: fixed;
+  height: 150%; // because on some phones scrolling upwards detaches a 100% height overlay from the bottom of the screen
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
 }
+
 .n-syndication-modal {
-	@include oVisualEffectsShadowContent($elevation: "high");
-	position: fixed;
-	z-index: 10;
-	box-sizing: border-box;
-	opacity: 1;
-	transition: opacity 0.3s ease-in-out;
-	border: $_o-overlay-border-width solid _oOverlayGet("default-border");
-	background: _oOverlayGet("default-background");
+  @include oVisualEffectsShadowContent($elevation: "high");
+  position: fixed;
+  z-index: 10;
+  box-sizing: border-box;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  border: $_o-overlay-border-width solid _oOverlayGet("default-border");
+  background: _oOverlayGet("default-background");
 
-	min-height: 160px;
-	max-width: 420px;
-	min-width: 360px;
-	//position: absolute;
-	z-index: 1000;
+  min-height: 160px;
+  max-width: 420px;
+  min-width: 360px;
+  //position: absolute;
+  z-index: 1000;
 }
+
 .n-syndication-modal-heading {
-	font-size: 20px;
-	margin: 0;
-	overflow: hidden;
-	background: _oOverlayGet("heading-background");
-	color: _oOverlayGet("heading-text");
+  font-size: 20px;
+  margin: 0;
+  overflow: hidden;
+  background: _oOverlayGet("heading-background");
+  color: _oOverlayGet("heading-text");
 }
+
 .n-syndication-modal-close {
-	@include oIconsContent(
-		$icon-name: "cross",
-		$color: oColorsByName("white"),
-		$size: 20
-	);
-	background-size: contain;
+  @include nSyndicationIcon(--o3-icon-cross);
+  background-size: contain;
 
-	border-width: 0;
-	box-sizing: content-box;
-	float: right;
-	position: relative;
-	margin-top: 10px; // Align with the text baseline (magic number)
-	margin-right: 10px; // Same right spacing as the top one
-	margin-left: 10px;
-	margin-bottom: 10px;
-	width: 20px;
-	height: 20px;
-	padding: 0.25em;
-	// Equivalent to `50%`, but avoids a rendering bug in old WebKit
-	border-radius: 9999px;
-	cursor: pointer;
-	font-size: 8px;
-	line-height: 1;
-	user-select: none;
-	outline: none; // Remove focus ring (focus state is set below)
+  border-width: 0;
+  box-sizing: content-box;
+  float: right;
+  position: relative;
+  margin-top: 10px; // Align with the text baseline (magic number)
+  margin-right: 10px; // Same right spacing as the top one
+  margin-left: 10px;
+  margin-bottom: 10px;
+  width: 20px;
+  height: 20px;
+  padding: 0.25em;
+  // Equivalent to `50%`, but avoids a rendering bug in old WebKit
+  border-radius: 9999px;
+  cursor: pointer;
+  font-size: 8px;
+  line-height: 1;
+  user-select: none;
+  outline: none; // Remove focus ring (focus state is set below)
 
-	// Increase hit zone of the button around it for better usability
-	&:after {
-		position: absolute;
-		content: "";
-		top: -10px;
-		right: -10px;
-		left: -10px;
-		bottom: -10px;
-	}
+  // Increase hit zone of the button around it for better usability
+  &:after {
+    position: absolute;
+    content: "";
+    top: -10px;
+    right: -10px;
+    left: -10px;
+    bottom: -10px;
+  }
 }
+
 .n-syndication-maintenance-modal-title {
-	margin: 10px 10px 10px 20px;
-	display: block;
-	line-height: 25px;
-	overflow: auto;
+  margin: 10px 10px 10px 20px;
+  display: block;
+  line-height: 25px;
+  overflow: auto;
 
-	font-family: "financier display", "times new roman", serif;
-	font-size: 23px;
-	font-weight: 800;
-	line-height: 26px;
+  font-family: "financier display", "times new roman", serif;
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 26px;
 
-	font-family: 'MetricWeb';
-	text-align: center;
-	width: 381px;
-	margin-top: auto;
+  font-family: 'MetricWeb';
+  text-align: center;
+  width: 381px;
+  margin-top: auto;
 }
 
 .n-syndication-modal-title {
-	margin: 10px 10px 10px 20px;
-	display: block;
-	line-height: 25px;
-	overflow: auto;
+  margin: 10px 10px 10px 20px;
+  display: block;
+  line-height: 25px;
+  overflow: auto;
 
-	font-family: "financier display", "times new roman", serif;
-	font-size: 24px;
-	font-weight: normal;
-	line-height: 26px;
+  font-family: "financier display", "times new roman", serif;
+  font-size: 24px;
+  font-weight: normal;
+  line-height: 26px;
 }
 
 .n-syndication-maintenance-modal-word-count {
-	font-family: metric, arial, sans-serif;
-	font-size: 16px;
-	font-weight: 500;
+  font-family: metric, arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
 
-	font-family: 'MetricWeb';
-	margin-left: 60px;
-	display: block;
+  font-family: 'MetricWeb';
+  margin-left: 60px;
+  display: block;
 }
 
 .n-syndication-modal-word-count {
-	color: rgba(oColorsByName("black"), 0.4);
-	font-family: metric, arial, sans-serif;
-	font-size: 16px;
-	font-weight: normal;
+  color:color-mix(in srgb, var(--o3-color-palette-black) 40%, transparent);
+  font-family: metric, arial, sans-serif;
+  font-size: 16px;
+  font-weight: normal;
 }
 
 .close-button-maintenance {
-	margin: auto;
-	background-color: #0D7680;
-	border: 2px solid #0d7680;
-	display: flex;
-	margin-top: 20px;
-	height: 50px;
-	width: 220px;
+  margin: auto;
+  background-color: #0D7680;
+  border: 2px solid #0d7680;
+  display: flex;
+  margin-top: 20px;
+  height: 50px;
+  width: 220px;
 }
 
 .close-message-maintenance {
-	color: white;
-	font-family: 'MetricWeb';
-	font-weight: 900;
-	font-size: 21px;
-	position: absolute;
-	margin-left: 12px;
-	margin-top: 9px;
+  color: white;
+  font-family: 'MetricWeb';
+  font-weight: 900;
+  font-size: 21px;
+  position: absolute;
+  margin-left: 12px;
+  margin-top: 9px;
 }
 
 .n-syndication-modal-content {
-	position: relative;
-	box-sizing: border-box;
-	overflow: auto;
-	padding: 20px;
+  position: relative;
+  box-sizing: border-box;
+  overflow: auto;
+  padding: 20px;
 
-	> *:first-child {
-		margin-top: 0;
-	}
+  >*:first-child {
+    margin-top: 0;
+  }
 
-	> *:last-child {
-		margin-bottom: 0;
-	}
+  >*:last-child {
+    margin-bottom: 0;
+  }
 
-	padding-top: 0;
+  padding-top: 0;
 }
 
 .n-syndication-maintenance-modal-message,
 .n-syndication-maintenance-modal-message p {
-	color: rgba(oColorsByName("black"), 0.8);
-	font-family: metric, arial, sans-serif;
-	font-size: 14px;
-	line-height: 20px;
+  color:color-mix(in srgb, var(--o3-color-palette-black) 80%, transparent);
+  font-family: metric, arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
 
-	margin-top: 20px;
-	font-weight: 900;
+  margin-top: 20px;
+  font-weight: 900;
 }
 
 .n-syndication-modal-message,
 .n-syndication-modal-message p {
-	color: rgba(oColorsByName("black"), 0.8);
-	font-family: metric, arial, sans-serif;
-	font-size: 14px;
-	line-height: 20px;
+  color: color-mix(in srgb, var(--o3-color-palette-black) 80%, transparent);
+  font-family: metric, arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 .n-syndication-actions {
-	text-align: right;
+  text-align: right;
 }
-.n-syndication-action {
-	@include oButtons(
-		$opts: (
-			"type": "secondary"
-		)
-	);
-}
-.n-syndication-action-primary {
-	@include oButtons(
-		$opts: (
-			"type": "primary"
-		)
-	);
-}
+
 .n-syndication-action,
 .n-syndication-action-primary {
-	min-width: 120px;
-	text-align: center;
+  min-width: 120px;
+  text-align: center;
 }
 
 .n-syndication-republishing {
-	background-color: rgba(oColorsByName("claret"), 1);
-	color: oColorsByName("white");
-	font-weight: bold;
+  background-color: var(--o3-color-palette-claret);
+  color: var(--o3-color-palette-white);
+  font-weight: bold;
 }
 
 .o-header__nav-item .n-syndication-republishing {
-	padding-left: 12px;
-	padding-right: 12px;
+  padding-left: 12px;
+  padding-right: 12px;
 
-	&:hover {
-		color: oColorsByName("white");
+  &:hover {
+    color: var(--o3-color-palette-white);
 
-		&:after {
-			background-color: oColorsByName("white");
-		}
-	}
+    &:after {
+      background-color: var(--o3-color-palette-white);
+    }
+  }
 }
 
 .o-header__drawer-menu-item .n-syndication-republishing {
-	background-color: rgba(oColorsByName("claret"), 0.75);
-	transition: all 250ms ease-in-out;
+  background-color: color-mix(in srgb, var(--o3-color-palette-claret) 75%, transparent);
+  transition: all 250ms ease-in-out;
 
-	&:hover {
-		background-color: rgba(oColorsByName("claret"), 1);
-		color: oColorsByName("white");
-	}
+  &:hover {
+    background-color: var(--o3-color-palette-claret);
+    color: var(--o3-color-palette-white);
+  }
 }
 
 .n-syndication-modal-message .syndication-message__content--warning {
-	color: oColorsByName("crimson");
-	font-weight: 600;
+  color: var(--o3-color-palette-crimson);
+  font-weight: 600;
 }
 
 .n-syndication-rich-content-message {
-	margin-bottom: 1vh;
+  margin-bottom: 1vh;
 }
 
 .o-message__content .o-message__content-main .n-syndication-rich-message_content-highlight {
-	font-weight: 400;
+  font-weight: 400;
 }
 
 .n-syndication-maintenance-modal-lower-message {
-	margin-top: 10px;
+  margin-top: 10px;
 }

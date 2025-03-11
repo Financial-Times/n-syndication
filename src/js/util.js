@@ -108,6 +108,18 @@ function interpolate (str, o) {
 	return String(str).replace(/\{\{([^\}]+)\}\}/gim, (m, p) => p in o ? o[p] : '');
 }
 
+function broadCast (name, data) {
+	const target = Element.prototype.isPrototypeOf(this) ? this : document.body;
+	target.dispatchEvent(
+		new CustomEvent(
+			name,
+			{
+				bubbles: true, cancelable: true, detail: data || {}
+			}
+		)
+	);
+}
+
 export {
 	interpolate,
 	cheapClone,
@@ -115,5 +127,6 @@ export {
 	getContentIDFromHTMLElement,
 	prepend,
 	getContentIDFromHref,
-	toElement
+	toElement,
+	broadCast
 };
