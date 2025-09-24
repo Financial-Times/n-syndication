@@ -131,6 +131,8 @@ function createElement (item) {
 			? 'save-for-later'
 			: 'save-for-later-downloads-page';
 		const title = overlayManager.USER_DATA.MAINTENANCE_MODE === true ? '' : item.title;
+		const enrichedContent = Boolean(overlayManager.USER_DATA?.allowed?.rich_articles && item.hasFlourishGraphics);
+
 		let downloadTrackingId;
 		let saveText;
 
@@ -149,6 +151,13 @@ function createElement (item) {
 		return toElement(`<div class="n-syndication-modal-shadow"></div>
 							<div class="n-syndication-modal n-syndication-modal-${item.type
 }" role="dialog" aria-labelledby="'Download:  ${title}" tabindex="0">
+								${enrichedContent ? `<div class="n-syndication-modal-info-bubble">
+									<span class="n-syndication-modal-info-bubble__icon"></span>
+									<div class="n-syndication-modal-info-bubble__text">
+										<span class="n-syndication-modal-info-bubble__text--emphasized">Visual content</span> 
+										<span>may not be available for download due to copyright.</span>
+									</div>
+								</div>`: ''}
 								<header class="n-syndication-modal-heading">
 									<a class="n-syndication-modal-close" data-action="close" 'data-trackable="close-syndication-modal" role="button" href="#" aria-label="Close" title="Close" tabindex="0"></a>
 									<span role="heading" class="n-syndication-modal-title">${title}</span>

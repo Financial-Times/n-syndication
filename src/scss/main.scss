@@ -283,6 +283,36 @@
   line-height: 20px;
 }
 
+.n-syndication-modal-info-bubble {
+	padding: var(--o3-spacing-4xs, 8px);
+	min-width: var(--o3-spacing-2xl);
+	background-color: var(--o3-color-palette-wheat);
+	color: var(--o3-color-palette-black-90);
+	position: relative;
+	display: flex;
+	font-size: 14px;
+	font-weight: var(--o3-font-weight-regular);
+	line-height: var(--o3-font-lineheight-0);
+	margin: var(--o3-spacing-s) var(--o3-spacing-xs) var(--o3-spacing-4xs);
+
+	&__icon {
+		background-image: url('https://images.ft.com/v3/image/raw/fticon-v1%3Awarning-alt?source=next-syn-list');
+		width: 20px;
+		height: 20px;
+		flex-shrink: 0;
+ 	   	fill: var(--o3-color-palette-black-90);
+	}
+
+	&__text {
+		display: inline;
+		padding-left: var(--o3-spacing-5xs);
+	}
+
+	&__text--emphasized {
+		font-weight: var(--o3-font-weight-bold);
+	}
+}
+
 .n-syndication-actions {
   text-align: right;
 }
